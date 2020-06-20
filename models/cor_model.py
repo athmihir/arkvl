@@ -25,10 +25,8 @@ class CORModel:
         None.
 
         '''
-        booksDF = pd.DataFrame(books, columns=['book_id', 'authors', 'title', 'average_rating','ratings_count'])
+        booksDF = pd.DataFrame(books, columns=['book_id', 'authors', 'title', 'average_rating'])
         booksDF = booksDF.sort_values('book_id')
-        booksDF=booksDF[booksDF['ratings_count']>=20000]
-        booksDF = booksDF.drop(['ratings_count'], axis = 1)
 
         self.total_books_data = pd.merge(booksDF, ratings, on='book_id')
 

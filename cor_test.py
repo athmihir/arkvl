@@ -11,7 +11,7 @@ ratings = pd.read_csv('data/ratings.csv')
 # JUST REPLACE 200000 BY THE NUMBER OF ROWS YOU WANT
 
 temp = ratings.sort_values(by=['user_id'], ascending=True)
-ratings = temp.iloc[:300000, :]
+ratings = temp.iloc[:200000, :]
 
 
 BRS = CORModel(books, ratings)                  # creating object
