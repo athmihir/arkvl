@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+:root {
+  --primary-color: #f8004f;
+  --primary-text: #333;
+  --secondary-text: #707070;
+  --light-gray: #f0f0f0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Lora', serif;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+button {
+  font-family: 'Lora', serif;
+}
+
+button:focus {
+  outline: none;
+}

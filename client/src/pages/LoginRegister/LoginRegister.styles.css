@@ -1,0 +1,18 @@
+div.login-register-container {
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 25vh;
+}
+
+@media screen and (max-width: 800px) {
+  div.login-register-container {
+    flex-direction: column;
+    width: unset;
+    align-items: center;
+  }
+  div.login-register-container:first-child {
+    margin-bottom: 50px;
+  }
+}

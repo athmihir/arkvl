@@ -1,0 +1,36 @@
+button.custom-button {
+  font-family: 'Montserrat', sans-serif;
+  min-width: 170px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  transition: 250ms ease all;
+}
+
+button.custom-button:hover {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+button.custom-button-inverted {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+button.custom-button-inverted:hover {
+  background-color: black;
+  color: white;
+  border: none;
+}
