@@ -1,16 +1,15 @@
 div.login-register-container {
-  width: 850px;
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  padding: 25vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  padding: 20vh;
+  justify-items: center;
+  align-items: center;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
   div.login-register-container {
-    flex-direction: column;
-    width: unset;
     align-items: center;
+    padding: 7vh 3vh;
   }
   div.login-register-container:first-child {
     margin-bottom: 50px;

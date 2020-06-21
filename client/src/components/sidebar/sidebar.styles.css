@@ -1,0 +1,155 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 8.5rem;
+  background-color: var(--bg-primary);
+  transition: width 600ms ease;
+  transition-delay: 15ms;
+  overflow: hidden;
+  box-shadow: 5px 0px 6px #00000029;
+  z-index: 3;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-item {
+  width: 100%;
+}
+
+.nav-item:last-child {
+  margin-top: auto;
+  cursor: default;
+}
+
+.nav-link,
+.logo-link {
+  box-sizing: border-box;
+  padding-top: 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 5rem;
+  color: var(--secondary-text);
+  fill: var(--secondary-text);
+  text-decoration: none;
+  border-left: 2px solid white;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.nav-link:hover {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+  fill: var(--primary-color);
+  border-left: 2px solid var(--primary-color);
+}
+.logo {
+  color: var(--secondary-text);
+  font-size: 1.5rem;
+  margin-bottom: auto;
+}
+
+.logo svg {
+  width: 16px;
+  margin-top: 0.4rem;
+  transform: rotate(0deg);
+  transition: 700ms ease;
+}
+
+.logo-link {
+  flex-direction: row;
+}
+
+.nav-link:not(.user-avatar) svg {
+  width: 2rem;
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.user-avatar {
+  cursor: default;
+}
+
+.user-avatar svg {
+  width: 3rem;
+  filter: grayscale(50%) opacity(0.7);
+}
+
+.user-avatar .link-text {
+  display: none;
+}
+
+.open .user-avatar .link-text {
+  display: block;
+  margin-left: 10px;
+}
+
+.open .user-avatar .link-text > span {
+  display: block;
+  margin-top: 2px;
+}
+
+.open .user-avatar .link-text > span.user-logout {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.open .user-avatar .link-text > span.user-username:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.user-avatar:hover {
+  background: none;
+  border-left: 2px solid white;
+  color: var(--secondary-text);
+}
+
+.open {
+  width: 16rem;
+}
+.open .nav-link {
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 0;
+  padding-right: 15%;
+}
+
+.open .logo svg {
+  transform: rotate(-180deg);
+}
+
+/* Small screens */
+@media only screen and (max-width: 700px) {
+  .navbar {
+    bottom: 0;
+    top: initial;
+    width: 100vw;
+    height: 5rem;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .nav-link {
+    justify-content: center;
+  }
+
+  .user-avatar {
+    margin-bottom: 10px;
+  }
+}
