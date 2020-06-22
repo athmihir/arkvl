@@ -1,0 +1,26 @@
+div.book-details {
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+}
+
+span.title {
+  color: var(--primary-text);
+  max-width: 280px;
+}
+
+span.author {
+  font-size: 0.8em;
+  color: var(--secondary-text);
+  max-width: 120px;
+  line-height: 1.3;
+}
+
+span.read-now {
+  margin-top: 8px;
+  text-decoration: underline;
+}
+
+.anchorcss {
+  transition: 300ms;
+}

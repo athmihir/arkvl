@@ -1,6 +1,6 @@
 import React from 'react';
 import InputField from '../../components/InputField/InputField';
-import SubmitButton from '../../components/CustomButton/CustomButton';
+import SubmitButton from '../CustomButton/CustomButton';
 import './LoginForm.styles.css';
 const LoginForm = () => {
   return (

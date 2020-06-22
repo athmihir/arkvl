@@ -1,0 +1,27 @@
+a:link {
+  color: #eb3163;
+}
+
+a:visited {
+  color: #eb3163;
+}
+
+a:hover {
+  color: #eb3163;
+}
+
+a:active {
+  color: #eb3163;
+}
+
+p.readnowp {
+  display: inline;
+  position: relative;
+  bottom: 15px;
+  margin-left: 20%;
+  font-size: large;
+}
+
+.anchorcss {
+  color: #eb3163;
+}

@@ -374,3 +374,20 @@ button {
 button:focus {
   outline: none;
 }
+
+a {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+a:visited {
+  color: #f02057;
+}
+
+a:hover {
+  color: #f02057;
+}
+
+a:active {
+  color: #f02057;
+}

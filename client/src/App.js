@@ -1,11 +1,14 @@
 import React from 'react';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
-import SideBar from './components/sidebar/sidebar.component';
+import SideBar from './components/sidebar/sidebar';
+import BookDirectory from './components/BookDirectory/BookDirectory';
+import Recommended from './pages/Recommended/Recommended';
 
 function App() {
   return (
     <div className="App">
-      <LoginRegister />
+      {/* <LoginRegister /> */}
+      <Recommended />
       <SideBar />
     </div>
   );
