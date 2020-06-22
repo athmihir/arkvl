@@ -2,10 +2,13 @@ import json
 from flaskapi import db, login_manager, app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+import json
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -13,14 +16,10 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     rating = db.relationship('Book', backref='rater', lazy=True)
-    def set_default(obj):
-        if isinstance(obj, set):
-            return list(obj)
-    def get_id(self):
-        return {self.id}
+
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
-        return s.dumps({'user_id': self.id}, default = set_default).decode('utf_8')
+        return s.dumps({'user_id': self.id}).decode('utf_8')
 
     @staticmethod
     def verify_reset_token(token):
@@ -31,9 +30,9 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
+
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     rating = db.Column(db.Integer)
-    
