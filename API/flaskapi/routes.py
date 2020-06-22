@@ -8,6 +8,8 @@ from flask import request, jsonify, abort, message_flashed
 from flask_mail import Message
 from pyisemail import is_email
 from flask_login import logout_user
+import sqlite3
+
 
 
 # db.drop_all()
@@ -90,3 +92,16 @@ def apirating():
     db.session.add(book)
     db.session.commit()
     return 'OK'
+
+@app.route('/UserProfile', methods=['POST'])
+def apiprofile():
+    books= Book.query.filter_by(rater=current_user).all()
+    count=Book.query.filter_by(rater=current_user).count()
+    user_name=current_user.username
+    user_email=current_user.email
+    print(user_name)
+    print(user_email)
+    for i in range (0,count): 
+      print(f'{books[i].book_id}')
+    return 'OK'
+
