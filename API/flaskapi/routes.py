@@ -7,6 +7,7 @@ from flaskapi.models import User, Book
 from flask import request, jsonify, abort, message_flashed
 from flask_mail import Message
 from pyisemail import is_email
+from flask_login import logout_user
 
 
 # db.drop_all()
@@ -79,8 +80,13 @@ def apiregister():
 @app.route('/new-rating', methods=['POST'])
 def apirating():
     user_id = User.get_id(current_user)
-    book_id = request.json.get('book_id')
-    rating = request.json.get('rating')
+    book_id = int(request.json.get('book_id'))
+    if book_id < 1 or book_id>10000:
+        abort(404)
+    rating = int(request.json.get('rating'))
     if rating < 1 or rating > 5:
-        raise AssertionError('Rating given must be between 1 and 5')
+        return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
     book = Book(book_id=book_id, user_id=user_id, rating=rating)
+    db.session.add(book)
+    db.session.commit()
+    return 'OK'
