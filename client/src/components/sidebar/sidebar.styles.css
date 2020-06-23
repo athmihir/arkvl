@@ -52,6 +52,13 @@
   fill: var(--primary-color);
   border-left: 2px solid var(--primary-color);
 }
+.active {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+  fill: var(--primary-color) !important;
+  border-left: 2px solid var(--primary-color);
+}
+
 .logo {
   font-size: 1.5rem;
   margin-bottom: auto;
@@ -83,30 +90,11 @@
 .user-avatar svg {
   width: 3rem;
   filter: grayscale(50%) opacity(0.7);
+  cursor: pointer;
 }
 
 .user-avatar .link-text {
   display: none;
-}
-
-.open .user-avatar .link-text {
-  display: block;
-  margin-left: 10px;
-}
-
-.open .user-avatar .link-text > span {
-  display: block;
-  margin-top: 2px;
-}
-
-.open .user-avatar .link-text > span.user-logout {
-  color: var(--primary-color);
-  cursor: pointer;
-}
-
-.open .user-avatar .link-text > span.user-username:hover {
-  color: var(--primary-color);
-  cursor: pointer;
 }
 
 .user-avatar:hover {
@@ -115,18 +103,8 @@
   color: var(--secondary-text);
 }
 
-.open {
-  width: 14rem;
-}
-.open .nav-link {
-  flex-direction: row;
-  justify-content: center;
-  padding-top: 0;
-  padding-right: 15%;
-}
-
-.open .logo svg {
-  transform: rotate(-180deg);
+.hand-held-menu {
+  display: none;
 }
 
 /* Small screens */
@@ -156,5 +134,56 @@
 
   .nav-link:hover {
     border-left: 2px solid var(--bg-primary);
+  }
+
+  .open ~ .hand-held-menu {
+    background-color: var(--bg-primary);
+    box-shadow: 0px -4px 10px #0000007d;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4%;
+
+    z-index: 3;
+    right: 0;
+    bottom: 5em;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .open {
+    width: 14rem;
+  }
+  .open .nav-link {
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 0;
+    padding-right: 15%;
+  }
+
+  .open .logo svg {
+    transform: rotate(-180deg);
+  }
+
+  .open .user-avatar .link-text {
+    display: block;
+    margin-left: 10px;
+  }
+
+  .open .user-avatar .link-text > span {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .open .user-avatar .link-text > span.user-logout {
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+
+  .open .user-avatar .link-text > span.user-username:hover {
+    color: var(--primary-color);
+    cursor: pointer;
   }
 }

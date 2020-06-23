@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
 
 :root {
   --primary-color: #f8004f;
@@ -382,16 +382,12 @@ a {
   cursor: pointer;
 }
 
-a:visited {
-  color: #f02057;
-}
-
 a:hover {
   color: #f02057;
 }
 
-a:active {
-  color: #f02057;
+span {
+  color: var(--secondary-text);
 }
 
 @media (prefers-color-scheme: light) {

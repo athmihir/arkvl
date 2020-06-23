@@ -2,6 +2,7 @@ div.book-details {
   display: flex;
   flex-direction: column;
   max-width: 150px;
+  margin-top: 10px;
 }
 
 span.title {

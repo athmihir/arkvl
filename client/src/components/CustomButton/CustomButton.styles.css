@@ -1,5 +1,4 @@
 button.custom-button {
-  font-family: 'Montserrat', sans-serif;
   min-width: 170px;
   width: auto;
   height: 50px;
@@ -11,17 +10,16 @@ button.custom-button {
   cursor: pointer;
   display: flex;
   justify-content: center;
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
   background-color: var(--primary-color);
   color: white;
-  border: none;
   transition: 250ms ease all;
 }
 
 button.custom-button:hover {
-  background-color: white;
+  background-color: var(--bg-primary);
   color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
 button.custom-button-inverted {

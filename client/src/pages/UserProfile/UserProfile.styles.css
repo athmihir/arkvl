@@ -1,0 +1,17 @@
+div.user-profile-page {
+  padding: 3vh 3vw 7vh 20vw;
+}
+
+div.user-favorites {
+  padding: 3vh 18vw 7vh 0vw;
+}
+
+@media only screen and (max-width: 700px) {
+  div.user-profile-page {
+    padding: 3vh 20vw;
+  }
+
+  div.user-favorites {
+    padding: 3vh 0vw;
+  }
+}

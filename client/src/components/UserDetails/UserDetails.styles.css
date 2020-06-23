@@ -1,0 +1,46 @@
+div.user-details {
+  display: flex;
+  align-items: center;
+}
+
+div.user-details svg {
+  max-width: 50%;
+}
+
+div.user-details > div {
+  margin-left: 10px;
+}
+
+div.user-details .user-name {
+  display: flex;
+  align-items: flex-end;
+}
+
+div.user-details .user-name > h1 {
+  font-size: 1.7em;
+}
+
+div.user-details .user-name > a,
+div.user-details-item > span {
+  margin-left: 10px;
+}
+div.user-details .user-name > h1,
+div.user-details-item > h4 {
+  margin: 0;
+}
+
+div.user-details-container {
+  margin-top: 10px;
+}
+
+div.user-details-item {
+  display: flex;
+  margin-top: 5px;
+  align-items: center;
+}
+
+@media only screen and (max-width: 700px) {
+  div.user-details {
+    flex-direction: column;
+  }
+}

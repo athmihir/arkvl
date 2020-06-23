@@ -1,12 +1,12 @@
 import React from 'react';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 
-import './Recommended.styles.css';
+import './Trending.styles.css';
 
 export default function Recommended() {
   return (
-    <div className="recommended-books">
-      <h1> For You.</h1>
+    <div className="trending-books">
+      <h1>Trending.</h1>
       <BookDirectory />
     </div>
   );
