@@ -357,6 +357,8 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background: var(--bg-primary);
+  color: var(--primary-text);
 }
 
 h1 {
@@ -390,4 +392,26 @@ a:hover {
 
 a:active {
   color: #f02057;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary-color: #f8004f;
+    --primary-text: #333;
+    --secondary-text: #707070;
+    --light-gray: #f0f0f0;
+    --bg-primary: #fff;
+    --bg-secondary: #fff7fa;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #fe568a;
+    --primary-text: #fff;
+    --secondary-text: #e2e2e2;
+    --light-gray: #f0f0f0;
+    --bg-primary: #232931;
+    --bg-secondary: rgb(41, 49, 59);
+  }
 }
