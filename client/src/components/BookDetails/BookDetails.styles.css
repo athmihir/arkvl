@@ -25,3 +25,34 @@ span.read-now {
 .anchorcss {
   transition: 300ms;
 }
+
+div.book-details.cover {
+  max-width: 65%;
+  margin-left: 50px;
+}
+
+div.book-details.cover > .title {
+  font-size: 2em;
+  max-width: initial;
+}
+
+div.book-details.cover > .author {
+  font-size: 1em;
+  max-width: initial;
+}
+div.book-details.cover > .genre {
+  color: var(--secondary-text);
+}
+
+div.book-details.cover > .book-summary {
+  white-space: pre-wrap;
+  font-size: 0.9em;
+  max-width: 700px;
+  line-height: 1.75;
+}
+@media screen and (max-width: 700px) {
+  div.book-details.cover {
+    margin: auto;
+    margin-top: 15px;
+  }
+}
