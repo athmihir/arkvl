@@ -9,6 +9,13 @@ from flask_mail import Message
 from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
+from cor_model_modified import CORModel
+from cor_files import correlation,test,books_data
+import pandas as pd
+import numpy as np
+from numpy import genfromtxt
+import json
+
 
 
 
@@ -105,3 +112,17 @@ def apiprofile():
       print(f'{books[i].book_id}')
     return 'OK'
 
+@app.route('/Recommend', methods=['POST'])
+def apirecommend():
+    obj=CORModel(correlation, test,books_data)
+    books= Book.query.filter_by(rater=current_user).all()
+    count=Book.query.filter_by(rater=current_user).count()
+    my_fav_ID=[]
+    for i in range (0,count): 
+        if books[i].rating >=3:
+          my_fav_ID.append(books[i].book_id)
+    print(my_fav_ID)
+    recommendations=obj.get_recommendations(my_fav_ID)
+    print(recommendations)
+    recommendations=json.dumps(recommendations)
+    return ({ 'Recommendations': recommendations }), 200
