@@ -11,14 +11,14 @@ import BookSummary from './pages/BookSummary/BookSummary';
 function App() {
   return (
     <div className="App">
-      {/* <Switch>
+      <Switch>
         <Route exact path="/" component={Recommended} />
         <Route exact path="/trending" component={Trending} />
         <Route path="/login" component={LoginRegister} />
         <Route path="/user-profile" component={UserProfile} />
-      </Switch> */}
-      <BookSummary />
-      {/* <SideBar /> */}
+        <Route path="/book-summary" component={BookSummary} />
+      </Switch>
+      <SideBar />
     </div>
   );
 }

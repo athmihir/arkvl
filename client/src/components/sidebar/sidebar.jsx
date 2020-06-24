@@ -49,7 +49,7 @@ const SideBar = () => {
             </span>
           </li>
 
-          <li className="nav-item" id="themeButton">
+          <li className="nav-item">
             <span className="nav-link user-avatar">
               <UserAvatar onClick={toggleMenu} />
               <div className="link-text">

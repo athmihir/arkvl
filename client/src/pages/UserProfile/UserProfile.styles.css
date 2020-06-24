@@ -1,9 +1,9 @@
 div.user-profile-page {
-  padding: 3vh 3vw 7vh 20vw;
+  padding: 10vh 0;
 }
 
 div.user-favorites {
-  padding: 3vh 18vw 7vh 0vw;
+  padding: 3vh 5vw 7vh 15vw;
 }
 
 @media only screen and (max-width: 700px) {
