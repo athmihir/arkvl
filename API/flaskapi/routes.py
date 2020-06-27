@@ -87,6 +87,7 @@ def apiregister():
 
 
 @app.route('/new-rating', methods=['POST'])
+@login_required
 def apirating():
     user_id = User.get_id(current_user)
     book_id = int(request.json.get('book_id'))
@@ -101,6 +102,7 @@ def apirating():
     return 'OK'
 
 @app.route('/UserProfile', methods=['POST'])
+@login_required
 def apiprofile():
     books= Book.query.filter_by(rater=current_user).all()
     count=Book.query.filter_by(rater=current_user).count()
@@ -113,6 +115,7 @@ def apiprofile():
     return 'OK'
 
 @app.route('/Recommend', methods=['POST'])
+@login_required
 def apirecommend():
     obj=CORModel(correlation, test,books_data)
     books= Book.query.filter_by(rater=current_user).all()
