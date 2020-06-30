@@ -31,6 +31,7 @@ def home():
 
 
 @app.route('/logout', methods=['GET', 'POST'])
+@login_required
 def apilogout():
     if current_user.is_authenticated:
         logout_user()
@@ -40,6 +41,7 @@ def apilogout():
 
 
 @app.route('/login', methods=['POST'])
+@login_required
 def apilogin():
     if current_user.is_authenticated:
         return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
@@ -61,6 +63,7 @@ def apilogin():
 
 
 @app.route('/register', methods=['POST'])
+@login_required
 def apiregister():
     username = request.json.get('username')
     password = request.json.get('password')
@@ -140,6 +143,7 @@ def apirecommend():
       return ({ 'Recommendations': recommendations }), 200
 
 @app.route('/Trending', methods=['GET'])
+@login_required
 def apitrending():
     if current_user.is_authenticated:
       books= Book.query.filter_by(rater=current_user).all()
@@ -200,6 +204,7 @@ def apitrending():
       return 'OK'
 
 @app.route('/Summary', methods=['GET'])
+@login_required
 def apisummary():
     if current_user.is_authenticated:
         book_id = int(request.json.get('book_id'))
