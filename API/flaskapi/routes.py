@@ -33,10 +33,9 @@ def home():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def apilogout():
-        logout_user()
-        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
-    else:
-        abort(400)
+    logout_user()
+    return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+    abort(400)
 
 
 @app.route('/login', methods=['POST'])
