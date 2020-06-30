@@ -4,3 +4,8 @@ div.book-directory {
   gap: 3em;
   justify-items: center;
 }
+@media screen and (max-width: 700px) {
+  div.book-directory {
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  }
+}

@@ -112,7 +112,15 @@
     bottom: 0;
     top: initial;
     width: 100vw;
-    height: 5rem;
+    height: 4rem;
+  }
+
+  .active {
+    background: var(--bg-secondary);
+    color: var(--primary-color);
+    fill: var(--primary-color) !important;
+    border-bottom: 2px solid var(--primary-color);
+    border-left: 0;
   }
 
   .logo {
@@ -127,8 +135,13 @@
     justify-content: center;
   }
 
+  .link-text {
+    font-size: 0.8em;
+  }
+
   .user-avatar {
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 0;
   }
 
   .nav-link:hover {

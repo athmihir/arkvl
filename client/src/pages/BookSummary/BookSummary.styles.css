@@ -1,13 +1,34 @@
 .book-summary-container {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-
-  padding: 15vh 15px;
+  padding: 10vh 10%;
 }
-@media screen and (max-width: 700px) {
+
+.book-image-container {
+  justify-self: right;
+  align-self: center;
+}
+
+div .rating {
+  color: var(--secondary-text);
+  margin: 0;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
   .book-summary-container {
     grid-template-columns: auto;
     margin-left: 0;
+  }
+
+  .book-image-container {
+    margin: auto;
   }
 }
