@@ -33,7 +33,6 @@ def home():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def apilogout():
-    if current_user.is_authenticated:
         logout_user()
         return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
     else:
@@ -62,7 +61,6 @@ def apilogin():
 
 
 @app.route('/register', methods=['POST'])
-@login_required
 def apiregister():
     username = request.json.get('username')
     password = request.json.get('password')
@@ -93,7 +91,6 @@ def apiregister():
 @app.route('/new-rating', methods=['POST'])
 @login_required
 def apirating():
-    if current_user.is_authenticated:
       user_id = User.get_id(current_user)
       book_id = int(request.json.get('book_id'))
       print(book_id)
@@ -113,7 +110,6 @@ def apirating():
 @app.route('/UserProfile', methods=['POST'])
 @login_required
 def apiprofile():
-    if current_user.is_authenticated:
       books= Book.query.filter_by(rater=current_user).all()
       count=Book.query.filter_by(rater=current_user).count()
       user_name=current_user.username
@@ -127,7 +123,6 @@ def apiprofile():
 @app.route('/Recommend', methods=['POST'])
 @login_required
 def apirecommend():
-    if current_user.is_authenticated:
       obj=CORModel(correlation, test,books_data)
       books= Book.query.filter_by(rater=current_user).all()
       count=Book.query.filter_by(rater=current_user).count()
@@ -144,7 +139,6 @@ def apirecommend():
 @app.route('/Trending', methods=['GET'])
 @login_required
 def apitrending():
-    if current_user.is_authenticated:
       books= Book.query.filter_by(rater=current_user).all()
       count=Book.query.filter_by(rater=current_user).count()
       my_fav_genres=[]
@@ -205,7 +199,6 @@ def apitrending():
 @app.route('/Summary', methods=['GET'])
 @login_required
 def apisummary():
-    if current_user.is_authenticated:
         book_id = int(request.json.get('book_id'))
         authors=original_books['authors'][book_id-1]
         title=original_books['title'][book_id-1]
