@@ -1,0 +1,20 @@
+img.book-image {
+  margin: auto;
+  box-shadow: 0px 4px 10px #0000007d;
+  max-width: 217px;
+}
+
+img.cover-image {
+  max-width: 350px;
+  width: 50vw;
+  box-shadow: 0px 4px 10px #0000007d;
+}
+
+@media screen and (max-width: 1000px) {
+  img.book-image {
+    max-width: 104px;
+  }
+  img.cover-image {
+    margin: auto;
+  }
+}

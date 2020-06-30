@@ -1,7 +1,19 @@
 {
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "editor.defaultFormatter": "vscode.python",
     "python.linting.pylintPath": "${workspaceFolder}\\env\\Scripts\\pylint",
-    "python.testing.promptToConfigure": false
+    "python.testing.promptToConfigure": false,
+    "eslint.alwaysShowStatus": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.eslint.fixAll": true
+    },
+    "[javascript]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.disableLanguages": [
+        "js"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
