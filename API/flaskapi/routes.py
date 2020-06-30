@@ -89,6 +89,7 @@ def apiregister():
 
 
 @app.route('/new-rating', methods=['POST'])
+@login_required
 def apirating():
     if current_user.is_authenticated:
       user_id = User.get_id(current_user)
@@ -108,6 +109,7 @@ def apirating():
       return 'OK'
 
 @app.route('/UserProfile', methods=['POST'])
+@login_required
 def apiprofile():
     if current_user.is_authenticated:
       books= Book.query.filter_by(rater=current_user).all()
@@ -121,6 +123,7 @@ def apiprofile():
       return 'OK'
 
 @app.route('/Recommend', methods=['POST'])
+@login_required
 def apirecommend():
     if current_user.is_authenticated:
       obj=CORModel(correlation, test,books_data)
