@@ -41,7 +41,6 @@ def apilogout():
 
 
 @app.route('/login', methods=['POST'])
-@login_required
 def apilogin():
     if current_user.is_authenticated:
         return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
