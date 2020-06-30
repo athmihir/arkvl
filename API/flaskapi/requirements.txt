@@ -1,0 +1,8 @@
+appdirs==1.4.4
+distlib==0.3.0
+filelock==3.0.12
+python-dateutil==2.8.1
+six==1.14.0
+sns==0.1
+virtualenv==20.0.20
+visidata==1.5.2

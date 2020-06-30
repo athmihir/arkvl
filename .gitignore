@@ -1,6 +1,11 @@
 env
-/API/BooksWithGenresSidEdit.csv
-/API/titles.csv
-/API/corrmat.csv
-/API/test_new.txt
-/API/FinalBookmodified.csv
+API/BooksWithGenresSidEdit.csv
+API/titles.csv
+API/corrmat.csv
+API/test_new.txt
+API/FinalBookmodified.csv
+
+API/__pycache__
+API/venv
+API/flaskapi/__pycache__
+API/flaskapi/venv
