@@ -35,4 +35,6 @@ class Book(db.Model):
     book_id = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     rating = db.Column(db.Integer)
+    genres=db.Column(db.String(5000))
+    title=db.Column(db.String(5000))
     

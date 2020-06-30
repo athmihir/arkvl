@@ -1,6 +1,6 @@
 # Creating the class, later we create an object of this class and just call functions
 import numpy as np
-from cor_files import books 
+from cor_files import original_books
 class CORModel:
     
     def __init__(self, correlation, test,books_data):
@@ -58,11 +58,11 @@ class CORModel:
         
         user_recs = sorted(book_preferences, key= lambda x: x[1], reverse=True)
         
-        recs = [(books[self.total_books_data['title']==user_recs[i][0]].book_id.unique()[0],user_recs[i][0],user_recs[i][1]) for i in range(10)]
+        recs = [(original_books[self.total_books_data['title']==user_recs[i][0]].book_id.unique()[0],user_recs[i][0],user_recs[i][1]) for i in range(10)]
         
 
         recIDs = [recs[i][0] for i in range(10)]
         recs = []
         for i in range(10):
-            recs.append({'id': int(recIDs[i]), 'title': books['original_title'][recIDs[i]-1], 'image': books['image_url'][recIDs[i]-1], 'author':books['authors'][recIDs[i]-1]})
+            recs.append({'id': int(recIDs[i]), 'title': original_books['original_title'][recIDs[i]-1], 'image': original_books['image_url'][recIDs[i]-1], 'author':original_books['authors'][recIDs[i]-1]})
         return recs

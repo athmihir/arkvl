@@ -6,5 +6,5 @@ with open("test_new.txt",errors='ignore') as f:
     test.append(line.strip())
 corrmat=pd.read_csv('corrmat.csv',header=None)
 correlation=corrmat.to_numpy()
-books=pd.read_csv('BooksWithGenresSidEdit.csv')
+original_books=pd.read_csv('FinalBookmodified.csv',encoding='latin')
 books_data=pd.read_csv('titles.csv')
