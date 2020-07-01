@@ -33,9 +33,11 @@ def home():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def apilogout():
-    logout_user()
-    return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
-    abort(400)
+    try:
+        logout_user()
+        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+    except: 
+        abort(400)
 
 
 @app.route('/login', methods=['POST'])
@@ -53,7 +55,7 @@ def apilogin():
     if user and bcrypt.check_password_hash(user.password, password):
         print('\nInside if, username and password matched')
         login_user(user)
-        return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
+        return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 200
     else:
         print('\nInside else, no match found')
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
