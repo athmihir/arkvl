@@ -1,6 +1,7 @@
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import { Route, Switch } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
 import SideBar from './components/sidebar/sidebar';
@@ -9,32 +10,32 @@ import Trending from './pages/Trending/Trending';
 import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
 
-function App({ user }) {
-  console.log(user);
+function App({ isAuthenticated }) {
   return (
     <div className="App">
+      <ToastContainer />
       <Switch>
         <Route
           exact
           path="/"
-          render={() => (user ? <Recommended /> : <LoginRegister />)}
+          render={() => (isAuthenticated ? <Recommended /> : <LoginRegister />)}
         />
         <Route
           exact
           path="/trending"
-          render={() => (user ? <Trending /> : <LoginRegister />)}
+          render={() => (isAuthenticated ? <Trending /> : <LoginRegister />)}
         />
         <Route
           path="/login"
-          render={() => (user ? <Recommended /> : <LoginRegister />)}
+          render={() => (isAuthenticated ? <Recommended /> : <LoginRegister />)}
         />
         <Route
-          path="/user-profile"
-          render={() => (user ? <Recommended /> : <UserProfile />)}
+          path="/isAuthenticated-profile"
+          render={() => (isAuthenticated ? <Recommended /> : <UserProfile />)}
         />
         <Route
           path="/book-summary"
-          render={() => (user ? <Recommended /> : <BookSummary />)}
+          render={() => (isAuthenticated ? <Recommended /> : <BookSummary />)}
         />
       </Switch>
       <SideBar />
@@ -43,7 +44,7 @@ function App({ user }) {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  isAuthenticated: state.user.isAuthenticated,
 });
 
-export default connect()(App);
+export default connect(mapStateToProps)(App);

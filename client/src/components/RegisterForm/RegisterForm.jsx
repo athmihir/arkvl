@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import InputField from '../InputField/InputField';
 import SubmitButton from '../CustomButton/CustomButton';
 import './RegisterForm.styles.css';
 import { registerUser } from '../../redux/user/user.actions';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
-const RegisterForm = () => {
-
+const RegisterForm = ({ registerUserSubmit, error }) => {
   const [registerInfo, setRegisterInfo] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
   });
@@ -16,17 +16,46 @@ const RegisterForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setRegisterInfo({
+      ...registerInfo,
       [name]: value,
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    registerUserSubmit(registerInfo);
+    if (error) {
+      toast.error(error, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   return (
     <div className="register-form-container">
       <div className="register-form">
         <h1>Create your account!</h1>
-        <form onSubmit={registerUser(registerInfo)}>
-          <InputField name="name" label="Name" type="text" placeholder=" " onChange={handleChange} />
-          <InputField name="email" label="Email" type="email" placeholder=" " onChange={handleChange} />
+        <form onSubmit={(event) => handleSubmit(event)} method="POST">
+          <InputField
+            name="username"
+            label="Username"
+            type="text"
+            placeholder=" "
+            onChange={handleChange}
+          />
+          <InputField
+            name="email"
+            label="Email"
+            type="email"
+            placeholder=" "
+            onChange={handleChange}
+          />
           <InputField
             name="password"
             label="Password"
@@ -34,19 +63,21 @@ const RegisterForm = () => {
             placeholder=" "
             onChange={handleChange}
           />
-          <SubmitButton onClick={() => {
-            registerUser(registerInfo)
-          }}>Register</SubmitButton>
+          <SubmitButton type="submit">Register</SubmitButton>
         </form>
       </div>
     </div>
   );
 };
 
+const mapStateToProps = (state) => ({
+  error: state.user.error,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    registerUser: () => dispatch(registerUser()),
+    registerUserSubmit: (userInfo) => dispatch(registerUser(userInfo)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(RegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
