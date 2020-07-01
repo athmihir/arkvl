@@ -1,8 +1,8 @@
-import RecommendationActionTypes from './reccommendations.type';
+import RecommendationActionTypes from './recommendations.type';
 
 const INITIAL_STATE = {};
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const recommendationReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case RecommendationActionTypes.SUCCESS_FETCH_RECOMMENDATIONS:
       return state;
@@ -11,4 +11,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default userReducer;
+export default recommendationReducer;
