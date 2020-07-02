@@ -1,6 +1,17 @@
 import axios from 'axios';
 import UserActionTypes from './user.types';
 
+export const checkUserStatus = () => (dispatch) => {
+  axios
+    .get('/login')
+    .then((res) => {
+      if (res.data.logged_in) {
+        dispatch(loginUsersSuccess());
+      }
+    })
+    .catch((err) => {});
+};
+
 export const loginUser = (userData) => (dispatch) => {
   console.log(userData);
   axios
@@ -14,6 +25,7 @@ export const loginUser = (userData) => (dispatch) => {
       },
     )
     .then((res) => {
+      console.log(res.data);
       dispatch(loginUsersSuccess());
     })
     .catch((err) => {
@@ -29,6 +41,7 @@ export const loginUser = (userData) => (dispatch) => {
 };
 
 export const registerUser = (userData) => (dispatch) => {
+  console.log(userData);
   axios
     .post('/register', {
       username: userData.username,
@@ -36,9 +49,8 @@ export const registerUser = (userData) => (dispatch) => {
       password: userData.password,
     })
     .then((res) => {
-      return (dispatch) => {
-        dispatch(registerUserSuccess());
-      };
+      console.log(res.data);
+      dispatch(registerUserSuccess());
     })
     .catch((err) => {
       console.log(err.response);

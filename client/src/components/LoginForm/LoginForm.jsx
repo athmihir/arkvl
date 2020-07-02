@@ -4,9 +4,8 @@ import SubmitButton from '../CustomButton/CustomButton';
 import { loginUser } from '../../redux/user/user.actions';
 import './LoginForm.styles.css';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
 
-const LoginForm = ({ submitUserDetails, error }) => {
+const LoginForm = ({ submitUserDetails }) => {
   const [loginInfo, setloginInfo] = useState({
     username: '',
     password: '',
@@ -22,18 +21,8 @@ const LoginForm = ({ submitUserDetails, error }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(loginInfo);
     submitUserDetails(loginInfo);
-    if (error) {
-      toast.error(error, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   };
 
   return (
@@ -64,11 +53,8 @@ const LoginForm = ({ submitUserDetails, error }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.user.error,
-});
 const mapDispatchToProps = (dispatch) => ({
   submitUserDetails: (userData) => dispatch(loginUser(userData)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(null, mapDispatchToProps)(LoginForm);

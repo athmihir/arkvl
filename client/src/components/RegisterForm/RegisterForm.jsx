@@ -4,9 +4,8 @@ import SubmitButton from '../CustomButton/CustomButton';
 import './RegisterForm.styles.css';
 import { registerUser } from '../../redux/user/user.actions';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
 
-const RegisterForm = ({ registerUserSubmit, error }) => {
+const RegisterForm = ({ registerUserSubmit }) => {
   const [registerInfo, setRegisterInfo] = useState({
     username: '',
     email: '',
@@ -23,18 +22,8 @@ const RegisterForm = ({ registerUserSubmit, error }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(registerInfo);
     registerUserSubmit(registerInfo);
-    if (error) {
-      toast.error(error, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   };
 
   return (
@@ -70,14 +59,10 @@ const RegisterForm = ({ registerUserSubmit, error }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.user.error,
-});
-
 const mapDispatchToProps = (dispatch) => {
   return {
     registerUserSubmit: (userInfo) => dispatch(registerUser(userInfo)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default connect(null, mapDispatchToProps)(RegisterForm);

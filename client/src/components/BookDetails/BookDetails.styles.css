@@ -5,7 +5,7 @@ div.book-details {
 }
 div.book-details:not(.cover) > .book-card-details {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 p.title {
   color: var(--primary-text);

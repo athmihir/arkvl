@@ -10,7 +10,7 @@ from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
 from cor_model_modified import CORModel
-from cor_files import correlation,test,books_data,original_books
+from cor_files import correlation, test,books_data,original_books
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
@@ -40,25 +40,30 @@ def apilogout():
         abort(400)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def apilogin():
-    if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
-    username = request.json.get('username')
-    password = request.json.get('password')
-    print('\nUsername and password received from user')
-    if username is None or password is None:
-        abort(400)  # missing arguments
-    print('\nChecked whether entered values are none, they are not')
-    user = User.query.filter_by(username=username).first()
-    print('\nUsername match found')
-    if user and bcrypt.check_password_hash(user.password, password):
-        print('\nInside if, username and password matched')
-        login_user(user)
-        return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 200
-    else:
-        print('\nInside else, no match found')
-        return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 200
+        else : return jsonify({'logged_in' : False}), 401
+    else : 
+        if current_user.is_authenticated:
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 200
+        username = request.json.get('username')
+        password = request.json.get('password')
+        print('\nUsername and password received from user')
+        if username is None or password is None:
+            abort(400)  # missing arguments
+        print('\nChecked whether entered values are none, they are not')
+        user = User.query.filter_by(username=username).first()
+        print('\nUsername match found')
+        if user and bcrypt.check_password_hash(user.password, password):
+            print('\nInside if, username and password matched')
+            login_user(user)
+            return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
+        else:
+            print('\nInside else, no match found')
+            return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
 
 @app.route('/register', methods=['POST'])
