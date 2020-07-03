@@ -9,6 +9,7 @@ app.config['SECRET_KEY'] = 'dfc8e8057418dbd98274a233fff7eb7a'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app)
+
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
