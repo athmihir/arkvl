@@ -19,15 +19,10 @@ import operator
 import random
 
 
-# db.drop_all()
-# db.create_all()
-
-
-<<<<<<< HEAD
-=======
 db.drop_all()
-#db.create_all()
->>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
+db.create_all()
+
+
 @app.route("/")
 def home():
     return "Hello from flask > BRS file!"
@@ -36,19 +31,16 @@ def home():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def apilogout():
-    try:
-        logout_user()
-        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
-    except:
-        abort(400)
+    logout_user()
+    return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
 
 
 @app.route('/login', methods=['POST','GET'])
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
-            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
-    else:
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201 
+    else:      
         if current_user.is_authenticated:
             return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
         username = request.json.get('username')
@@ -88,7 +80,8 @@ def apiregister():
         user = User(username=username, email=email, password=pw_hash)
         db.session.add(user)
         db.session.commit()
-        return jsonify({'registered': 'True', 'message': 'Account Created'}), 201
+        login_user(user)
+        return jsonify({'registered': 'True', 'message': 'Account Created', 'logged_in': 'True'}), 201
 
 
 @app.route('/new-rating', methods=['POST'])
@@ -134,7 +127,6 @@ def apirecommend():
       if count==0:
       #print("RECOMMENDED FOR ANYBODY:")
       #sorted_avg_ratings.head()
-<<<<<<< HEAD
        minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
 
        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
@@ -153,26 +145,6 @@ def apirecommend():
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
        recs=json.dumps(recs)
        return ({'Recommendations for anybody': recs}),200
-=======
-        minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
-
-        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
-        sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3]
-        #sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
-        #random.shuffle(sorted_avg_ratings)
-        sorted_avg_ratings_book_id=[]
-        for j in sorted_avg_ratings.book_id:
-            sorted_avg_ratings_book_id.append(j)
-
-        random.shuffle(sorted_avg_ratings_book_id)
-        sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:20]
-        print(sorted_avg_ratings_book_id)
-        recs = []
-        for i in sorted_avg_ratings_book_id:
-            recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
-        #recs=json.dumps(recs)
-        return ({'Recommendations for anybody': recs}),200
->>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
 
       else:
        my_fav_ID=[]
@@ -182,14 +154,10 @@ def apirecommend():
        print(my_fav_ID)
        recommendations=obj.get_recommendations(my_fav_ID)
        print(recommendations)
-<<<<<<< HEAD
        recommendations=json.dumps(recommendations)
-=======
-       #recommendations=json.dumps(recommendations)
->>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
        return ({ 'Recommendations': recommendations }), 200
 
-@app.route('/Trending', methods=['GET'])
+@app.route('/trending', methods=['GET'])
 @login_required
 def apitrending():
       books= Book.query.filter_by(rater=current_user).all()
@@ -214,7 +182,7 @@ def apitrending():
        for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
        recs=json.dumps(recs)
-       return ({'Trendings for anybody': recs}),200
+       return  recs,200
       else:
 
        my_fav_genres=[]
@@ -279,12 +247,8 @@ def apitrending():
         trending = []
         for i in range(len(trendingIDs)):
             trending.append({'id': int(trendingIDs[i]), 'title':  original_books['original_title'][trendingIDs[i]-1], 'image': original_books['image_url'][trendingIDs[i]-1], 'author':original_books['authors'][trendingIDs[i]-1]})
-<<<<<<< HEAD
         trending = json.dumps(trending)
-=======
-        #trending = json.dumps(trending)
->>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
-        return ({ 'Trending': trending }), 200
+        return trending, 200
 
 @app.route('/Summary', methods=['GET'])
 @login_required

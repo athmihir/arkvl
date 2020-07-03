@@ -6,16 +6,16 @@ import { FetchTrendingBooks } from '../../redux/trending/trending.actions';
 import './Trending.styles.css';
 
 class Trending extends React.Component {
-  constructor(props) {
-    super(props);
-    props.fetchTrending();
+  componentWillMount() {
+    this.props.fetchTrending();
   }
 
   render() {
+    const { trending } = this.props;
     return (
       <div className="trending-books">
         <h1>Trending.</h1>
-        <BookDirectory />
+        <BookDirectory data={trending} />
       </div>
     );
   }
@@ -24,5 +24,8 @@ class Trending extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchTrending: () => dispatch(FetchTrendingBooks()),
 });
+const mapStateToProps = (state) => ({
+  trending: state.trending,
+});
 
-export default connect(null, mapDispatchToProps)(Trending);
+export default connect(mapStateToProps, mapDispatchToProps)(Trending);

@@ -9,14 +9,12 @@ div.book-details:not(.cover) > .book-card-details {
 }
 p.title {
   color: var(--primary-text);
-  max-width: 110px;
   margin: 0;
 }
 
 p.author {
   font-size: 0.85em;
   color: var(--secondary-text);
-  max-width: 100px;
   line-height: 1.3;
   margin: 0;
   margin-top: 5px;
@@ -36,7 +34,6 @@ div.book-details.cover {
   margin-left: 50px;
   align-self: center;
 }
-
 div.book-details.cover > .title {
   font-size: 2em;
   max-width: initial;
@@ -45,6 +42,9 @@ div.book-details.cover > .title {
 div.book-details.cover > .author {
   font-size: 1em;
   max-width: initial;
+}
+div.book-card-details .book-rating {
+  margin-top: 8px;
 }
 div.book-details.cover > .genre {
   color: var(--secondary-text);

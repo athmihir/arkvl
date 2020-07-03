@@ -19,7 +19,7 @@ const BookTitle = ({
         <p className="author">by {bookauthoris}</p>
       </div>
       {isCover ? null : (
-        <>
+        <div className="book-rating">
           Rate the book
           <ReactStars
             count={5}
@@ -28,7 +28,7 @@ const BookTitle = ({
             className="ratingStars"
             onChange={ratingChanged}
           />
-        </>
+        </div>
       )}
     </div>
     {isCover ? (
