@@ -9,8 +9,9 @@ from flask_mail import Message
 from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
+from datetime import datetime
 from cor_model_modified import CORModel
-from cor_files import correlation,test,books_data,original_books
+from cor_files import test,books_data,original_books
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
@@ -21,10 +22,8 @@ import random
 
 
 
-# db.drop_all()
-# db.create_all()
-
-
+#db.drop_all()
+#db.create_all()
 @app.route("/")
 def home():
     return "Hello from flask > BRS file!"
@@ -35,7 +34,6 @@ def home():
 def apilogout():
         logout_user()
         return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
-    else:
         abort(400)
 
 
@@ -77,7 +75,7 @@ def apiregister():
         return jsonify({'registered': 'False', 'message': 'User exists'}), 400
     else:
         pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-        user = User(username=username, email=email, password=pw_hash)
+        user = User(username=username, email=email, password=pw_hash, date_created = datetime.now())
         db.session.add(user)
         db.session.commit()
         return jsonify({'registered': 'True', 'message': 'Account Created'}), 201
@@ -109,13 +107,14 @@ def apiprofile():
       count=Book.query.filter_by(rater=current_user).count()
       user_name=current_user.username
       user_email=current_user.email
+      dateJoined = current_user.date_created
       ratedBooks = []
       my_fav_genres=[]
       for i in range (0,count): 
         my_fav_genres.append(books[i].genres)          
         ratedBooks.append({ 'id': books[i].book_id, 'title':  original_books['original_title'][books[i].book_id - 1], 'image': original_books['image_url'][books[i].book_id - 1], 'author':original_books['authors'][books[i].book_id - 1], 'rating': books[i].rating})
       my_fav_genres = list(dict.fromkeys(my_fav_genres))
-      return jsonify({'username': user_name, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
+      return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
 
 @app.route('/Recommend', methods=['POST'])
 @login_required
@@ -127,10 +126,10 @@ def apirecommend():
       for i in range (0,count): 
           if books[i].rating >=3:
             my_fav_ID.append(books[i].book_id)
-      print(my_fav_ID)
+      #print(my_fav_ID)
       recommendations=obj.get_recommendations(my_fav_ID)
-      print(recommendations)
-      recommendations=json.dumps(recommendations)
+      #print(recommendations)
+      #recommendations=json.dumps(recommendations)
       return ({ 'Recommendations': recommendations }), 200
 
 @app.route('/Trending', methods=['GET'])
@@ -178,14 +177,17 @@ def apitrending():
         final=sorted_avg_ratings
        else :
         final=final.append(sorted_avg_ratings)
-      print(final['title'])
+      #print(final['title'])
+      print(final)
+      print(len(final))
       trending=[]
       trendingIDs=[]
       #repeated=[]
       countID=-1
+      finalBookIDs = final['book_id'].values
       for y in final['title']:
           countID = countID + 1 
-          z = final['book_id'][countID]
+          z = finalBookIDs[countID]
           if y not in trending : 
               c=0
               for i in range (0,count): 
@@ -198,7 +200,8 @@ def apitrending():
       trending = []
       for i in range(len(trendingIDs)):
           trending.append({'id': int(trendingIDs[i]), 'title':  original_books['original_title'][trendingIDs[i]-1], 'image': original_books['image_url'][trendingIDs[i]-1], 'author':original_books['authors'][trendingIDs[i]-1]})
-      trending = json.dumps(trending)
+      random.shuffle(trending)
+      trending = trending[:20]
       return ({ 'Trending': trending }), 200
 
 @app.route('/Summary', methods=['GET'])
