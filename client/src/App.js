@@ -13,15 +13,13 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     if (!props.isAuthenticated) {
       setTimeout(() => {
         props.checkUserLoggedIn();
       }, 10);
     }
   }
-
   render() {
     const { isAuthenticated } = this.props;
     return (
@@ -30,14 +28,14 @@ class App extends React.Component {
         <Switch>
           <Route
             exact
-            path="/"
+            path="/recommendation"
             render={() =>
               isAuthenticated ? <Recommended /> : <LoginRegister />
             }
           />
           <Route
             exact
-            path="/trending"
+            path="/"
             render={() => (isAuthenticated ? <Trending /> : <LoginRegister />)}
           />
           <Route

@@ -21,7 +21,6 @@ const LoginForm = ({ submitUserDetails }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginInfo);
     submitUserDetails(loginInfo);
   };
 

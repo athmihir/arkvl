@@ -1,11 +1,11 @@
-import RecommendationActionTypes from './reccommendations.type';
+import TrendingActionTypes from './trending.type';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = [];
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case RecommendationActionTypes.SUCCESS_FETCH_RECOMMENDATIONS:
-      return state;
+    case TrendingActionTypes.SUCCESS_FETCH_TRENDING:
+      return action.payload;
     default:
       return state;
   }
