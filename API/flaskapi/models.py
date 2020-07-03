@@ -2,6 +2,7 @@ import json
 from flaskapi import db, login_manager, app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from datetime import datetime
 import json
 
 
@@ -14,8 +15,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     rating = db.relationship('Book', backref='rater', lazy=True)
-
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf_8')
