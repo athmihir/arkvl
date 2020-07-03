@@ -6,9 +6,8 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Recommended extends Component {
-  constructor(props) {
-    super(props);
-    props.fetchedBooks();
+  componentWillMount() {
+    this.props.fetchedBooks();
   }
 
   render() {

@@ -22,8 +22,8 @@ import random
 
 
 
-db.drop_all()
-#db.create_all()
+#db.drop_all()
+db.create_all()
 @app.route("/")
 def home():
     return "Hello from flask > BRS file!"
@@ -116,7 +116,7 @@ def apiprofile():
       my_fav_genres = list(dict.fromkeys(my_fav_genres))
       return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
 
-@app.route('/Recommend', methods=['POST'])
+@app.route('/Recommend', methods=['GET'])
 @login_required
 def apirecommend():
       obj=CORModel(correlation, test,books_data)
@@ -142,7 +142,7 @@ def apirecommend():
         for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
         #recs=json.dumps(recs)
-        return ({'Recommendations for anybody': recs}),200
+        return ({'Recommendations': recs}),200
 
       else:
        my_fav_ID=[]
