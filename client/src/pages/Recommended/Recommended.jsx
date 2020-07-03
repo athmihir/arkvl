@@ -7,10 +7,14 @@ import { connect } from 'react-redux';
 
 class Recommended extends Component {
   componentWillMount() {
+    console.log("Checking this.props.fetchedBooks()")
+    console.log(this.props.fetchedBooks())
     this.props.fetchedBooks();
   }
 
   render() {
+    console.log("DAMN LESS GOOOOO")
+    console.log(this.props.loadRecs)
     return (
       <div className="recommended-books">
         <h1> For You.</h1>

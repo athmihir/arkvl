@@ -15,7 +15,7 @@ class Trending extends React.Component {
     return (
       <div className="trending-books">
         <h1>Trending.</h1>
-        <BookDirectory data={trending} />
+        <BookDirectory BOOKS={trending} />
       </div>
     );
   }

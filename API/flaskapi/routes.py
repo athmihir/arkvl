@@ -144,9 +144,9 @@ def apirecommend():
        print(sorted_avg_ratings_book_id)
        recs = []
        for i in sorted_avg_ratings_book_id:
-            recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+        recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
         #recs=json.dumps(recs)
-        return ({'Recommendations': recs}),200
+       return ('Recommendations': recs),200
 
       else:
        my_fav_ID=[]

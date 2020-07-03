@@ -14,9 +14,9 @@ import BookSummary from './pages/BookSummary/BookSummary';
 
 class App extends React.Component {
   componentWillMount() {
-    if (!props.isAuthenticated) {
+    if (!this.props.isAuthenticated) {
       setTimeout(() => {
-        props.checkUserLoggedIn();
+        this.props.checkUserLoggedIn();
       }, 10);
     }
   }
@@ -28,14 +28,14 @@ class App extends React.Component {
         <Switch>
           <Route
             exact
-            path="/recommendation"
+            path="/"
             render={() =>
               isAuthenticated ? <Recommended /> : <LoginRegister />
             }
           />
           <Route
             exact
-            path="/"
+            path="/trending"
             render={() => (isAuthenticated ? <Trending /> : <LoginRegister />)}
           />
           <Route
