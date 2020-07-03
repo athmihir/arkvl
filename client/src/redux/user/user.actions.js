@@ -13,7 +13,6 @@ export const checkUserStatus = () => (dispatch) => {
 };
 
 export const loginUser = (userData) => (dispatch) => {
-  console.log(userData);
   axios
     .post(
       '/login',

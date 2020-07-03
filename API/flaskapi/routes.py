@@ -10,7 +10,7 @@ from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
 from cor_model_modified import CORModel
-from cor_files import correlation,test,books_data,original_books
+from cor_files import test,books_data,original_books
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
@@ -33,26 +33,31 @@ def home():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def apilogout():
+    try:
         logout_user()
         return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
-    else:
+    except:
         abort(400)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def apilogin():
-    if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
-    username = request.json.get('username')
-    password = request.json.get('password')
-    if username is None or password is None:
-        abort(400)  # missing arguments
-    user = User.query.filter_by(username=username).first()
-    if user and bcrypt.check_password_hash(user.password, password):
-        login_user(user)
-        return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
     else:
-        return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
+        if current_user.is_authenticated:
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
+        username = request.json.get('username')
+        password = request.json.get('password')
+        if username is None or password is None:
+            abort(400)  # missing arguments
+        user = User.query.filter_by(username=username).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            login_user(user)
+            return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
+        else:
+            return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
 
 @app.route('/register', methods=['POST'])
@@ -133,7 +138,7 @@ def apirecommend():
       recommendations=json.dumps(recommendations)
       return ({ 'Recommendations': recommendations }), 200
 
-@app.route('/Trending', methods=['GET'])
+@app.route('/trending', methods=['GET'])
 @login_required
 def apitrending():
       books= Book.query.filter_by(rater=current_user).all()
@@ -185,7 +190,7 @@ def apitrending():
       countID=-1
       for y in final['title']:
           countID = countID + 1 
-          z = final['book_id'][countID]
+          z = final[countID]['book_id']
           if y not in trending : 
               c=0
               for i in range (0,count): 
