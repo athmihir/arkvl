@@ -10,7 +10,7 @@ from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
 from cor_model_modified import CORModel
-from cor_files import test,books_data,original_books
+from cor_files import correlation,test,books_data,original_books
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
@@ -23,6 +23,11 @@ import random
 # db.create_all()
 
 
+<<<<<<< HEAD
+=======
+db.drop_all()
+#db.create_all()
+>>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
 @app.route("/")
 def home():
     return "Hello from flask > BRS file!"
@@ -129,6 +134,7 @@ def apirecommend():
       if count==0:
       #print("RECOMMENDED FOR ANYBODY:")
       #sorted_avg_ratings.head()
+<<<<<<< HEAD
        minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
 
        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
@@ -147,6 +153,26 @@ def apirecommend():
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
        recs=json.dumps(recs)
        return ({'Recommendations for anybody': recs}),200
+=======
+        minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+
+        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
+        sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3]
+        #sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
+        #random.shuffle(sorted_avg_ratings)
+        sorted_avg_ratings_book_id=[]
+        for j in sorted_avg_ratings.book_id:
+            sorted_avg_ratings_book_id.append(j)
+
+        random.shuffle(sorted_avg_ratings_book_id)
+        sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:20]
+        print(sorted_avg_ratings_book_id)
+        recs = []
+        for i in sorted_avg_ratings_book_id:
+            recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+        #recs=json.dumps(recs)
+        return ({'Recommendations for anybody': recs}),200
+>>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
 
       else:
        my_fav_ID=[]
@@ -156,7 +182,11 @@ def apirecommend():
        print(my_fav_ID)
        recommendations=obj.get_recommendations(my_fav_ID)
        print(recommendations)
+<<<<<<< HEAD
        recommendations=json.dumps(recommendations)
+=======
+       #recommendations=json.dumps(recommendations)
+>>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
        return ({ 'Recommendations': recommendations }), 200
 
 @app.route('/Trending', methods=['GET'])
@@ -249,7 +279,11 @@ def apitrending():
         trending = []
         for i in range(len(trendingIDs)):
             trending.append({'id': int(trendingIDs[i]), 'title':  original_books['original_title'][trendingIDs[i]-1], 'image': original_books['image_url'][trendingIDs[i]-1], 'author':original_books['authors'][trendingIDs[i]-1]})
+<<<<<<< HEAD
         trending = json.dumps(trending)
+=======
+        #trending = json.dumps(trending)
+>>>>>>> 7f8886f16ada67de11a7d319b451cc46cd70b16a
         return ({ 'Trending': trending }), 200
 
 @app.route('/Summary', methods=['GET'])
@@ -279,9 +313,3 @@ def apisummary():
             summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not': 0})
             summary=json.dumps(summary)
             return summary
-
-
-
-
-
-
