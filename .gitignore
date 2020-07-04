@@ -9,3 +9,4 @@ API/__pycache__
 API/venv
 API/flaskapi/__pycache__
 API/flaskapi/venv
+API/site.db

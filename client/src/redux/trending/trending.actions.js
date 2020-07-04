@@ -5,13 +5,17 @@ export const FetchTrendingBooks = () => (dispatch) => {
   axios
     .get('/trending')
     .then((res) => {
-      console.log(typeof res.data);
       dispatch(TrendingBookAction(res.data));
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+export const RemoveRatedBook = (id) => ({
+  type: TrendingActionTypes.REMOVE_TRENDING,
+  payload: id,
+});
 
 const TrendingBookAction = (data) => ({
   type: TrendingActionTypes.SUCCESS_FETCH_TRENDING,

@@ -2,7 +2,10 @@ import React from 'react';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import { connect } from 'react-redux';
 
-import { FetchTrendingBooks } from '../../redux/trending/trending.actions';
+import {
+  FetchTrendingBooks,
+  RemoveRatedBook,
+} from '../../redux/trending/trending.actions';
 import './Trending.styles.css';
 
 class Trending extends React.Component {
@@ -15,7 +18,7 @@ class Trending extends React.Component {
     return (
       <div className="trending-books">
         <h1>Trending.</h1>
-        <BookDirectory BOOKS={trending} />
+        <BookDirectory BOOKS={trending} removeRated={this.props.removeRated} />
       </div>
     );
   }
@@ -23,6 +26,7 @@ class Trending extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchTrending: () => dispatch(FetchTrendingBooks()),
+  removeRated: (id) => dispatch(RemoveRatedBook(id)),
 });
 const mapStateToProps = (state) => ({
   trending: state.trending,

@@ -10,7 +10,7 @@ from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
 from cor_model_modified import CORModel
-from cor_files import correlation,test,books_data,original_books
+from cor_files import correlation, test,books_data,original_books
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
@@ -86,15 +86,15 @@ def apiregister():
         return jsonify({'registered': 'True', 'message': 'Account Created', 'logged_in': 'True'}), 201
 
 
-@app.route('/new-rating', methods=['POST'])
+@app.route('/new-rating/<int:book_id>', methods=['POST'])
 @login_required
-def apirating():
+def apirating(book_id):
       user_id = User.get_id(current_user)
-      book_id = int(request.json.get('book_id'))
       print(book_id)
       if book_id < 1 or book_id>10000:
           abort(404)
       rating = int(request.json.get('rating'))
+      print(rating)
       if rating < 1 or rating > 5:
           return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
       genres=original_books['genres'][book_id-1]
