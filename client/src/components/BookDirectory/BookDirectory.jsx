@@ -13,11 +13,15 @@ export default function BookDirectory({
         BOOKS.map((book) => (
           <BookCard
             book={book}
-            key={book.id}
+            bookno={book.id}
             removeRated={removeRated}
             errorRemoveRated={errorRemoveRated}
           />
-        ))}
+        )
+        )}
+      {BOOKS.map(book => {
+        console.log(book.id);
+      })}
     </div>
   );
 }

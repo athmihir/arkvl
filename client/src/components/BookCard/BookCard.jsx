@@ -5,7 +5,7 @@ import axios from 'axios';
 import './BookCard.styles.css';
 import { toast } from 'react-toastify';
 
-export default function BookCard({ book, removeRated, errorRemoveRated }) {
+export default function BookCard({ book, bookno, removeRated, errorRemoveRated }) {
   const [rating, setRating] = useState(null);
   const ratingChanged = (newRating) => {
     setRating(newRating);
@@ -34,11 +34,14 @@ export default function BookCard({ book, removeRated, errorRemoveRated }) {
 
   return (
     <div className="book-card">
+      {console.log("here is the key")}
+      {console.log({ bookno })}
       <BookImage imagesource={book.image} />
       <BookDetails
         booktitleis={book.title}
         bookauthoris={book.author}
         ratingChanged={ratingChanged}
+        bookid={bookno}
       />
     </div>
   );

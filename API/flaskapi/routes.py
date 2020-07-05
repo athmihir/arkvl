@@ -252,7 +252,7 @@ def apitrending():
         trending = json.dumps(trending)
         return trending, 200
 
-@app.route('/Summary', methods=['GET'])
+@app.route('/Summary', methods=['POST'])
 @login_required
 def apisummary():
         book_id = int(request.json.get('book_id'))

@@ -51,7 +51,8 @@ class App extends React.Component {
             }
           />
           <Route
-            path="/book-summary"
+            path="/book-summary/:bookid"
+            component={BookSummary}
             render={() =>
               isAuthenticated ? <BookSummary /> : <LoginRegister />
             }
