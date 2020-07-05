@@ -34,13 +34,13 @@ class BookSummary extends Component {
     })
       .then((res) => {
         console.log("here is the res stuff");
-        console.log(res);
+        console.log(res.data[0].author);
         this.setState({
-          bookAuthor: res.data.author,
-          imgSource: res.data.image_url,
-          bookTitle: res.data.title,
-          bookGenre: res.data.genres,
-          bookDesc: res.data.description
+          bookAuthor: res.data[0].author,
+          imgSource: res.data[0].image_url,
+          bookTitle: res.data[0].title,
+          bookGenre: res.data[0].genres,
+          bookDesc: res.data[0].description
         })
       })
   }
