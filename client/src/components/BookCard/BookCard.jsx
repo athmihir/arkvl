@@ -34,7 +34,7 @@ export default function BookCard({ book, bookno, removeRated, errorRemoveRated }
 
   return (
     <div className="book-card">
-      {console.log("here is the key")}
+      {console.log("here is the bookno")}
       {console.log({ bookno })}
       <BookImage imagesource={book.image} />
       <BookDetails
