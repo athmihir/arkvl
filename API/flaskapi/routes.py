@@ -252,10 +252,14 @@ def apitrending():
         trending = json.dumps(trending)
         return trending, 200
 
-@app.route('/Summary', methods=['GET'])
+@app.route('/Summary', methods=['POST'])
 @login_required
 def apisummary():
         book_id = int(request.json.get('book_id'))
+        if not book_id:
+            abort(400)
+        if not(0 < book_id <= 10000):
+            abort(400)
         authors=original_books['authors'][book_id-1]
         title=original_books['title'][book_id-1]
         average_rating=original_books['average_rating'][book_id-1]
