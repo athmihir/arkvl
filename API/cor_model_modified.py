@@ -3,7 +3,7 @@ import numpy as np
 from cor_files import original_books
 class CORModel:
     
-    def __init__(self, correlation, test, books_data):
+    def __init__(self, correlation, test,books_data):
         '''
         This is the constructor. It will drop unnecessary cols, sort by book ID
         and merge both dataframes into one mega dataframe

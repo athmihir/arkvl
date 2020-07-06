@@ -2,11 +2,7 @@ import React from 'react';
 import BookCard from '../BookCard/BookCard';
 
 import './BookDirectory.styles.css';
-export default function BookDirectory({
-  BOOKS,
-  removeRated,
-  errorRemoveRated,
-}) {
+export default function BookDirectory({ BOOKS, removeRated }) {
   return (
     <div className="book-directory">
       {BOOKS &&
@@ -15,13 +11,9 @@ export default function BookDirectory({
             book={book}
             bookno={book.id}
             removeRated={removeRated}
-            errorRemoveRated={errorRemoveRated}
+            key={book.id}
           />
-        )
-        )}
-      {BOOKS.map(book => {
-        console.log(book.id);
-      })}
+        ))}
     </div>
   );
 }

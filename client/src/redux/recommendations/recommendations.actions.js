@@ -4,7 +4,7 @@ import RecommendationsActionTypes from './recommendations.type';
 export const recommendationsUsersSuccess = (res) => {
   return {
     type: RecommendationsActionTypes.SUCCESS_FETCH_RECOMMENDATIONS,
-    payload: res.data.Recommendations,
+    payload: res.data,
   };
 };
 
@@ -16,7 +16,7 @@ export const recommendationsUsersFailure = (err) => {
 };
 
 export const RemoveRatedBook = (id) => ({
-  type: RecommendationsActionTypes.REMOVE_TRENDING,
+  type: RecommendationsActionTypes.REMOVE_RECOMMENDATION,
   payload: id,
 });
 
