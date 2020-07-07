@@ -54,7 +54,7 @@ class CORModel:
         book_preferences = []
         for i in range(len(self.book_titles)):
             if self.book_titles[i] not in my_fav_books:
-             book_preferences.append((self.book_titles[i], book_similarities[i]))
+                book_preferences.append((self.book_titles[i], book_similarities[i]))
         
         user_recs = sorted(book_preferences, key= lambda x: x[1], reverse=True)
         

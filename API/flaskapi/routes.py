@@ -9,8 +9,10 @@ from flask_mail import Message
 from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
+from datetime import datetime
 from cor_model_modified import CORModel
-from cor_files import correlation, test,books_data,original_books
+from cor_files import test,books_data,original_books, ix
+from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
@@ -19,42 +21,36 @@ import operator
 import random
 
 
-db.drop_all()
-db.create_all()
 
 
 #db.drop_all()
-db.create_all()
+#db.create_all()
 @app.route("/")
 def home():
     return "Hello from flask > BRS file!"
 
-
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def apilogout():
-    logout_user()
-    return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+        logout_user()
+        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+        abort(400)
 
 
-@app.route('/login', methods=['POST','GET'])
+@app.route('/login', methods=['POST'])
 def apilogin():
-    if request.method == 'GET':
-        if current_user.is_authenticated:
-            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201 
-    else:      
-        if current_user.is_authenticated:
-            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
-        username = request.json.get('username')
-        password = request.json.get('password')
-        if username is None or password is None:
-            abort(400)  # missing arguments
-        user = User.query.filter_by(username=username).first()
-        if user and bcrypt.check_password_hash(user.password, password):
-            login_user(user)
-            return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
-        else:
-            return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
+    if current_user.is_authenticated:
+        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
+    username = request.json.get('username')
+    password = request.json.get('password')
+    if username is None or password is None:
+        abort(400)  # missing arguments
+    user = User.query.filter_by(username=username).first()
+    if user and bcrypt.check_password_hash(user.password, password):
+        login_user(user)
+        return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
+    else:
+        return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
 
 @app.route('/register', methods=['POST'])
@@ -79,22 +75,21 @@ def apiregister():
         return jsonify({'registered': 'False', 'message': 'User exists'}), 400
     else:
         pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-        user = User(username=username, email=email, password=pw_hash)
+        user = User(username=username, email=email, password=pw_hash, date_created = datetime.now())
         db.session.add(user)
         db.session.commit()
-        login_user(user)
-        return jsonify({'registered': 'True', 'message': 'Account Created', 'logged_in': 'True'}), 201
+        return jsonify({'registered': 'True', 'message': 'Account Created'}), 201
 
 
-@app.route('/new-rating/<int:book_id>', methods=['POST'])
+@app.route('/new-rating', methods=['POST'])
 @login_required
-def apirating(book_id):
+def apirating():
       user_id = User.get_id(current_user)
+      book_id = int(request.json.get('book_id'))
       print(book_id)
       if book_id < 1 or book_id>10000:
           abort(404)
       rating = int(request.json.get('rating'))
-      print(rating)
       if rating < 1 or rating > 5:
           return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
       genres=original_books['genres'][book_id-1]
@@ -112,15 +107,16 @@ def apiprofile():
       count=Book.query.filter_by(rater=current_user).count()
       user_name=current_user.username
       user_email=current_user.email
+      dateJoined = current_user.date_created
       ratedBooks = []
       my_fav_genres=[]
       for i in range (0,count): 
         my_fav_genres.append(books[i].genres)          
         ratedBooks.append({ 'id': books[i].book_id, 'title':  original_books['original_title'][books[i].book_id - 1], 'image': original_books['image_url'][books[i].book_id - 1], 'author':original_books['authors'][books[i].book_id - 1], 'rating': books[i].rating})
       my_fav_genres = list(dict.fromkeys(my_fav_genres))
-      return jsonify({'username': user_name, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
+      return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
 
-@app.route('/Recommend', methods=['GET'])
+@app.route('/Recommend', methods=['POST'])
 @login_required
 def apirecommend():
       obj=CORModel(correlation, test,books_data)
@@ -129,24 +125,24 @@ def apirecommend():
       if count==0:
       #print("RECOMMENDED FOR ANYBODY:")
       #sorted_avg_ratings.head()
-       minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+        minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
 
-       average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
-       sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3]
-       #sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
-       #random.shuffle(sorted_avg_ratings)
-       sorted_avg_ratings_book_id=[]
-       for j in sorted_avg_ratings.book_id:
-        sorted_avg_ratings_book_id.append(j)
+        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
+        sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3]
+        #sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
+        #random.shuffle(sorted_avg_ratings)
+        sorted_avg_ratings_book_id=[]
+        for j in sorted_avg_ratings.book_id:
+            sorted_avg_ratings_book_id.append(j)
 
-       random.shuffle(sorted_avg_ratings_book_id)
-       sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:20]
-       print(sorted_avg_ratings_book_id)
-       recs = []
-       for i in sorted_avg_ratings_book_id:
-        recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+        random.shuffle(sorted_avg_ratings_book_id)
+        sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:20]
+        print(sorted_avg_ratings_book_id)
+        recs = []
+        for i in sorted_avg_ratings_book_id:
+            recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
         #recs=json.dumps(recs)
-       return ({'Recommendations': recs}),200
+        return ({'Recommendations for anybody': recs}),200
 
       else:
        my_fav_ID=[]
@@ -156,10 +152,10 @@ def apirecommend():
        print(my_fav_ID)
        recommendations=obj.get_recommendations(my_fav_ID)
        print(recommendations)
-       recommendations=json.dumps(recommendations)
+       #recommendations=json.dumps(recommendations)
        return ({ 'Recommendations': recommendations }), 200
 
-@app.route('/trending', methods=['GET'])
+@app.route('/Trending', methods=['GET'])
 @login_required
 def apitrending():
       books= Book.query.filter_by(rater=current_user).all()
@@ -183,8 +179,8 @@ def apitrending():
        recs = []
        for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
-       recs=json.dumps(recs)
-       return  recs,200
+       #recs=json.dumps(recs)
+       return ({'Trendings for anybody': recs}),200
       else:
 
        my_fav_genres=[]
@@ -223,7 +219,7 @@ def apitrending():
         sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['ratings_count']>=30000]
         sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]
         print(sorted_avg_ratings['title'].head(10))
-        if (final==None)._bool_:
+        if (final==None).__bool__:
          final=sorted_avg_ratings
         else :
          final=final.append(sorted_avg_ratings)
@@ -249,17 +245,13 @@ def apitrending():
         trending = []
         for i in range(len(trendingIDs)):
             trending.append({'id': int(trendingIDs[i]), 'title':  original_books['original_title'][trendingIDs[i]-1], 'image': original_books['image_url'][trendingIDs[i]-1], 'author':original_books['authors'][trendingIDs[i]-1]})
-        trending = json.dumps(trending)
-        return trending, 200
+        #trending = json.dumps(trending)
+        return ({ 'Trending': trending }), 200
 
-@app.route('/Summary', methods=['POST'])
+@app.route('/Summary', methods=['GET'])
 @login_required
 def apisummary():
         book_id = int(request.json.get('book_id'))
-        if not book_id:
-            abort(400)
-        if not(0 < book_id <= 10000):
-            abort(400)
         authors=original_books['authors'][book_id-1]
         title=original_books['title'][book_id-1]
         average_rating=original_books['average_rating'][book_id-1]
@@ -283,3 +275,18 @@ def apisummary():
             summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not': 0})
             summary=json.dumps(summary)
             return summary
+
+@app.route('/search', methods=['POST'])
+@login_required
+def apisearch():
+    searchTerm = request.json.get('key')
+    searchTerm = searchTerm + "*"
+    with ix.searcher() as searcher:
+        query = MultifieldParser(["title", "author"], ix.schema).parse(searchTerm)
+        #query = query.append('*')
+        results = searcher.search(query, terms=True)
+        searchResults = []
+        for r in results:
+            result = dict(r)
+            searchResults.append(result)
+    return jsonify({"searchResults": searchResults}),200        
