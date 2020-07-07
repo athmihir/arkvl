@@ -15,60 +15,59 @@ const BookTitle = ({
   avgRating,
   isCover,
 }) => (
-    <div className={`${isCover ? 'cover' : ''} book-details`}>
-      <div className="book-card-details">
-        <div>
-          <p className="title">{booktitleis}</p>
-          <p className="author">by {bookauthoris}</p>
-        </div>
-        {isCover ? null : (
-          <div className="book-rating">
-            Rate the book
-            <ReactStars
-              count={5}
-              size={20}
-              color2={'var(--primary-color)'}
-              className="ratingStars"
-              onChange={ratingChanged}
-            />
-          </div>
-        )}
+  <div className={`${isCover ? 'cover' : ''} book-details`}>
+    <div className="book-card-details">
+      <div>
+        <p className="title">{booktitleis}</p>
+        <p className="author">by {bookauthoris}</p>
       </div>
-      {isCover ? (
-        <>
-          <p className="genre">Genre - {bookgenreis}</p>
-          <div className="rating-container">
-            <span className="rating">Average Rating</span>
-            <ReactStars
-              count={5}
-              size={24}
-              color2={'var(--primary-color)'}
-              className="ratingStars"
-              edit={false}
-              value={avgRating}
-            />
-          </div>
-          <p className="book-summary">{booksummary}</p>
-          <CustomButton invert={false}>Get a copy</CustomButton>
-        </>
-      ) : (
-          <span className="read-now">
-            {console.log("here is book id")}
-            {console.log(bookid)}
-            <Link to={`/book-summary/${bookid}`}>
-              {/* <Link
+      {isCover ? null : (
+        <div className="book-rating">
+          Rate the book
+          <ReactStars
+            count={5}
+            size={20}
+            color2={'var(--primary-color)'}
+            className="ratingStars"
+            onChange={ratingChanged}
+            half={false}
+          />
+        </div>
+      )}
+    </div>
+    {isCover ? (
+      <>
+        <p className="genre">Genre - {bookgenreis}</p>
+        <div className="rating-container">
+          <span className="rating">Average Rating</span>
+          <ReactStars
+            count={5}
+            size={24}
+            color2={'var(--primary-color)'}
+            className="ratingStars"
+            edit={false}
+            value={avgRating}
+          />
+        </div>
+        <p
+          className="book-summary"
+          dangerouslySetInnerHTML={{ __html: booksummary }}
+        ></p>
+        <CustomButton invert={false}>Get a copy</CustomButton>
+      </>
+    ) : (
+      <span className="read-now">
+        <Link to={`/book-summary/${bookid}`}>
+          {/* <Link
               to={{
                 pathname: `/book-summary/:bookid`,
                 query: { BOOKID: bookid }
               }}> */}
-              <a className="anchor-css">
-                Read Now
-              </a>
-            </Link>
-
-          </span>
-        )}
-    </div >
-  );
+          Read Now
+        </Link>
+      </span>
+    )}
+  </div>
+);
 
 export default BookTitle;

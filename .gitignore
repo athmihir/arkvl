@@ -10,3 +10,5 @@ API/venv
 API/flaskapi/__pycache__
 API/flaskapi/venv
 API/site.db
+
+client/node_modules

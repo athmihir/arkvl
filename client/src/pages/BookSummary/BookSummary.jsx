@@ -1,18 +1,14 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import BookCard from '../../components/BookImage/BookImage';
 import BookDetails from '../../components/BookDetails/BookDetails';
 import ReactStars from 'react-rating-stars-component';
-import SINGLEBOOK from '../../shared/singleBookDetail';
 import axios from 'axios';
 
 import './BookSummary.styles.css';
 
 class BookSummary extends Component {
-
   constructor(props) {
     super(props);
-    console.log("guys wtf props follows this text");
-    console.log(this.props.match.params.bookid);
     this.state = {
       book_id: this.props.match.params.bookid,
       rating: 0,
@@ -21,39 +17,48 @@ class BookSummary extends Component {
       bookAuthor: '',
       bookGenre: '',
       bookDesc: '',
-    }
+      avgRating: 0,
+    };
   }
 
   ratingChanged = (newRating) => {
-    this.setState(newRating);
+    axios
+      .post(`/new-rating/${this.state.book_id}`, {
+        rating: newRating,
+      })
+      .then((res) =>
+        this.setState({
+          rating: newRating,
+        }),
+      );
   };
 
   componentDidMount() {
-    axios.post('/Summary', {
-      book_id: this.state.book_id
-    })
+    axios
+      .post('/Summary', {
+        book_id: this.state.book_id,
+      })
       .then((res) => {
-        console.log("here is the res stuff");
-        console.log(res.data[0].author);
+        console.log(res.data[0]);
         this.setState({
           bookAuthor: res.data[0].author,
           imgSource: res.data[0].image_url,
           bookTitle: res.data[0].title,
           bookGenre: res.data[0].genres,
-          bookDesc: res.data[0].description
-        })
-      })
+          bookDesc: res.data[0].description,
+          avgRating: res.data[0].average_rating,
+          rating: res.data[0].read_or_not,
+        });
+      });
   }
 
-
   render() {
-    { console.log(this.props.match.params.bookid) }
     return (
-      <div className="book-summary-container" >
+      <div className="book-summary-container">
         <div className="book-image-container">
           <BookCard imagesource={this.state.imgSource} isCover />
           <div>
-            {SINGLEBOOK.userRating ? (
+            {this.state && this.state.rating !== 0 ? (
               <div className="rating-container">
                 <span className="rating">You Rated</span>
                 <ReactStars
@@ -62,21 +67,22 @@ class BookSummary extends Component {
                   color2={'var(--primary-color)'}
                   className="ratingStars"
                   edit={false}
-                  value={SINGLEBOOK.userRating}
+                  value={this.state.rating}
                 />
               </div>
             ) : (
-                <div className="rating-container">
-                  <h3 className="rating">Rate Now</h3>
-                  <ReactStars
-                    count={5}
-                    size={24}
-                    color2={'var(--primary-color)'}
-                    className="ratingStars"
-                    onChange={this.ratingChanged}
-                  />
-                </div>
-              )}
+              <div className="rating-container">
+                <h3 className="rating">Rate Now</h3>
+                <ReactStars
+                  count={5}
+                  size={24}
+                  color2={'var(--primary-color)'}
+                  className="ratingStars"
+                  onChange={this.ratingChanged}
+                  half={false}
+                />
+              </div>
+            )}
           </div>
         </div>
         <BookDetails
@@ -84,7 +90,7 @@ class BookSummary extends Component {
           bookauthoris={this.state.bookAuthor}
           bookgenreis={this.state.bookGenre}
           booksummary={this.state.bookDesc}
-          avgRating={SINGLEBOOK.avgRating}
+          avgRating={this.state.avgRating}
           isCover
         />
       </div>

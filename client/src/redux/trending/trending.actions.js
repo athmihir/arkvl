@@ -3,7 +3,7 @@ import TrendingActionTypes from './trending.type';
 
 export const FetchTrendingBooks = () => (dispatch) => {
   axios
-    .get('/trending')
+    .get('/Trending')
     .then((res) => {
       dispatch(TrendingBookAction(res.data));
     })

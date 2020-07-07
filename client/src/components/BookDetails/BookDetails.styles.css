@@ -34,12 +34,12 @@ div.book-details.cover {
   margin-left: 50px;
   align-self: center;
 }
-div.book-details.cover > .title {
+div.book-details.cover .title {
   font-size: 2em;
   max-width: initial;
 }
 
-div.book-details.cover > .author {
+div.book-details.cover .author {
   font-size: 1em;
   max-width: initial;
 }

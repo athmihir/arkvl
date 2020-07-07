@@ -58,7 +58,7 @@ class App extends React.Component {
             }
           />
         </Switch>
-        <SideBar />
+        {isAuthenticated ? <SideBar /> : null}
       </div>
     );
   }
