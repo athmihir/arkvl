@@ -108,7 +108,7 @@ def apirating(book_id):
       book = Book(book_id=book_id, user_id=user_id, rating=rating,genres=genres,title=title)
       db.session.add(book)
       db.session.commit()
-      return 200
+      return 'OK'
 
 @app.route('/UserProfile', methods=['POST'])
 @login_required
