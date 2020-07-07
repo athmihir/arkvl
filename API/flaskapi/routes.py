@@ -11,7 +11,7 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime
 from cor_model_modified import CORModel
-from cor_files import test,books_data,original_books, ix
+from cor_files import correlaton, test,books_data,original_books, ix
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
