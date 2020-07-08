@@ -39,15 +39,15 @@ class BookSummary extends Component {
         book_id: this.state.book_id,
       })
       .then((res) => {
-        console.log(res.data[0]);
+        console.log(res.data.Summary);
         this.setState({
-          bookAuthor: res.data[0].author,
-          imgSource: res.data[0].image_url,
-          bookTitle: res.data[0].title,
-          bookGenre: res.data[0].genres,
-          bookDesc: res.data[0].description,
-          avgRating: res.data[0].average_rating,
-          rating: res.data[0].read_or_not,
+          bookAuthor: res.data.Summary[0].author,
+          imgSource: res.data.Summary[0].image_url,
+          bookTitle: res.data.Summary[0].title,
+          bookGenre: res.data.Summary[0].genres,
+          bookDesc: res.data.Summary[0].description,
+          avgRating: res.data.Summary[0].average_rating,
+          rating: res.data.Summary[0].read_or_not,
         });
       });
   }
@@ -71,18 +71,18 @@ class BookSummary extends Component {
                 />
               </div>
             ) : (
-              <div className="rating-container">
-                <h3 className="rating">Rate Now</h3>
-                <ReactStars
-                  count={5}
-                  size={24}
-                  color2={'var(--primary-color)'}
-                  className="ratingStars"
-                  onChange={this.ratingChanged}
-                  half={false}
-                />
-              </div>
-            )}
+                <div className="rating-container">
+                  <h3 className="rating">Rate Now</h3>
+                  <ReactStars
+                    count={5}
+                    size={24}
+                    color2={'var(--primary-color)'}
+                    className="ratingStars"
+                    onChange={this.ratingChanged}
+                    half={false}
+                  />
+                </div>
+              )}
           </div>
         </div>
         <BookDetails

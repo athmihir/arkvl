@@ -11,3 +11,5 @@ API/flaskapi/venv
 API/site.db
 
 client/node_modules
+
+node_modules
