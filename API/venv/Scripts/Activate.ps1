@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\ketki_laptop\Desktop\BookRecommenderSystem\Book-Recommender\API\venv"
+$env:VIRTUAL_ENV="C:\Users\ketki_laptop\Desktop\BookRecommenderSystem\Book_Recommender\API\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

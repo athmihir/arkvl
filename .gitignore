@@ -1,9 +1,8 @@
 env
 API/BooksWithGenresSidEdit.csv
-API/titles.csv
 API/corrmat.csv
 API/test_new.txt
-API/FinalBookmodified.csv
+API/NewCorMatrix.csv
 
 API/__pycache__
 API/venv
@@ -12,3 +11,5 @@ API/flaskapi/venv
 API/site.db
 
 client/node_modules
+
+node_modules

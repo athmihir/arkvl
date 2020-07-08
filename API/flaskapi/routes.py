@@ -11,7 +11,11 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime
 from cor_model_modified import CORModel
+<<<<<<< HEAD
 from cor_files import correlation, test,books_data,original_books, ix
+=======
+from cor_files import correlation,test,books_data,original_books, ix
+>>>>>>> b1284a89063df92dcf4cc5cd7fbe5ef7e285556c
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -20,14 +24,8 @@ import json
 import operator
 import random
 
-
-
-
-#db.drop_all()
-#db.create_all()
-@app.route("/")
-def home():
-    return "Hello from flask > BRS file!"
+db.drop_all()
+db.create_all()
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -36,8 +34,12 @@ def apilogout():
         return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
         abort(400)
 
+<<<<<<< HEAD
 
 @app.route('/login', methods=['POST','GET'])
+=======
+@app.route('/login', methods=['POST', 'GET'])
+>>>>>>> b1284a89063df92dcf4cc5cd7fbe5ef7e285556c
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
@@ -50,6 +52,8 @@ def apilogin():
     password = request.json.get('password')
     if username is None or password is None:
         abort(400)  # missing arguments
+    if not (1 < len(username) < 20) or not (1 < len(password) < 60):
+        abort(400)
     user = User.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password, password):
         login_user(user)
@@ -60,6 +64,8 @@ def apilogin():
 
 @app.route('/register', methods=['POST'])
 def apiregister():
+    if current_user.is_authenticated:
+        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 401
     username = request.json.get('username')
     password = request.json.get('password')
     email = request.json.get('email')
@@ -83,29 +89,36 @@ def apiregister():
         user = User(username=username, email=email, password=pw_hash, date_created = datetime.now())
         db.session.add(user)
         db.session.commit()
+        login_user(user)
         return jsonify({'registered': 'True', 'message': 'Account Created'}), 201
-
 
 @app.route('/new-rating', methods=['POST'])
 @login_required
 def apirating():
-      user_id = User.get_id(current_user)
-      book_id = int(request.json.get('book_id'))
+      book_id = request.json.get('book_id')
+      if book_id is None:
+        abort(400) 
+      else:
+          book_id=int(book_id)
       print(book_id)
-      if book_id < 1 or book_id>10000:
+      if not (1 <= book_id <= 10000):
           abort(404)
-      rating = int(request.json.get('rating'))
-      if rating < 1 or rating > 5:
-          return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
+      rating = request.json.get('rating')
+      if rating is None:
+        abort(400) 
+      else:
+          rating=int(rating)
+      if not (1 <= rating <= 5):
+        return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
       genres=original_books['genres'][book_id-1]
       print(genres)
       title=original_books['title'][book_id-1]
-      book = Book(book_id=book_id, user_id=user_id, rating=rating,genres=genres,title=title)
+      book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
       db.session.add(book)
       db.session.commit()
       return 'OK'
 
-@app.route('/UserProfile', methods=['POST'])
+@app.route('/UserProfile', methods=['GET'])
 @login_required
 def apiprofile():
       books= Book.query.filter_by(rater=current_user).all()
@@ -115,10 +128,13 @@ def apiprofile():
       dateJoined = current_user.date_created
       ratedBooks = []
       my_fav_genres=[]
-      for i in range (0,count): 
-        my_fav_genres.append(books[i].genres)          
+      for i in range (0,count):
+        myFavGenresString = books[i].genres
+        myFavGenresList = myFavGenresString.split(",")            
+        my_fav_genres.extend(myFavGenresList)          
         ratedBooks.append({ 'id': books[i].book_id, 'title':  original_books['original_title'][books[i].book_id - 1], 'image': original_books['image_url'][books[i].book_id - 1], 'author':original_books['authors'][books[i].book_id - 1], 'rating': books[i].rating})
       my_fav_genres = list(dict.fromkeys(my_fav_genres))
+      my_fav_genres = ','.join(my_fav_genres)
       return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
 
 @app.route('/Recommend', methods=['GET'])
@@ -147,7 +163,7 @@ def apirecommend():
         for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
         #recs=json.dumps(recs)
-        return ({'Recommendations for anybody': recs}),200
+        return ({'Recommendations': recs}),200
 
       else:
        my_fav_ID=[]
@@ -185,7 +201,7 @@ def apitrending():
        for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
        #recs=json.dumps(recs)
-       return ({'Trendings for anybody': recs}),200
+       return ({'Trending': recs}),200
       else:
 
        my_fav_genres=[]
@@ -253,10 +269,16 @@ def apitrending():
         #trending = json.dumps(trending)
         return ({ 'Trending': trending }), 200
 
-@app.route('/Summary', methods=['GET'])
+@app.route('/Summary', methods=['POST'])
 @login_required
 def apisummary():
-        book_id = int(request.json.get('book_id'))
+        book_id = request.json.get('book_id')
+        if book_id is None:
+          abort(400) 
+        else:
+          book_id=int(book_id)
+        if not (1 <= book_id <= 10000):
+          abort(404)
         authors=original_books['authors'][book_id-1]
         title=original_books['title'][book_id-1]
         average_rating=original_books['average_rating'][book_id-1]
@@ -272,19 +294,22 @@ def apisummary():
         for i in range (0,count): 
             if book_id == books[i].book_id:
               c=c+1
+              rating=books[i].rating
         if c!=0:
-            summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not':1})
-            summary=json.dumps(summary)
-            return summary
+            summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not':rating})
+            #summary=json.dumps(summary)
+            return ({"Summary":summary}),200
         else:
             summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not': 0})
-            summary=json.dumps(summary)
-            return summary
+            #summary=json.dumps(summary)
+            return ({"Summary":summary}),200
 
 @app.route('/search', methods=['POST'])
 @login_required
 def apisearch():
     searchTerm = request.json.get('key')
+    if searchTerm is None:
+          abort(400) 
     searchTerm = searchTerm + "*"
     with ix.searcher() as searcher:
         query = MultifieldParser(["title", "author"], ix.schema).parse(searchTerm)
@@ -294,4 +319,9 @@ def apisearch():
         for r in results:
             result = dict(r)
             searchResults.append(result)
-    return jsonify({"searchResults": searchResults}),200        
+    return jsonify({"searchResults": searchResults}),200    
+
+
+
+
+

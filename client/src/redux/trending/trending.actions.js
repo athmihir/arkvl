@@ -19,5 +19,5 @@ export const RemoveRatedBook = (id) => ({
 
 const TrendingBookAction = (data) => ({
   type: TrendingActionTypes.SUCCESS_FETCH_TRENDING,
-  payload: data,
+  payload: data.Trending,
 });
