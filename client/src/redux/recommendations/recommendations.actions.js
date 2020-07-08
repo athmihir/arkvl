@@ -4,7 +4,7 @@ import RecommendationsActionTypes from './recommendations.type';
 export const recommendationsUsersSuccess = (res) => {
   return {
     type: RecommendationsActionTypes.SUCCESS_FETCH_RECOMMENDATIONS,
-    payload: res.data,
+    payload: res.data.Recommendations,
   };
 };
 

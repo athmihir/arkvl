@@ -11,7 +11,7 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime
 from cor_model_modified import CORModel
-from cor_files import test,books_data,original_books, ix
+from cor_files import correlation,test,books_data,original_books, ix
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -154,7 +154,7 @@ def apirecommend():
         for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
         #recs=json.dumps(recs)
-        return ({'Recommendations for anybody': recs}),200
+        return ({'Recommendations': recs}),200
 
       else:
        my_fav_ID=[]
@@ -192,7 +192,7 @@ def apitrending():
        for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
        #recs=json.dumps(recs)
-       return ({'Trendings for anybody': recs}),200
+       return ({'Trending': recs}),200
       else:
 
        my_fav_genres=[]
