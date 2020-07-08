@@ -1,9 +1,7 @@
 env
 API/BooksWithGenresSidEdit.csv
-API/titles.csv
 API/corrmat.csv
 API/test_new.txt
-API/FinalBooksEdit.csv
 API/NewCorMatrix.csv
 
 API/__pycache__
