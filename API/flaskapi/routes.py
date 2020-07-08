@@ -11,7 +11,7 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime
 from cor_model_modified import CORModel
-from cor_files import correlation, test,books_data,original_books, ix
+from cor_files import test,books_data,original_books, ix
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -19,6 +19,9 @@ from numpy import genfromtxt
 import json
 import operator
 import random
+
+db.drop_all()
+db.create_all()
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -52,6 +55,8 @@ def apilogin():
 
 @app.route('/register', methods=['POST'])
 def apiregister():
+    if current_user.is_authenticated:
+        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 401
     username = request.json.get('username')
     password = request.json.get('password')
     email = request.json.get('email')
@@ -75,6 +80,7 @@ def apiregister():
         user = User(username=username, email=email, password=pw_hash, date_created = datetime.now())
         db.session.add(user)
         db.session.commit()
+        login_user(user)
         return jsonify({'registered': 'True', 'message': 'Account Created'}), 201
 
 @app.route('/new-rating', methods=['POST'])
