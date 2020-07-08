@@ -20,6 +20,12 @@ import json
 import operator
 import random
 
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def apilogout():
+        logout_user()
+        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+        abort(400)
 
 @app.route('/login', methods=['POST', 'GET'])
 def apilogin():
@@ -107,10 +113,13 @@ def apiprofile():
       dateJoined = current_user.date_created
       ratedBooks = []
       my_fav_genres=[]
-      for i in range (0,count): 
-        my_fav_genres.append(books[i].genres)          
+      for i in range (0,count):
+        myFavGenresString = books[i].genres
+        myFavGenresList = myFavGenresString.split(",")            
+        my_fav_genres.extend(myFavGenresList)          
         ratedBooks.append({ 'id': books[i].book_id, 'title':  original_books['original_title'][books[i].book_id - 1], 'image': original_books['image_url'][books[i].book_id - 1], 'author':original_books['authors'][books[i].book_id - 1], 'rating': books[i].rating})
       my_fav_genres = list(dict.fromkeys(my_fav_genres))
+      my_fav_genres = ','.join(my_fav_genres)
       return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
 
 @app.route('/Recommend', methods=['GET'])

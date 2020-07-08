@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
 import csv
 import os, os.path
@@ -14,7 +12,7 @@ with open("test_new.txt",errors='ignore') as f:
 corrmat=pd.read_csv('NewCorMatrix.csv',header=None)
 correlation=corrmat.to_numpy()
 original_books=pd.read_csv('FinalBooksEdit.csv',encoding='latin')
-books_data=pd.read_csv('titles.csv')
+books_data=pd.read_csv('titles.csv', encoding='latin')
 
 #schema = Schema(book_id = NUMERIC(stored=True), title=TEXT(stored=True, phrase=True), author=TEXT(stored=True, phrase=True), image_url=TEXT(stored=True))
 
