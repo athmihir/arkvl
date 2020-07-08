@@ -4,9 +4,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import './BookDirectory.styles.css';
 export default function BookDirectory({ BOOKS, removeRated }) {
+  console.log(BOOKS);
   return (
     <div className="book-directory">
-      {Array.isArray(BOOKS) ? (
+      {BOOKS && BOOKS.length > 0 ? (
         BOOKS.map((book) => (
           <ReactCSSTransitionGroup
             transitionName="fade"

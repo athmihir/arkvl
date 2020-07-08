@@ -11,7 +11,7 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime
 from cor_model_modified import CORModel
-from cor_files import correlaton, test,books_data,original_books, ix
+from cor_files import correlation, test,books_data,original_books, ix
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -37,8 +37,13 @@ def apilogout():
         abort(400)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def apilogin():
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
+        else:
+            abort(401)
     if current_user.is_authenticated:
         return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
     username = request.json.get('username')
@@ -116,7 +121,7 @@ def apiprofile():
       my_fav_genres = list(dict.fromkeys(my_fav_genres))
       return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
 
-@app.route('/Recommend', methods=['POST'])
+@app.route('/Recommend', methods=['GET'])
 @login_required
 def apirecommend():
       obj=CORModel(correlation, test,books_data)
@@ -219,7 +224,7 @@ def apitrending():
         sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['ratings_count']>=30000]
         sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]
         print(sorted_avg_ratings['title'].head(10))
-        if (final==None).__bool__:
+        if final is None:
          final=sorted_avg_ratings
         else :
          final=final.append(sorted_avg_ratings)
