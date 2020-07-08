@@ -12,14 +12,10 @@ export default function BookDirectory({ BOOKS, removeRated }) {
           <ReactCSSTransitionGroup
             transitionName="fade"
             transitionEnterTimeout={500}
+            key={book.id}
             transitionLeaveTimeout={300}
           >
-            <BookCard
-              book={book}
-              bookno={book.id}
-              removeRated={removeRated}
-              key={book.id}
-            />
+            <BookCard book={book} bookno={book.id} removeRated={removeRated} />
           </ReactCSSTransitionGroup>
         ))
       ) : (

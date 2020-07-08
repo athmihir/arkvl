@@ -9,8 +9,9 @@ export default function BookCard({ book, bookno, removeRated }) {
   const ratingChanged = (newRating) => {
     console.log(newRating);
     axios
-      .post(`/new-rating/${book.id}`, {
+      .post(`/new-rating/`, {
         rating: newRating,
+        book_id: book.id,
       })
       .then((res) => removeRated(book.id))
       .catch((err) => {

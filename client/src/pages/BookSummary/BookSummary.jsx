@@ -23,8 +23,9 @@ class BookSummary extends Component {
 
   ratingChanged = (newRating) => {
     axios
-      .post(`/new-rating/${this.state.book_id}`, {
+      .post(`/new-rating/`, {
         rating: newRating,
+        book_id: this.state.book_id,
       })
       .then((res) =>
         this.setState({
@@ -71,18 +72,18 @@ class BookSummary extends Component {
                 />
               </div>
             ) : (
-                <div className="rating-container">
-                  <h3 className="rating">Rate Now</h3>
-                  <ReactStars
-                    count={5}
-                    size={24}
-                    color2={'var(--primary-color)'}
-                    className="ratingStars"
-                    onChange={this.ratingChanged}
-                    half={false}
-                  />
-                </div>
-              )}
+              <div className="rating-container">
+                <h3 className="rating">Rate Now</h3>
+                <ReactStars
+                  count={5}
+                  size={24}
+                  color2={'var(--primary-color)'}
+                  className="ratingStars"
+                  onChange={this.ratingChanged}
+                  half={false}
+                />
+              </div>
+            )}
           </div>
         </div>
         <BookDetails

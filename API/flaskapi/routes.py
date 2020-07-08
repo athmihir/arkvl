@@ -11,11 +11,7 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime
 from cor_model_modified import CORModel
-<<<<<<< HEAD
 from cor_files import correlation, test,books_data,original_books, ix
-=======
-from cor_files import correlation,test,books_data,original_books, ix
->>>>>>> b1284a89063df92dcf4cc5cd7fbe5ef7e285556c
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -34,12 +30,8 @@ def apilogout():
         return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
         abort(400)
 
-<<<<<<< HEAD
 
 @app.route('/login', methods=['POST','GET'])
-=======
-@app.route('/login', methods=['POST', 'GET'])
->>>>>>> b1284a89063df92dcf4cc5cd7fbe5ef7e285556c
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
