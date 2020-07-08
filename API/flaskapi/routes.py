@@ -21,7 +21,7 @@ import operator
 import random
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
