@@ -4,6 +4,25 @@ div.book-directory {
   gap: 3em;
   justify-items: center;
 }
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
+
 @media screen and (max-width: 700px) {
   div.book-directory {
     grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));

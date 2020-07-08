@@ -53,6 +53,9 @@ class CORModel:
 
         book_preferences = []
         for i in range(len(self.book_titles)):
+            print(len(self.book_titles),len(self.book_correlations))
+            print(self.book_titles[8034])
+            print(self.book_correlations[8034])
             if self.book_titles[i] not in my_fav_books:
              book_preferences.append((self.book_titles[i], book_similarities[i]))
         
