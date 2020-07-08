@@ -94,21 +94,26 @@ def apiregister():
 @app.route('/new-rating/<int:book_id>', methods=['POST'])
 @login_required
 def apirating(book_id):
-      user_id = User.get_id(current_user)
-      print(book_id)
-      if book_id < 1 or book_id>10000:
-          abort(404)
-      rating = int(request.json.get('rating'))
-      print(rating)
-      if rating < 1 or rating > 5:
-          return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
-      genres=original_books['genres'][book_id-1]
-      print(genres)
-      title=original_books['title'][book_id-1]
-      book = Book(book_id=book_id, user_id=user_id, rating=rating,genres=genres,title=title)
-      db.session.add(book)
-      db.session.commit()
-      return 200
+    try:
+        user_id = User.get_id(current_user)
+        print(book_id)
+        if book_id < 1 or book_id>10000:
+            abort(404)
+        rating = int(request.json.get('rating'))
+        print(rating)
+        if rating < 1 or rating > 5:
+            return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
+        genres=original_books['genres'][book_id-1]
+        print(genres)
+        title=original_books['title'][book_id-1]
+        book = Book(book_id=book_id, user_id=user_id, rating=rating,genres=genres,title=title)
+        db.session.add(book)
+        db.session.commit()
+        return 'ok'
+    except:
+        print(book_id)
+        abort(400)
+
 
 @app.route('/UserProfile', methods=['POST'])
 @login_required
@@ -148,8 +153,8 @@ def apirecommend():
        recs = []
        for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
-       recs=json.dumps(recs)
-       return recs
+       #recs=json.dumps(recs)
+       return ({"Recommendation":recs})
 
       else:
        my_fav_ID=[]
@@ -159,8 +164,8 @@ def apirecommend():
        print(my_fav_ID)
        recommendations=obj.get_recommendations(my_fav_ID)
        print(recommendations)
-       recommendations=json.dumps(recommendations)
-       return recommendations 
+       #recommendations=json.dumps(recommendations)
+       return ({"Recommendation":recommendations}) 
 
 @app.route('/Trending', methods=['GET'])
 @login_required
@@ -186,8 +191,8 @@ def apitrending():
        recs = []
        for i in sorted_avg_ratings_book_id:
             recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
-       recs=json.dumps(recs)
-       return recs
+       #recs=json.dumps(recs)
+       return ({"Trending":recs})
        #return {'Trendings for anybody': recs}
       else:
 
@@ -253,8 +258,8 @@ def apitrending():
         trending = []
         for i in range(len(trendingIDs)):
             trending.append({'id': int(trendingIDs[i]), 'title':  original_books['original_title'][trendingIDs[i]-1], 'image': original_books['image_url'][trendingIDs[i]-1], 'author':original_books['authors'][trendingIDs[i]-1]})
-        trending = json.dumps(trending)
-        return trending 
+        #trending = json.dumps(trending)
+        return ({"Trending":trending})
 
 @app.route('/Summary', methods=['GET'])
 @login_required
@@ -278,9 +283,9 @@ def apisummary():
               rating=books[i].rating
         if c!=0:
             summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not':rating})
-            summary=json.dumps(summary)
-            return summary
+            #summary=json.dumps(summary)
+            return ({"Summary":summary})
         else:
             summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not': 0})
-            summary=json.dumps(summary)
-            return summary
+            #summary=json.dumps(summary)
+            return ({"Summary":summary})
