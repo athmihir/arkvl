@@ -26,7 +26,7 @@ const BookTitle = ({
           Rate the book
           <ReactStars
             count={5}
-            size={20}
+            size={18}
             color2={'var(--primary-color)'}
             className="ratingStars"
             onChange={ratingChanged}
@@ -42,7 +42,7 @@ const BookTitle = ({
           <span className="rating">Average Rating</span>
           <ReactStars
             count={5}
-            size={24}
+            size={18}
             color2={'var(--primary-color)'}
             className="ratingStars"
             edit={false}
@@ -57,14 +57,7 @@ const BookTitle = ({
       </>
     ) : (
       <span className="read-now">
-        <Link to={`/book-summary/${bookid}`}>
-          {/* <Link
-              to={{
-                pathname: `/book-summary/:bookid`,
-                query: { BOOKID: bookid }
-              }}> */}
-          Read Now
-        </Link>
+        <Link to={`/book-summary/${bookid}`}>Read Now</Link>
       </span>
     )}
   </div>
