@@ -1,5 +1,6 @@
 import React from 'react';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
+import Search from '../../components/Search/Search';
 import { connect } from 'react-redux';
 
 import {
@@ -17,7 +18,10 @@ class Trending extends React.Component {
     const { trending } = this.props;
     return (
       <div className="trending-books">
-        <h1>Trending.</h1>
+        <div className="page-header">
+          <h1> Trending. </h1>
+          <Search />
+        </div>
         <BookDirectory BOOKS={trending} removeRated={this.props.removeRated} />
       </div>
     );

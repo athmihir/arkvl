@@ -7,6 +7,7 @@ import {
 } from '../../redux/recommendations/recommendations.actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import Search from '../../components/Search/Search';
 
 class Recommended extends Component {
   // componentWillMount() {
@@ -22,7 +23,10 @@ class Recommended extends Component {
   render() {
     return (
       <div className="recommended-books">
-        <h1> For You.</h1>
+        <div className="page-header">
+          <h1> For You.</h1>
+          <Search />
+        </div>
         <BookDirectory
           BOOKS={this.props.loadRecs}
           removeRated={this.props.removeRated}

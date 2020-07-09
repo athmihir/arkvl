@@ -30,12 +30,11 @@ span.read-now {
 }
 
 div.book-details.cover {
-  max-width: 65%;
   margin-left: 50px;
   align-self: center;
 }
 div.book-details.cover .title {
-  font-size: 2em;
+  font-size: 1.7em;
   max-width: initial;
 }
 
@@ -59,6 +58,7 @@ div.book-details.cover > .book-summary {
 }
 @media screen and (max-width: 1000px) {
   div.book-details.cover {
+    max-width: 70%;
     margin: auto;
     margin-top: 15px;
   }
@@ -66,5 +66,12 @@ div.book-details.cover > .book-summary {
   div.book-details:not(.cover) > .book-card-details {
     flex-direction: column;
     align-items: initial;
+  }
+}
+
+@media screen and (width: 320px) {
+  div.book-details.cover {
+    margin: 10%;
+    margin-top: 15px;
   }
 }

@@ -2,7 +2,7 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding: 10vh 10%;
+  padding: 10vh 15% 10vh 10%;
 }
 
 .book-image-container {
@@ -15,6 +15,7 @@ div .rating {
   margin: 0;
   font-weight: 400;
   margin-right: 10px;
+  max-width: 5em;
 }
 
 .rating-container {
@@ -26,6 +27,7 @@ div .rating {
   .book-summary-container {
     grid-template-columns: auto;
     margin-left: 0;
+    padding: 10vh 10%;
   }
 
   .book-image-container {
