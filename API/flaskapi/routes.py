@@ -296,7 +296,7 @@ def apisummary():
             #summary=json.dumps(summary)
             return ({"Summary":summary}),200
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET'])
 @login_required
 def apisearch():
     searchTerm = request.json.get('key')

@@ -9,8 +9,14 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Recommended extends Component {
-  componentWillMount() {
-    this.props.fetchedBooks();
+  // componentWillMount() {
+  //   this.props.fetchedBooks();
+  // }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.fetchedBooks();
+    }, 2000)
   }
 
   render() {
