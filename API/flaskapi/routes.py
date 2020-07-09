@@ -35,7 +35,7 @@ def apilogout():
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
-            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already','Username':current_user.username}), 201
         else:
             abort(401)
     if current_user.is_authenticated:
@@ -49,7 +49,7 @@ def apilogin():
     user = User.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password, password):
         login_user(user)
-        return jsonify({'logged_in': 'True', 'message': 'User Logged in'}), 201
+        return jsonify({'logged_in': 'True', 'message': 'User Logged in', 'Username':current_user.username}), 201
     else:
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
@@ -82,7 +82,7 @@ def apiregister():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return jsonify({'registered': 'True', 'message': 'Account Created'}), 201
+        return jsonify({'registered': 'True', 'message': 'Account Created','Username':current_user.username}), 201
 
 @app.route('/new-rating', methods=['POST'])
 @login_required
