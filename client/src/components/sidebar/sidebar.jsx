@@ -1,16 +1,24 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
-
-import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
-import { ReactComponent as ClipBoardIcon } from '../../assets/icons/content_paste-24px.svg';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/ArrowPointer.svg';
-import { ReactComponent as UserAvatar } from '../../assets/useravatar.svg';
+import { ReactComponent as UserAvatar } from '../../assets/user.svg';
+import { userLogout } from '../../redux/rootreducer';
+import axios from 'axios';
 import './sidebar.styles.css';
 
-const SideBar = () => {
+const SideBar = ({ userName, logout, history }) => {
+  const handleLogout = () => {
+    console.log('afdshfj');
+    axios.post('/logout').then((res) => {
+      logout();
+      history.push('/');
+    });
+  };
   const [open, setOpen] = useState(false);
   const toggleMenu = () => setOpen(!open);
   return (
@@ -46,24 +54,37 @@ const SideBar = () => {
             <span className="nav-link user-avatar">
               <UserAvatar onClick={toggleMenu} />
               <div className="link-text">
-                <span className="user-name">SkARfaCE</span>
                 <NavLink to="/user-profile" className="user-username">
-                  @scarface
+                  {userName}
                 </NavLink>
-                <span className="user-logout">logout</span>
+                <a className="user-logout" onClick={handleLogout}>
+                  logout
+                </a>
               </div>
             </span>
           </li>
         </ul>
       </nav>
       <div className="hand-held-menu">
-        <span className="user-name">SkARfaCE</span>
-        <NavLink to="/user-profile" className="user-username">
-          @scarface
-        </NavLink>
-        <span className="user-logout">logout</span>
+        <Link to="/user-profile" className="user-username">
+          {userName}
+        </Link>
+        <span className="user-logout" onClick={handleLogout}>
+          logout
+        </span>
       </div>
     </>
   );
 };
-export default SideBar;
+
+const mapStateToProps = (state) => ({
+  userName: state.user.userName,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(userLogout()),
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SideBar),
+);

@@ -35,7 +35,9 @@ class App extends React.Component {
                 ) : (
                   <LoginRegister />
                 )
-              ) : null
+              ) : (
+                <LoginRegister />
+              )
             }
           />
           <Route

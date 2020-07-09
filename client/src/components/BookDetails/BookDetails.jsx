@@ -1,7 +1,6 @@
 import React from 'react';
 import './BookDetails.styles.css';
 import ReactStars from 'react-rating-stars-component';
-import CustomButton from '../../components/CustomButton/CustomButton';
 import { Link } from 'react-router-dom';
 
 const BookTitle = ({
@@ -14,17 +13,28 @@ const BookTitle = ({
   booksummary,
   avgRating,
   isCover,
+  rating,
 }) => (
   <div className={`${isCover ? 'cover' : ''} book-details`}>
     <div className="book-card-details">
       <div>
-        <strong>
-          <p className="title">{booktitleis}</p>
-        </strong>
+        <p className="title">{booktitleis}</p>
 
         <p className="author">by {bookauthoris}</p>
       </div>
-      {isCover ? null : (
+      {isCover ? null : rating ? (
+        <div className="book-rating">
+          You rated
+          <ReactStars
+            count={5}
+            size={18}
+            color2={'var(--primary-color)'}
+            className="ratingStars"
+            onChange={ratingChanged}
+            value={rating}
+          />
+        </div>
+      ) : (
         <div className="book-rating">
           Rate this book
           <ReactStars

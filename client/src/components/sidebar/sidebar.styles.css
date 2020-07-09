@@ -194,13 +194,24 @@
     margin-top: 5px;
   }
 
-  .open .user-avatar .link-text > span.user-logout {
+  .open .user-avatar .link-text > a.user-logout {
     color: var(--primary-color);
     cursor: pointer;
+  }
+
+  .open .user-avatar .link-text > a.user-logout:hover {
+    color: #f02057;
   }
 
   .open .user-avatar .link-text > a.user-username:hover {
     color: var(--primary-color);
     cursor: pointer;
+  }
+
+  .user-username.active {
+    background: var(--bg-primary);
+    color: var(--primary-color);
+    fill: var(--text-primary) !important;
+    border-left: 2px solid transparent;
   }
 }
