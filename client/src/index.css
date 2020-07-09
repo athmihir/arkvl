@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
-
 :root {
   --primary-color: #f8004f;
   --primary-text: #333;
@@ -24,6 +23,7 @@ html {
 
 body {
   margin: 0;
+  font-family: 'Lora', serif;
 }
 
 /**

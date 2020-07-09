@@ -10,14 +10,10 @@ import { connect } from 'react-redux';
 import Search from '../../components/Search/Search';
 
 class Recommended extends Component {
-  // componentWillMount() {
-  //   this.props.fetchedBooks();
-  // }
-
   componentDidMount() {
     setTimeout(() => {
       this.props.fetchedBooks();
-    }, 2000)
+    }, 2000);
   }
 
   render() {

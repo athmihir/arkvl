@@ -10,10 +10,11 @@ import {
 import './Trending.styles.css';
 
 class Trending extends React.Component {
-  componentWillMount() {
-    this.props.fetchTrending();
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.fetchTrending();
+    }, 2000);
   }
-
   render() {
     const { trending } = this.props;
     return (

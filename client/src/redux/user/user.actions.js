@@ -1,7 +1,7 @@
 import axios from 'axios';
 import UserActionTypes from './user.types';
 
-export const checkUserStatus = () => (dispatch) => {
+export const checkUserStatus = () => async (dispatch) => {
   axios
     .get('/login')
     .then((res) => {

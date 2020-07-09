@@ -13,11 +13,10 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
 
 class App extends React.Component {
-  componentWillMount() {
-    if (!this.props.isAuthenticated) {
-      setTimeout(() => {
-        this.props.checkUserLoggedIn();
-      }, 10);
+  componentDidMount() {
+    console.log(this.props.isAuthenticated);
+    if (this.props.isAuthenticated === undefined) {
+      this.props.checkUserLoggedIn();
     }
   }
   render() {
@@ -30,31 +29,63 @@ class App extends React.Component {
             exact
             path="/"
             render={() =>
-              isAuthenticated ? <Recommended /> : <LoginRegister />
+              isAuthenticated !== undefined ? (
+                isAuthenticated ? (
+                  <Recommended />
+                ) : (
+                  <LoginRegister />
+                )
+              ) : null
             }
           />
           <Route
             exact
             path="/trending"
-            render={() => (isAuthenticated ? <Trending /> : <LoginRegister />)}
+            render={() =>
+              isAuthenticated !== undefined ? (
+                isAuthenticated ? (
+                  <Trending />
+                ) : (
+                  <LoginRegister />
+                )
+              ) : null
+            }
           />
           <Route
             path="/login"
             render={() =>
-              isAuthenticated ? <Recommended /> : <LoginRegister />
+              isAuthenticated !== undefined ? (
+                isAuthenticated ? (
+                  <Recommended />
+                ) : (
+                  <LoginRegister />
+                )
+              ) : null
             }
           />
           <Route
             path="/user-profile"
             render={() =>
-              isAuthenticated ? <UserProfile /> : <LoginRegister />
+              isAuthenticated !== undefined ? (
+                isAuthenticated ? (
+                  <UserProfile />
+                ) : (
+                  <LoginRegister />
+                )
+              ) : null
             }
           />
           <Route
             path="/book-summary/:bookid"
             component={BookSummary}
             render={() =>
-              isAuthenticated ? <BookSummary /> : <LoginRegister />
+              isAuthenticated !== undefined ? (
+                isAuthenticated ? (
+                  <BookSummary />
+                ) : (
+                  <LoginRegister />
+                )
+              ) : null
             }
           />
         </Switch>

@@ -1,7 +1,7 @@
 import UserActionType from './user.types';
 
 const INITIAL_STATE = {
-  isAuthenticated: false,
+  isAuthenticated: undefined,
   error: null,
 };
 

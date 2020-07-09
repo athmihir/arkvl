@@ -18,12 +18,15 @@ const BookTitle = ({
   <div className={`${isCover ? 'cover' : ''} book-details`}>
     <div className="book-card-details">
       <div>
-        <p className="title">{booktitleis}</p>
+        <strong>
+          <p className="title">{booktitleis}</p>
+        </strong>
+
         <p className="author">by {bookauthoris}</p>
       </div>
       {isCover ? null : (
         <div className="book-rating">
-          Rate the book
+          Rate this book
           <ReactStars
             count={5}
             size={18}
@@ -40,7 +43,7 @@ const BookTitle = ({
         <p className="genre">
           Genre - <span>{bookgenreis}</span>
         </p>
-        <div className="rating-container">
+        <div className="avg-rating-container">
           <span className="rating">Average Rating</span>
           <ReactStars
             count={5}
@@ -51,11 +54,16 @@ const BookTitle = ({
             value={avgRating}
           />
         </div>
-        <p
-          className="book-summary"
-          dangerouslySetInnerHTML={{ __html: booksummary }}
-        ></p>
-        <CustomButton invert={false}>Get a copy</CustomButton>
+        <div>
+          <p>About the book.</p>
+          <p
+            className="book-summary"
+            dangerouslySetInnerHTML={{ __html: booksummary }}
+          ></p>
+        </div>
+        <span className="book-link">
+          Get a copy - <Link>Amazon</Link>
+        </span>
       </>
     ) : (
       <span className="read-now">
