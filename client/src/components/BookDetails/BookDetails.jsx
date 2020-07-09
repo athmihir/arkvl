@@ -37,7 +37,9 @@ const BookTitle = ({
     </div>
     {isCover ? (
       <>
-        <p className="genre">Genre - {bookgenreis}</p>
+        <p className="genre">
+          Genre - <span>{bookgenreis}</span>
+        </p>
         <div className="rating-container">
           <span className="rating">Average Rating</span>
           <ReactStars

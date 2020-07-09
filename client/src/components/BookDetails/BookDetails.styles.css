@@ -10,6 +10,8 @@ div.book-details:not(.cover) > .book-card-details {
 p.title {
   color: var(--primary-text);
   margin: 0;
+  font-size: 0.9em;
+  line-height: 1.6;
 }
 
 p.author {
@@ -17,12 +19,14 @@ p.author {
   color: var(--secondary-text);
   line-height: 1.3;
   margin: 0;
-  margin-top: 5px;
 }
 
 span.read-now {
   margin-top: 8px;
-  text-decoration: underline;
+}
+
+span.read-now > a {
+  text-decoration: none;
 }
 
 .anchorcss {
@@ -35,7 +39,8 @@ div.book-details.cover {
 }
 div.book-details.cover .title {
   font-size: 1.7em;
-  max-width: initial;
+  font-weight: 500;
+  max-width: 700px;
 }
 
 div.book-details.cover .author {
@@ -46,8 +51,12 @@ div.book-card-details .book-rating {
   margin-top: 8px;
 }
 div.book-details.cover > .genre {
-  color: var(--secondary-text);
   margin-right: 10px;
+  font-size: 1.1em;
+}
+div.book-details.cover > .genre > span {
+  color: var(--secondary-text);
+  font-size: 0.9em;
 }
 
 div.book-details.cover > .book-summary {
@@ -55,6 +64,8 @@ div.book-details.cover > .book-summary {
   font-size: 0.9em;
   max-width: 700px;
   line-height: 1.75;
+  color: var(--secondary-text);
+  text-justify: inter-word;
 }
 @media screen and (max-width: 1000px) {
   div.book-details.cover {
@@ -69,9 +80,12 @@ div.book-details.cover > .book-summary {
   }
 }
 
-@media screen and (width: 320px) {
+@media screen and (max-width: 370px) {
   div.book-details.cover {
     margin: 10%;
     margin-top: 15px;
+  }
+  div span.rating {
+    max-width: 5em;
   }
 }

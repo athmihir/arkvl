@@ -43,13 +43,6 @@ const SideBar = () => {
           </li>
 
           <li className="nav-item">
-            <span className="nav-link">
-              <ClipBoardIcon />
-              <div className="link-text">Categories</div>
-            </span>
-          </li>
-
-          <li className="nav-item">
             <span className="nav-link user-avatar">
               <UserAvatar onClick={toggleMenu} />
               <div className="link-text">

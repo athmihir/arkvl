@@ -403,6 +403,7 @@ span {
     --light-gray: #f0f0f0;
     --bg-primary: #fff;
     --bg-secondary: #fff7fa;
+    --highlight-color: #fff1f6;
   }
 }
 
@@ -414,5 +415,6 @@ span {
     --light-gray: #f0f0f0;
     --bg-primary: #232931;
     --bg-secondary: rgb(41, 49, 59);
+    --highlight-color: rgb(42, 51, 61);
   }
 }

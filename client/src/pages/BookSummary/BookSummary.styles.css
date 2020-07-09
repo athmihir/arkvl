@@ -1,26 +1,27 @@
 .book-summary-container {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10vh 15% 10vh 10%;
+  grid-template-columns: 25vw 1fr;
+  padding: 10vh 15%;
 }
 
 .book-image-container {
   justify-self: right;
-  align-self: center;
+  margin-top: 20px;
 }
 
 div .rating {
-  color: var(--secondary-text);
+  color: var(--primary-text);
+  font-size: 1.1em;
   margin: 0;
-  font-weight: 400;
   margin-right: 10px;
-  max-width: 5em;
+  max-width: 7em;
 }
 
 .rating-container {
   display: flex;
   align-items: center;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 1000px) {

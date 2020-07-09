@@ -65,7 +65,7 @@ class BookSummary extends Component {
                 <span className="rating">You Rated</span>
                 <ReactStars
                   count={5}
-                  size={18}
+                  size={24}
                   color2={'var(--primary-color)'}
                   className="ratingStars"
                   edit={false}

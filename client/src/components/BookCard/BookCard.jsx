@@ -1,13 +1,13 @@
 import React from 'react';
 import BookImage from '../BookImage/BookImage';
 import BookDetails from '../BookDetails/BookDetails';
+import Skeleton from 'react-loading-skeleton';
 import axios from 'axios';
 import './BookCard.styles.css';
 import { toast } from 'react-toastify';
 
 export default function BookCard({ book, bookno, removeRated }) {
   const ratingChanged = (newRating) => {
-    console.log(newRating);
     axios
       .post(`/new-rating`, {
         rating: newRating,
@@ -29,7 +29,7 @@ export default function BookCard({ book, bookno, removeRated }) {
 
   return (
     <div className="book-card">
-      <BookImage imagesource={book.image} />
+      {<BookImage imagesource={book.image} bookid={bookno} /> || <Skeleton />}
       <BookDetails
         booktitleis={book.title}
         bookauthoris={book.author}
