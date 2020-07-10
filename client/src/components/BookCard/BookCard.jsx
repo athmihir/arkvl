@@ -35,6 +35,7 @@ export default function BookCard({ book, bookno, removeRated }) {
         bookauthoris={book.author}
         ratingChanged={ratingChanged}
         bookid={bookno}
+        rating={book.rating}
       />
     </div>
   );

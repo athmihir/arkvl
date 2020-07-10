@@ -3,6 +3,7 @@ import UserActionType from './user.types';
 const INITIAL_STATE = {
   isAuthenticated: undefined,
   error: null,
+  userName: '',
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -11,11 +12,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         error: null,
         isAuthenticated: true,
+        userName: action.payload,
       };
     case UserActionType.SUCCESS_LOGIN:
       return {
         error: null,
         isAuthenticated: true,
+        userName: action.payload,
       };
     case UserActionType.ERROR_REGISTER:
       return {

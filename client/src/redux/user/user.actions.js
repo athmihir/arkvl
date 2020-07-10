@@ -6,7 +6,7 @@ export const checkUserStatus = () => async (dispatch) => {
     .get('/login')
     .then((res) => {
       if (res.data.logged_in) {
-        dispatch(loginUsersSuccess());
+        dispatch(loginUsersSuccess(res.data.Username));
       }
     })
     .catch((err) => {});
@@ -25,7 +25,7 @@ export const loginUser = (userData) => (dispatch) => {
     )
     .then((res) => {
       console.log(res.data);
-      dispatch(loginUsersSuccess());
+      dispatch(loginUsersSuccess(res.data.Username));
     })
     .catch((err) => {
       console.log(err.response);
@@ -49,7 +49,7 @@ export const registerUser = (userData) => (dispatch) => {
     })
     .then((res) => {
       console.log(res.data);
-      dispatch(registerUserSuccess());
+      dispatch(registerUserSuccess(res.data.Username));
     })
     .catch((err) => {
       console.log(err.response);
@@ -63,13 +63,15 @@ export const registerUser = (userData) => (dispatch) => {
     });
 };
 
-export const registerUserSuccess = () => ({
+export const registerUserSuccess = (username) => ({
   type: UserActionTypes.SUCCESS_REGISTER,
+  payload: username,
 });
 
-export const loginUsersSuccess = () => {
+export const loginUsersSuccess = (username) => {
   return {
     type: UserActionTypes.SUCCESS_LOGIN,
+    payload: username,
   };
 };
 
