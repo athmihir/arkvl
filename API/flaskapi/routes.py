@@ -9,9 +9,9 @@ from flask_mail import Message
 from pyisemail import is_email
 from flask_login import logout_user
 import sqlite3
-from datetime import datetime
+from datetime import datetime, date
 from cor_model_modified import CORModel
-from cor_files import correlation, test,books_data,original_books, ix
+from cor_files import correlation, test, books_data,original_books, ix
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -118,16 +118,43 @@ def apiprofile():
       user_name=current_user.username
       user_email=current_user.email
       dateJoined = current_user.date_created
+      dateRequired = dateJoined.strftime('%d/%m/%Y')
+
       ratedBooks = []
       my_fav_genres=[]
       for i in range (0,count):
-        myFavGenresString = books[i].genres
-        myFavGenresList = myFavGenresString.split(",")            
-        my_fav_genres.extend(myFavGenresList)          
+        if books[i].rating>=4:
+            myFavGenresString = books[i].genres
+            myFavGenresList = myFavGenresString.split(",")            
+            my_fav_genres.extend(myFavGenresList)          
         ratedBooks.append({ 'id': books[i].book_id, 'title':  original_books['original_title'][books[i].book_id - 1], 'image': original_books['image_url'][books[i].book_id - 1], 'author':original_books['authors'][books[i].book_id - 1], 'rating': books[i].rating})
-      my_fav_genres = list(dict.fromkeys(my_fav_genres))
+      if checkIfDuplicates(my_fav_genres):
+          my_fav_genres = Repeat(my_fav_genres)
+          my_fav_genres = list(dict.fromkeys(my_fav_genres))
+      else:
+          if len(my_fav_genres) >= 4:
+            my_fav_genres = my_fav_genres[0::3]
       my_fav_genres = ','.join(my_fav_genres)
-      return jsonify({'username': user_name, 'dateJoined': dateJoined, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
+      return jsonify({'username': user_name, 'dateJoined': dateRequired, 'booksRated': count, 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
+
+def checkIfDuplicates(eleList):
+    setOfEle = set()
+    for elem in eleList:
+        if elem in setOfEle:
+            return True
+        else:
+            setOfEle.add(elem)
+    return False
+
+def Repeat(x): 
+    _size = len(x) 
+    repeated = [] 
+    for i in range(_size): 
+        k = i + 1
+        for j in range(k, _size): 
+            if x[i] == x[j] and x[i] not in repeated: 
+                repeated.append(x[i]) 
+    return repeated
 
 @app.route('/Recommend', methods=['GET'])
 @login_required
