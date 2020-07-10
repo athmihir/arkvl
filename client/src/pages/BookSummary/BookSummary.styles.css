@@ -24,6 +24,41 @@ div .rating {
   margin-top: 30px;
 }
 
+.skeletonImage {
+  margin-right: 10px;
+}
+
+.skeletonDetails {
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.skeletonAuthor {
+  margin-top: 10px;
+}
+
+.skeletonGenre {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row;
+  margin-top: 20px;
+  vertical-align: auto;
+}
+
+.skeletoninnergenre {
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.skeletonAbout {
+  margin-top: 30px;
+}
+
+.skeletonRating {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
 @media screen and (max-width: 1000px) {
   .book-summary-container {
     grid-template-columns: auto;

@@ -22,30 +22,6 @@ const BookTitle = ({
 
           <p className="author">by {bookauthoris}</p>
         </div>
-        {isCover ? null : rating ? (
-          <div className="book-rating">
-            You rated
-            <ReactStars
-              count={5}
-              size={18}
-              color2={'var(--primary-color)'}
-              className="ratingStars"
-              onChange={ratingChanged}
-              value={rating}
-            />
-          </div>
-        ) : (
-            <div className="book-rating">
-              Rate this book
-              <ReactStars
-                count={5}
-                size={18}
-                color2={'var(--primary-color)'}
-                className="ratingStars"
-                onChange={ratingChanged}
-                half={false}
-              />
-            </div>
         {isCover ? null : (
           <div className="book-rating">
             Rate this book
