@@ -72,18 +72,18 @@ class BookSummary extends Component {
                 />
               </div>
             ) : (
-              <div className="rating-container">
-                <h3 className="rating">Rate this book</h3>
-                <ReactStars
-                  count={5}
-                  size={24}
-                  color2={'var(--primary-color)'}
-                  className="ratingStars"
-                  onChange={this.ratingChanged}
-                  half={false}
-                />
-              </div>
-            )}
+                <div className="rating-container">
+                  <h3 className="rating">Rate this book</h3>
+                  <ReactStars
+                    count={5}
+                    size={24}
+                    color2={'var(--primary-color)'}
+                    className="ratingStars"
+                    onChange={this.ratingChanged}
+                    half={false}
+                  />
+                </div>
+              )}
           </div>
         </div>
         <BookDetails

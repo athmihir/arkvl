@@ -25,7 +25,7 @@ class App extends React.Component {
       <div className="App">
         <ToastContainer />
         <Switch>
-          <Route
+        <Route
             exact
             path="/"
             render={() =>
@@ -35,7 +35,9 @@ class App extends React.Component {
                 ) : (
                   <LoginRegister />
                 )
-              ) : null
+              ) : (
+                <LoginRegister />
+              )
             }
           />
           <Route

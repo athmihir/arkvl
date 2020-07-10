@@ -9,7 +9,8 @@ div.book-details:not(.cover) > .book-card-details {
 }
 p.title {
   color: var(--primary-text);
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
   font-size: 0.9em;
   line-height: 1.6;
 }
@@ -64,7 +65,6 @@ div.book-details.cover .book-summary {
   font-size: 1em;
   max-width: 700px;
   line-height: 1.75;
-  letter-spacing: 1px;
   color: var(--secondary-text);
 }
 
@@ -76,7 +76,26 @@ div.book-details.cover .book-link {
 .avg-rating-container {
   display: flex;
   align-items: center;
+  margin-top: 8px;
   margin-bottom: 10px;
+}
+
+.aboutBook {
+  color: #e8097c;
+  font-weight: bold;
+}
+
+span.spanGenre {
+  font-weight: bold;
+}
+
+span.genre {
+  color: var(--secondary-text);
+  font-size: 0.9em;
+}
+
+.paraGenre {
+  margin-top: 22px;
 }
 
 @media screen and (max-width: 1000px) {
