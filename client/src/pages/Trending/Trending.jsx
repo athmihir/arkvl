@@ -17,6 +17,9 @@ class Trending extends React.Component {
   }
   render() {
     const { trending } = this.props;
+    if (trending && trending.length > 0 && trending.length < 5) {
+      this.props.fetchTrending();
+    }
     return (
       <div className="trending-books">
         <div className="page-header">
