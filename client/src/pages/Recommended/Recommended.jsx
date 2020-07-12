@@ -17,6 +17,15 @@ class Recommended extends Component {
   }
 
   render() {
+    if (
+      this.props.loadRecs &&
+      this.props.loadRecs.length > 0 &&
+      this.props.loadRecs.length < 5
+    ) {
+      setTimeout(() => {
+        this.props.fetchedBooks();
+      }, 2000);
+    }
     return (
       <div className="recommended-books">
         <div className="page-header">

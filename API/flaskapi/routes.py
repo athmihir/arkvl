@@ -165,7 +165,7 @@ def apirecommend():
       if count==0:
       #print("RECOMMENDED FOR ANYBODY:")
       #sorted_avg_ratings.head()
-        minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+        minimum_to_include = 200000 #<-- You can try changing this minimum to include movies rated by fewer or more people
 
         average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
         sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3]
@@ -203,10 +203,10 @@ def apitrending():
       if count==0:
       #print("RECOMMENDED FOR ANYBODY:")
       #sorted_avg_ratings.head()
-       minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+       minimum_to_include = 400000 #<-- You can try changing this minimum to include movies rated by fewer or more people
 
        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
-       sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] >= 3]
+       sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] >= 4]
        #sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
        #random.shuffle(sorted_avg_ratings)
        sorted_avg_ratings_book_id=[]

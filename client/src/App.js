@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
 
@@ -21,11 +21,12 @@ class App extends React.Component {
   }
   render() {
     const { isAuthenticated } = this.props;
+    console.log(isAuthenticated);
     return (
       <div className="App">
         <ToastContainer />
         <Switch>
-        <Route
+          <Route
             exact
             path="/"
             render={() =>
@@ -50,7 +51,9 @@ class App extends React.Component {
                 ) : (
                   <LoginRegister />
                 )
-              ) : null
+              ) : (
+                <Redirect to="/" />
+              )
             }
           />
           <Route
@@ -62,7 +65,9 @@ class App extends React.Component {
                 ) : (
                   <LoginRegister />
                 )
-              ) : null
+              ) : (
+                <Redirect to="/" />
+              )
             }
           />
           <Route
@@ -74,7 +79,9 @@ class App extends React.Component {
                 ) : (
                   <LoginRegister />
                 )
-              ) : null
+              ) : (
+                <Redirect to="/" />
+              )
             }
           />
           <Route
@@ -87,7 +94,9 @@ class App extends React.Component {
                 ) : (
                   <LoginRegister />
                 )
-              ) : null
+              ) : (
+                <Redirect to="/" />
+              )
             }
           />
         </Switch>
