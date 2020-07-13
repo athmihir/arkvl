@@ -1,71 +1,25 @@
 # Creating the class, later we create an object of this class and just call functions
 import numpy as np
 from cor_files import original_books
+from flaskapi.models import Corr
+import json
+
 class CORModel:
-    
-    def __init__(self, correlation, test,books_data):
-        '''
-        This is the constructor. It will drop unnecessary cols, sort by book ID
-        and merge both dataframes into one mega dataframe
 
-        Parameters
-        ----------
-        books : pandas dataframe containing the imported dataset
-        ratings : pandas dataframe containing 6 mil ratings
-                  to reduce training time we might have to reduce that number
-
-        Returns
-        -------
-        None.
-
-        '''
-        self.book_correlations=correlation
-        self.book_titles=test
-        self.total_books_data=books_data
-
-        
     def get_recommendations(self, my_fav_IDs):
-        '''
-        This function accepts a list of fav book IDs and prints recs.
-        Modify it as you want so that it returns recs instead of printing them
-
-        Parameters
-        ----------
-        my_fav_IDs : list of integers
-                     this is the list of book_ids the user LIKED
-                     only LIKED, not <= 2 stars
-
-        Returns
-        -------
-        None.
-
-        '''
-        my_fav_books=[]
-        for i in range(10000):
-            if i in my_fav_IDs:
-               my_fav_books.append(self.total_books_data['title'][i-1])
-        
-        book_similarities = np.zeros(self.book_correlations.shape[0])
-
-        for book in my_fav_books:    
-            book_index = self.book_titles.index(book)
-            book_similarities += self.book_correlations[book_index] 
+        book_similarities = np.zeros(9927)
+        for fav_id in my_fav_IDs:
+            row = np.array(json.loads(Corr.query.get(fav_id).row))
+            book_similarities += row  # Adding correlation columns of each books which were rated by user
 
         book_preferences = []
-        for i in range(len(self.book_titles)):
-            print(len(self.book_titles),len(self.book_correlations))
-            print(self.book_titles[8034])
-            print(self.book_correlations[8034])
-            if self.book_titles[i] not in my_fav_books:
-             book_preferences.append((self.book_titles[i], book_similarities[i]))
-        
-        user_recs = sorted(book_preferences, key= lambda x: x[1], reverse=True)
-        
-        recs = [(original_books[self.total_books_data['title']==user_recs[i][0]].book_id.unique()[0],user_recs[i][0],user_recs[i][1]) for i in range(10)]
-        
+        for i in range(len(original_books["book_id"])):  # adding ids to the similarity books before sorting them
+            book_preferences.append((original_books["book_id"][i], book_similarities[i]))
 
-        recIDs = [recs[i][0] for i in range(10)]
+        user_recs = sorted(book_preferences, key=lambda x: x[1], reverse=True)  # sorted the books by descending order of correlation
+        user_recs = [x for x in user_recs if x[0] not in my_fav_IDs]  # remove books which are already rated
+        recIDs = [user_recs[i][0] for i in range(10)]  # got ids of top 10 books
         recs = []
-        for i in range(10):
-            recs.append({'id': int(recIDs[i]), 'title': original_books['original_title'][recIDs[i]-1], 'image': original_books['image_url'][recIDs[i]-1], 'author':original_books['authors'][recIDs[i]-1]})
+        for i in range(10):  # returning the books data by id from original books dataset
+            recs.append({'id': int(recIDs[i]), 'title': original_books['original_title'][recIDs[i] - 1], 'image': original_books['image_url'][recIDs[i] - 1], 'author': original_books['authors'][recIDs[i] - 1]})
         return recs

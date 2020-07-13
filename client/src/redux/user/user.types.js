@@ -1,8 +1,0 @@
-const UserActionTypes = {
-  SUCCESS_LOGIN: 'SUCCESS_LOGIN',
-  ERROR_LOGIN: 'ERROR_LOGIN',
-  ERROR_REGISTER: 'ERROR_REGISTER',
-  SUCCESS_REGISTER: 'SUCCESS_REGISTER',
-};
-
-export default UserActionTypes;

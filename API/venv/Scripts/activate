@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\ketki_laptop\Desktop\BookRecommenderSystem\Book_Recommender\API\venv"
+VIRTUAL_ENV="C:\Users\athar\brs\Book-Recommender\API\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
