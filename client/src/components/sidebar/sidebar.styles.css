@@ -33,7 +33,7 @@
 .nav-link,
 .logo-link {
   box-sizing: border-box;
-  padding-top: 12%;
+  padding-top: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +46,22 @@
   transition: 300ms;
 }
 
-.nav-link:hover {
+.logo-text {
+  color: var(--primary-text);
+  text-decoration: none;
+  transition: 300ms;
+}
+
+.logo-text:hover {
+  color: var(--secondary-text);
+}
+
+.nav-item > .nav-link > .link-text {
+  display: none;
+  margin-left: 1rem;
+}
+
+.nav-link:not(.user-avatar):hover {
   background: var(--bg-secondary);
   color: var(--primary-color);
   fill: var(--primary-color);
@@ -133,10 +148,7 @@
 
   .nav-link {
     justify-content: center;
-  }
-
-  .link-text {
-    font-size: 0.8em;
+    padding-top: 10%;
   }
 
   .user-avatar {
@@ -144,7 +156,7 @@
     padding-top: 0;
   }
 
-  .nav-link:hover {
+  .nav-link:not(.user-avatar):hover {
     border-left: 2px solid var(--bg-primary);
   }
 
@@ -163,8 +175,15 @@
   }
 
   .open ~ .hand-held-menu > span,
-  .open ~ .hand-held-menu > a {
+  .open ~ .hand-held-menu > button {
     margin-top: 5px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    color: var(--primary-color);
+    cursor: pointer;
+    text-align: left;
   }
 }
 
@@ -177,6 +196,9 @@
     justify-content: center;
     padding-top: 0;
     padding-right: 15%;
+  }
+  .open .nav-link .link-text {
+    display: block;
   }
 
   .open .logo svg {
@@ -194,12 +216,17 @@
     margin-top: 5px;
   }
 
-  .open .user-avatar .link-text > a.user-logout {
+  .open .user-avatar .link-text > button.user-logout {
+    margin-top: 5px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
     color: var(--primary-color);
     cursor: pointer;
   }
 
-  .open .user-avatar .link-text > a.user-logout:hover {
+  .open .user-avatar .link-text > button.user-logout:hover {
     color: #f02057;
   }
 

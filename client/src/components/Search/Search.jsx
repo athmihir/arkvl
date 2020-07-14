@@ -1,25 +1,12 @@
 import React from 'react';
 import AsyncSelect from 'react-select/async';
 import { components } from 'react-select';
+import _ from 'lodash';
 import makeAnimated from 'react-select/animated';
 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const loadOptions = (inputText, callback) => {
-  if (inputText.length > 3) {
-    axios.get(`/search/${inputText}`).then((res) => {
-      callback(
-        res.data.searchResults.map((book) => ({
-          label: book.title,
-          value: book.book_id,
-          image: book.image_url,
-          author: book.author,
-        })),
-      );
-    });
-  }
-};
 const animatedComponents = makeAnimated();
 
 const formatOptionLabel = ({ value, label, image, author }) => (
@@ -62,11 +49,26 @@ class Search extends React.Component {
   state = {
     inputValue: '',
   };
+  loadOptions = (inputText, callback) => {
+    axios.get(`/api/search/${inputText}`).then((res) => {
+      console.log(res.data);
+      callback(
+        res.data.searchResults.map((book) => ({
+          label: book.title,
+          value: book.book_id,
+          image: book.image_url,
+          author: book.author,
+        })),
+      );
+    });
+  };
+  wait = 1000; // milliseconds
+  debouncedLoadOptions = _.debounce(this.loadOptions, this.wait);
   render() {
     return (
       <AsyncSelect
         components={{ animatedComponents, DropdownIndicator }}
-        loadOptions={loadOptions}
+        loadOptions={this.debouncedLoadOptions}
         placeholder="Search"
         value={this.state.inputValue}
         formatOptionLabel={formatOptionLabel}

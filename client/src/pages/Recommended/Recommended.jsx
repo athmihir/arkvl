@@ -11,9 +11,7 @@ import Search from '../../components/Search/Search';
 
 class Recommended extends Component {
   componentDidMount() {
-    setTimeout(() => {
       this.props.fetchedBooks();
-    }, 2000);
   }
 
   render() {
@@ -22,9 +20,7 @@ class Recommended extends Component {
       this.props.loadRecs.length > 0 &&
       this.props.loadRecs.length < 5
     ) {
-      setTimeout(() => {
         this.props.fetchedBooks();
-      }, 2000);
     }
     return (
       <div className="recommended-books">

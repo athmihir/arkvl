@@ -1,9 +1,29 @@
 import axios from 'axios';
 import UserActionTypes from './user.types';
 
+export const registerUserSuccess = (username) => ({
+  type: UserActionTypes.SUCCESS_REGISTER,
+  payload: username,
+});
+
+export const loginUsersSuccess = (username) => ({
+  type: UserActionTypes.SUCCESS_LOGIN,
+  payload: username,
+});
+
+const loginError = (err) => ({
+  type: UserActionTypes.ERROR_LOGIN,
+  payload: err,
+});
+
+const registerError = (err) => ({
+  type: UserActionTypes.ERROR_REGISTER,
+  payload: err,
+});
+
 export const checkUserStatus = () => async (dispatch) => {
   axios
-    .get('/login')
+    .get('/api/login')
     .then((res) => {
       if (res.data.logged_in) {
         dispatch(loginUsersSuccess(res.data.Username));
@@ -15,7 +35,7 @@ export const checkUserStatus = () => async (dispatch) => {
 export const loginUser = (userData) => (dispatch) => {
   axios
     .post(
-      '/login',
+      '/api/login',
       { username: userData.username, password: userData.password },
       {
         headers: {
@@ -42,7 +62,7 @@ export const loginUser = (userData) => (dispatch) => {
 export const registerUser = (userData) => (dispatch) => {
   console.log(userData);
   axios
-    .post('/register', {
+    .post('/api/register', {
       username: userData.username,
       email: userData.email,
       password: userData.password,
@@ -62,25 +82,3 @@ export const registerUser = (userData) => (dispatch) => {
       );
     });
 };
-
-export const registerUserSuccess = (username) => ({
-  type: UserActionTypes.SUCCESS_REGISTER,
-  payload: username,
-});
-
-export const loginUsersSuccess = (username) => {
-  return {
-    type: UserActionTypes.SUCCESS_LOGIN,
-    payload: username,
-  };
-};
-
-const loginError = (err) => ({
-  type: UserActionTypes.ERROR_LOGIN,
-  payload: err,
-});
-
-const registerError = (err) => ({
-  type: UserActionTypes.ERROR_REGISTER,
-  payload: err,
-});

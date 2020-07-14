@@ -15,11 +15,7 @@ img.cover-image {
 
 @media screen and (max-width: 1000px) {
   img.book-image {
-    max-width: 104px;
-    max-height: 150px;
-  }
-  img.cover-image {
-    width: 50vw;
-    margin: auto;
+    max-width: 150px;
+    max-height: 200px;
   }
 }

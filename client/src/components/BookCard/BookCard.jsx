@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 export default function BookCard({ book, bookno, removeRated }) {
   const ratingChanged = (newRating) => {
     axios
-      .post(`/new-rating`, {
+      .post('/api/new-rating', {
         rating: newRating,
         book_id: book.id,
       })

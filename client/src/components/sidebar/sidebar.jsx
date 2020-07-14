@@ -3,18 +3,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
+import axios from 'axios';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/ArrowPointer.svg';
 import { ReactComponent as UserAvatar } from '../../assets/user.svg';
 import { userLogout } from '../../redux/rootreducer';
-import axios from 'axios';
 import './sidebar.styles.css';
 
 const SideBar = ({ userName, logout, history }) => {
   const handleLogout = () => {
-    console.log('afdshfj');
-    axios.post('/logout').then((res) => {
+    axios.post('/api/logout').then((res) => {
       logout();
       history.push('/');
     });
@@ -26,9 +25,11 @@ const SideBar = ({ userName, logout, history }) => {
       <nav className={`navbar ${open ? 'open' : ''}`}>
         <ul className="navbar-nav">
           <li className="logo">
-            <h3 className="logo-link" onClick={toggleMenu}>
-              <span className="link-text logo-text">Reco</span>
-              <ChevronIcon />
+            <h3 className="logo-link">
+              <Link to="/" className="link-text logo-text">
+                Reco
+              </Link>
+              <ChevronIcon onClick={toggleMenu} />
             </h3>
           </li>
 
@@ -57,9 +58,9 @@ const SideBar = ({ userName, logout, history }) => {
                 <NavLink to="/user-profile" className="user-username">
                   {userName}
                 </NavLink>
-                <a className="user-logout" onClick={handleLogout}>
+                <button className="user-logout" onClick={handleLogout}>
                   logout
-                </a>
+                </button>
               </div>
             </span>
           </li>
@@ -69,9 +70,9 @@ const SideBar = ({ userName, logout, history }) => {
         <Link to="/user-profile" className="user-username">
           {userName}
         </Link>
-        <span className="user-logout" onClick={handleLogout}>
+        <button className="user-logout" onClick={handleLogout}>
           logout
-        </span>
+        </button>
       </div>
     </>
   );

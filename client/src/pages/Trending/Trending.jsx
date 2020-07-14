@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import Search from '../../components/Search/Search';
-import { connect } from 'react-redux';
 
 import {
   FetchTrendingBooks,
@@ -11,10 +11,9 @@ import './Trending.styles.css';
 
 class Trending extends React.Component {
   componentDidMount() {
-    setTimeout(() => {
-      this.props.fetchTrending();
-    }, 2000);
+    this.props.fetchTrending();
   }
+
   render() {
     const { trending } = this.props;
     if (trending && trending.length > 0 && trending.length < 5) {

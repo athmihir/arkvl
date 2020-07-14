@@ -15,7 +15,7 @@ class UserProfile extends React.Component {
   };
 
   componentDidMount() {
-    axios.get('/UserProfile').then((res) => this.setState(res.data));
+    axios.get('/api/user-profile').then((res) => this.setState(res.data));
   }
 
   render() {
