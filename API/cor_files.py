@@ -7,11 +7,6 @@ from whoosh.fields import Schema, NUMERIC, TEXT, KEYWORD, ID, STORED
 from whoosh.analysis import StemmingAnalyzer
 
 
-test = []
-with open("test_new.txt", errors='ignore') as f:
-    for line in f:
-        test.append(line.strip())
-
 original_books = pd.read_csv('FinalBooksEdit.csv', encoding='latin')
 
 

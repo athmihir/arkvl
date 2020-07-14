@@ -11,7 +11,7 @@ from flask_login import logout_user
 import sqlite3
 from datetime import datetime, date
 from cor_model_modified import CORModel
-from cor_files import test, original_books, ix
+from cor_files import original_books, ix
 from whoosh.qparser import MultifieldParser
 import pandas as pd
 import numpy as np
@@ -29,7 +29,7 @@ from collections import Counter
 
 
 
-@app.route('/logout', methods=['GET', 'POST'])
+@app.route('/api/logout', methods=['GET', 'POST'])
 def apilogout():
     if current_user.is_authenticated:
         logout_user()
@@ -38,7 +38,7 @@ def apilogout():
         return jsonify({'error': 'Invalid Request'}), 400
 
 
-@app.route('/login', methods=['POST','GET'])
+@app.route('/api/login', methods=['POST','GET'])
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
@@ -61,7 +61,7 @@ def apilogin():
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def apiregister():
     if current_user.is_authenticated:
         return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 401
@@ -91,7 +91,7 @@ def apiregister():
         login_user(user)
         return jsonify({'registered': 'True', 'message': 'Account Created','Username':current_user.username}), 201
 
-@app.route('/new-rating', methods=['POST'])
+@app.route('/api/new-rating', methods=['POST', 'PUT'])
 def apirating():
     if current_user.is_authenticated:
         book_id = request.json.get('book_id')
@@ -99,7 +99,7 @@ def apirating():
             return jsonify({'error': 'Invalid Request'}), 400
         else:
             book_id=int(book_id)
-        print(book_id)
+        booky = Book.query.filter_by(rater=current_user, book_id=book_id).first()
         if not (1 <= book_id <= 9927):
             return jsonify({'error': 'Invalid Request'}), 400
         rating = request.json.get('rating')
@@ -112,14 +112,17 @@ def apirating():
         genres=original_books['genres'][book_id-1]
         print(genres)
         title=original_books['title'][book_id-1]
-        book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
-        db.session.add(book)
+        if booky:
+            booky.rating = rating
+        else:
+            book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
+            db.session.add(book)
         db.session.commit()
         return 'OK'
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
-@app.route('/UserProfile', methods=['GET'])
+@app.route('/api/user-profile', methods=['GET'])
 def apiprofile():
     if current_user.is_authenticated:
         books= Book.query.filter_by(rater=current_user).all()
@@ -132,8 +135,9 @@ def apiprofile():
                 my_fav_genres.extend(myFavGenresList)
             ratedBooks.append({ 'id': book.book_id, 'title':  original_books['original_title'][book.book_id - 1], 'image': original_books['image_url'][book.book_id - 1], 'author':original_books['authors'][book.book_id - 1], 'rating': book.rating})
         if checkIfDuplicates(my_fav_genres):
-            my_fav_genres = Repeat(my_fav_genres)
-            my_fav_genres = list(dict.fromkeys(my_fav_genres))
+            my_fav_genres = [key for key, value in Counter(my_fav_genres).most_common()]
+            if len(my_fav_genres) >= 4:
+                my_fav_genres = my_fav_genres[:4]
         else:
             if len(my_fav_genres) >= 4:
                 my_fav_genres = my_fav_genres[0::3]
@@ -151,26 +155,17 @@ def checkIfDuplicates(eleList):
             setOfEle.add(elem)
     return False
 
-def Repeat(x):
-    _size = len(x)
-    repeated = []
-    for i in range(_size):
-        k = i + 1
-        for j in range(k, _size):
-            if x[i] == x[j] and x[i] not in repeated:
-                repeated.append(x[i])
-    return repeated
 
-@app.route('/Recommend', methods=['GET'])
+@app.route('/api/recommend', methods=['GET'])
 def apirecommend():
     if current_user.is_authenticated:
         obj=CORModel()
         books= Book.query.filter_by(rater=current_user).all()
         count=len(books)
         if count==0:       # if not rated any then we give generalized recs
-            minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+            minimum_to_include = 300000 #<-- You can try changing this minimum to include movies rated by fewer or more people
             average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
-            sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3]
+            sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 4]
             sorted_avg_ratings_book_id=[]
             for j in sorted_avg_ratings.book_id:
                 sorted_avg_ratings_book_id.append(j)
@@ -193,13 +188,13 @@ def apirecommend():
         return jsonify({'error': 'Invalid Request'}), 400
 
 
-@app.route('/Trending', methods=['GET'])
+@app.route('/api/trending', methods=['GET'])
 def apitrending():
     if current_user.is_authenticated:
         books= Book.query.filter_by(rater=current_user).all()
         count=len(books)
         if count==0:
-            minimum_to_include = 100000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+            minimum_to_include = 300000 #<-- You can try changing this minimum to include movies rated by fewer or more people
             average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
             sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] >= 3]
             sorted_avg_ratings_book_id=[]
@@ -252,6 +247,7 @@ def apitrending():
                 sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]                #filter
                 sorted_avg_ratings = sorted_avg_ratings.sample(frac=1).reset_index(drop=True)                       #randomize
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
+                sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
                 final = final + sorted_avg_ratings[:n]                          #get top n according ot the ratio we calculated
 
             trending=[]                 #getting books and returning them
@@ -262,7 +258,7 @@ def apitrending():
         return jsonify({'error': 'Invalid Request'}), 400
 
 
-@app.route('/Summary', methods=['POST'])
+@app.route('/api/summary', methods=['POST'])
 def apisummary():
     if current_user.is_authenticated:
         book_id = request.json.get('book_id')
@@ -278,7 +274,7 @@ def apisummary():
         image_url=original_books['image_url'][book_id-1]
         genres=original_books['genres'][book_id-1]
         description=original_books['description'][book_id-1]
-
+        amazon_link = original_books['amazon_link'][book_id-1]
         summary = []
 
         books= Book.query.filter_by(rater=current_user).all()
@@ -289,16 +285,16 @@ def apisummary():
                 c=c+1
                 rating=books[i].rating
         if c!=0:
-            summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not':rating})
+            summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'amazonLink': amazon_link, 'read_or_not':rating})
             return ({"Summary":summary}),200
         else:
-            summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description,'read_or_not': 0})
+            summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description, 'amazonLink': amazon_link, 'read_or_not': 0})
             return ({"Summary":summary}),200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
 
-@app.route('/search/<key>', methods=['GET'])
+@app.route('/api/search/<key>', methods=['GET'])
 def apisearch(key):
     if current_user.is_authenticated:
         searchTerm = key
