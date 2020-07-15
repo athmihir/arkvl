@@ -19,7 +19,6 @@ const BookTitle = ({
     <div className="book-card-details">
       <div>
         <p className="title">{booktitleis}</p>
-
         <p className="author">by {bookauthoris}</p>
       </div>
       {isCover ? null : (
@@ -27,11 +26,12 @@ const BookTitle = ({
           Rate this book
           <ReactStars
             count={5}
-            size={18}
+            size={25}
             color2="var(--primary-color)"
             className="ratingStars"
             onChange={ratingChanged}
             half={false}
+            value={rating}
           />
         </div>
       )}
