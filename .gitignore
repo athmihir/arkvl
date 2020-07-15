@@ -4,6 +4,7 @@ API/corrmat.csv
 
 API/__pycache__
 API/flaskapi/__pycache__
+API/flaskapi/__init__.py
 
 client/node_modules
 
