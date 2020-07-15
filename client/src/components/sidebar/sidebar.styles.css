@@ -4,8 +4,6 @@
   height: 100vh;
   width: 6.5rem;
   background-color: var(--bg-primary);
-  transition: width 600ms ease;
-  transition-delay: 15ms;
   overflow: hidden;
   box-shadow: 5px 0px 6px #00000029;
   z-index: 3;
@@ -56,11 +54,6 @@
   color: var(--secondary-text);
 }
 
-.nav-item > .nav-link > .link-text {
-  display: none;
-  margin-left: 1rem;
-}
-
 .nav-link:not(.user-avatar):hover {
   background: var(--bg-secondary);
   color: var(--primary-color);
@@ -79,14 +72,6 @@
   margin-bottom: auto;
 }
 
-.logo svg {
-  width: 16px;
-  margin-top: 0.4rem;
-  transform: rotate(0deg);
-  transition: 700ms ease;
-  fill: var(--primary-text);
-}
-
 .logo-link {
   flex-direction: row;
   color: var(--primary-text);
@@ -103,22 +88,14 @@
 }
 
 .user-avatar svg {
-  width: 3rem;
-  filter: grayscale(50%) opacity(0.7);
+  width: 2rem;
   cursor: pointer;
-}
-
-.user-avatar .link-text {
-  display: none;
+  fill: var(--secondary-text);
 }
 
 .user-avatar:hover {
   background: none;
   border-left: 2px solid var(--bg-primary);
-}
-
-.hand-held-menu {
-  display: none;
 }
 
 /* Small screens */
@@ -159,82 +136,9 @@
   .nav-link:not(.user-avatar):hover {
     border-left: 2px solid var(--bg-primary);
   }
-
-  .open ~ .hand-held-menu {
-    background-color: var(--bg-primary);
-    box-shadow: 0px -4px 10px #0000007d;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 4%;
-    z-index: 3;
-    right: 0;
-    bottom: 5em;
-  }
-
-  .open ~ .hand-held-menu > span,
-  .open ~ .hand-held-menu > button {
-    margin-top: 5px;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding: 0;
-    color: var(--primary-color);
-    cursor: pointer;
-    text-align: left;
-  }
 }
 
 @media only screen and (min-width: 700px) {
-  .open {
-    width: 14rem;
-  }
-  .open .nav-link {
-    flex-direction: row;
-    justify-content: center;
-    padding-top: 0;
-    padding-right: 15%;
-  }
-  .open .nav-link .link-text {
-    display: block;
-  }
-
-  .open .logo svg {
-    transform: rotate(-180deg);
-  }
-
-  .open .user-avatar .link-text {
-    display: block;
-    margin-left: 10px;
-  }
-
-  .open .user-avatar .link-text > span,
-  .open .user-avatar .link-text > a {
-    display: block;
-    margin-top: 5px;
-  }
-
-  .open .user-avatar .link-text > button.user-logout {
-    margin-top: 5px;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding: 0;
-    color: var(--primary-color);
-    cursor: pointer;
-  }
-
-  .open .user-avatar .link-text > button.user-logout:hover {
-    color: #f02057;
-  }
-
-  .open .user-avatar .link-text > a.user-username:hover {
-    color: var(--primary-color);
-    cursor: pointer;
-  }
-
   .user-username.active {
     background: var(--bg-primary);
     color: var(--primary-color);
