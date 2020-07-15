@@ -27,3 +27,19 @@ button.custom-no-invert:hover {
   filter: brightness(0.9) contrast(1.2);
   border: 2px solid transparent;
 }
+
+button.small {
+  margin-left: auto;
+  min-width: initial;
+  padding: 0 25px;
+  letter-spacing: 0;
+  margin-top: 10px;
+  height: 30px;
+  line-height: 25px;
+}
+
+@media only screen and (max-width: 700px) {
+  button.small {
+    margin-left: inherit;
+  }
+}

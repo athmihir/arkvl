@@ -1,22 +1,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
-import { connect } from 'react-redux';
-import { NavLink, Link, withRouter } from 'react-router-dom';
-import axios from 'axios';
+import { NavLink, Link } from 'react-router-dom';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
 import { ReactComponent as UserAvatar } from '../../assets/user.svg';
-import { userLogout } from '../../redux/rootreducer';
 import './sidebar.styles.css';
 
-const SideBar = ({ userName, logout, history }) => {
-  const handleLogout = () => {
-    axios.post('/api/logout').then((res) => {
-      logout();
-      history.push('/');
-    });
-  };
+const SideBar = () => {
   return (
     <>
       <nav className="navbar">
@@ -60,14 +51,4 @@ const SideBar = ({ userName, logout, history }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  userName: state.user.userName,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(userLogout()),
-});
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SideBar),
-);
+export default SideBar;

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import { unsetError } from '../../redux/user/user.actions';
 import './LoginRegister.styles.css';
 
-function LoginRegister({ error }) {
+function LoginRegister({ error, newUser, removeError }) {
   useEffect(() => {
     if (error) {
       toast.error(error, {
@@ -16,9 +17,23 @@ function LoginRegister({ error }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        transition: Slide,
       });
     }
-  }, [error]);
+    if (newUser) {
+      toast('Rate books to get recommendations curated for you.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Slide,
+      });
+    }
+    removeError();
+  }, [error, newUser, removeError]);
   return (
     <div className="login-register-container">
       <LoginForm />
@@ -29,6 +44,11 @@ function LoginRegister({ error }) {
 
 const mapStateToProps = (state) => ({
   error: state.user.error,
+  newUser: state.user.newUser,
 });
 
-export default connect(mapStateToProps)(LoginRegister);
+const mapDispatchToProps = (dispatch) => ({
+  removeError: () => dispatch(unsetError()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRegister);

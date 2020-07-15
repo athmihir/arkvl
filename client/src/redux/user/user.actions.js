@@ -21,6 +21,10 @@ const registerError = (err) => ({
   payload: err,
 });
 
+export const unsetError = () => ({
+  type: UserActionTypes.UNSET_ERROR,
+});
+
 export const checkUserStatus = () => async (dispatch) => {
   axios
     .get('/api/login')

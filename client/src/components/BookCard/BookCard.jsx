@@ -4,7 +4,7 @@ import BookDetails from '../BookDetails/BookDetails';
 import Skeleton from 'react-loading-skeleton';
 import axios from 'axios';
 import './BookCard.styles.css';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 
 export default function BookCard({ book, bookno, removeRated }) {
   const ratingChanged = (newRating) => {
@@ -24,6 +24,7 @@ export default function BookCard({ book, bookno, removeRated }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+          transition: Slide,
         });
       });
   };

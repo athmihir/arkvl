@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   isAuthenticated: undefined,
   error: null,
   userName: '',
+  newUser: undefined,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -13,6 +14,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null,
         isAuthenticated: true,
         userName: action.payload,
+        newUser: true,
       };
     case UserActionType.SUCCESS_LOGIN:
       return {
@@ -29,6 +31,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         isAuthenticated: false,
         error: action.payload,
+      };
+    case UserActionType.UNSET_ERROR:
+      return {
+        ...state,
+        error: undefined,
       };
     default:
       return state;

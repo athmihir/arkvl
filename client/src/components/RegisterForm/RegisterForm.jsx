@@ -22,9 +22,10 @@ const RegisterForm = ({ registerUserSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(registerInfo);
     registerUserSubmit(registerInfo);
+    console.log(registerInfo);
   };
+  console.log(registerInfo);
 
   return (
     <div className="register-form-container">
@@ -37,6 +38,7 @@ const RegisterForm = ({ registerUserSubmit }) => {
             type="text"
             placeholder=" "
             onChange={handleChange}
+            value={registerInfo.username}
           />
           <InputField
             name="email"
@@ -44,6 +46,7 @@ const RegisterForm = ({ registerUserSubmit }) => {
             type="email"
             placeholder=" "
             onChange={handleChange}
+            value={registerInfo.email}
           />
           <InputField
             name="password"
@@ -51,6 +54,7 @@ const RegisterForm = ({ registerUserSubmit }) => {
             type="password"
             placeholder=" "
             onChange={handleChange}
+            value={registerInfo.password}
           />
           <SubmitButton type="submit">Register</SubmitButton>
         </form>
