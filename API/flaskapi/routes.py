@@ -33,7 +33,7 @@ from collections import Counter
 def apilogout():
     if current_user.is_authenticated:
         logout_user()
-        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -42,11 +42,11 @@ def apilogout():
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
-            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already','Username':current_user.username}), 201
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already','Username':current_user.username}), 200
         else:
             return jsonify({'error': 'Invalid Request'}), 400
     if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
+        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 200
     username = request.json.get('username')
     password = request.json.get('password')
     if username is None or password is None:
@@ -56,7 +56,7 @@ def apilogin():
     user = User.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password, password):
         login_user(user)
-        return jsonify({'logged_in': 'True', 'message': 'User Logged in', 'Username':current_user.username}), 201
+        return jsonify({'logged_in': 'True', 'message': 'User Logged in', 'Username':current_user.username}), 200
     else:
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
@@ -64,7 +64,7 @@ def apilogin():
 @app.route('/api/register', methods=['POST'])
 def apiregister():
     if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 401
+        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 400
     username = request.json.get('username')
     password = request.json.get('password')
     email = request.json.get('email')
@@ -118,7 +118,7 @@ def apirating():
             book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
             db.session.add(book)
         db.session.commit()
-        return 'OK'
+        return '201'
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -135,14 +135,14 @@ def apiprofile():
                 my_fav_genres.extend(myFavGenresList)
             ratedBooks.append({ 'id': book.book_id, 'title':  original_books['original_title'][book.book_id - 1], 'image': original_books['image_url'][book.book_id - 1], 'author':original_books['authors'][book.book_id - 1], 'rating': book.rating})
         if checkIfDuplicates(my_fav_genres):
-            my_fav_genres = [key for key, value in Counter(my_fav_genres).most_common()]
+            my_fav_genres = [key for key, value in Counter(my_fav_genres).most_common()] 
             if len(my_fav_genres) >= 4:
                 my_fav_genres = my_fav_genres[:4]
         else:
             if len(my_fav_genres) >= 4:
                 my_fav_genres = my_fav_genres[0::3]
         my_fav_genres = ','.join(my_fav_genres)
-        return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
+        return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -154,7 +154,6 @@ def checkIfDuplicates(eleList):
         else:
             setOfEle.add(elem)
     return False
-
 
 @app.route('/api/recommend', methods=['GET'])
 def apirecommend():
@@ -179,7 +178,7 @@ def apirecommend():
         else:
             my_fav_ID=[]
             for book in books:
-                if book.rating >=3:
+                if book.rating >=4:
                     my_fav_ID.append(book.book_id)
 
             recommendations=obj.get_recommendations(my_fav_ID)
@@ -247,7 +246,6 @@ def apitrending():
                 sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]                #filter
                 sorted_avg_ratings = sorted_avg_ratings.sample(frac=1).reset_index(drop=True)                       #randomize
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
-                sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
                 final = final + sorted_avg_ratings[:n]                          #get top n according ot the ratio we calculated
 
             trending=[]                 #getting books and returning them
@@ -256,7 +254,6 @@ def apitrending():
             return ({ 'Trending': trending }), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
-
 
 @app.route('/api/summary', methods=['POST'])
 def apisummary():
@@ -292,7 +289,6 @@ def apisummary():
             return ({"Summary":summary}),200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
-
 
 @app.route('/api/search/<key>', methods=['GET'])
 def apisearch(key):
