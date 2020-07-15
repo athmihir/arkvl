@@ -49,7 +49,7 @@ const SideBar = ({ userName, logout, history }) => {
 
           <li className="nav-item">
             <span className="nav-link user-avatar">
-              <NavLink to="/user-profile" className="user-username">
+              <NavLink to="/user-profile">
                 <UserAvatar />
               </NavLink>
             </span>

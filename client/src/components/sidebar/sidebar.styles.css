@@ -97,7 +97,12 @@
   background: none;
   border-left: 2px solid var(--bg-primary);
 }
-
+.user-avatar.active {
+  background: var(--bg-primary);
+  color: var(--primary-color);
+  fill: var(--text-primary) !important;
+  border-left: 2px solid transparent;
+}
 /* Small screens */
 @media only screen and (max-width: 700px) {
   .navbar {
@@ -135,14 +140,5 @@
 
   .nav-link:not(.user-avatar):hover {
     border-left: 2px solid var(--bg-primary);
-  }
-}
-
-@media only screen and (min-width: 700px) {
-  .user-username.active {
-    background: var(--bg-primary);
-    color: var(--primary-color);
-    fill: var(--text-primary) !important;
-    border-left: 2px solid transparent;
   }
 }
