@@ -2,6 +2,40 @@
   margin-top: 10px;
 }
 
-.skeletonauthor {
+div.skeletonauthor {
   margin-top: 10px;
+}
+
+.skeletonimage {
+  height: 326px !important;
+  width: 217 !important;
+}
+
+.skeletonauthors {
+  width: 200px !important;
+}
+
+/* .encloseSkeleton {
+  margin-left: 50px;
+  margin-right: 50px;
+} */
+/* .skeletonimage {
+  margin-left: 70px;
+  margin-right: 70px;
+} */
+
+@media screen and (max-width: 700px) {
+  .skeletonimage {
+    height: 200px !important;
+    width: 140px !important;
+  }
+
+  /* .encloseSkeleton {
+    margin-left: 10%;
+    margin-right: 100%;
+  } */
+
+  .skeletonauthors {
+    width: 100% !important;
+  }
 }

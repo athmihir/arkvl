@@ -29,7 +29,7 @@ class UserProfile extends React.Component {
           username={this.state.username}
         />
         <div className="user-favorites">
-          <h1>Your Favorites.</h1>
+          <h1>Your Favorites</h1>
           <BookDirectory BOOKS={this.state.ratedBooks} />
         </div>
       </div>

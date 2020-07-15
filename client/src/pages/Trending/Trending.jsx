@@ -22,7 +22,7 @@ class Trending extends React.Component {
     return (
       <div className="trending-books">
         <div className="page-header">
-          <h1> Trending. </h1>
+          <h1> Trending </h1>
           <Search />
         </div>
         <BookDirectory BOOKS={trending} removeRated={this.props.removeRated} />

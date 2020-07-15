@@ -11,7 +11,7 @@ import Search from '../../components/Search/Search';
 
 class Recommended extends Component {
   componentDidMount() {
-      this.props.fetchedBooks();
+    this.props.fetchedBooks();
   }
 
   render() {
@@ -20,12 +20,12 @@ class Recommended extends Component {
       this.props.loadRecs.length > 0 &&
       this.props.loadRecs.length < 5
     ) {
-        this.props.fetchedBooks();
+      this.props.fetchedBooks();
     }
     return (
       <div className="recommended-books">
         <div className="page-header">
-          <h1> For You.</h1>
+          <h1> For You</h1>
           <Search />
         </div>
         <BookDirectory

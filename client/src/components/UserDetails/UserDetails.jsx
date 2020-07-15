@@ -9,6 +9,9 @@ function UserDetails({ booksRated, dateJoined, favGenres, username }) {
       <div>
         <div className="user-name">
           <h1>{username}</h1>
+
+        </div>
+        <div className="editProfileLink">
           <Link to="/"> Edit Profile</Link>
         </div>
         <div className="user-details-container">

@@ -4,6 +4,7 @@ div.user-profile-page {
 
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
-    padding: 3vh 20vw;
+    padding: 1vh 10vw;
+    padding-top: 3vh;
   }
 }

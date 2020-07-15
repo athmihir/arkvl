@@ -42,6 +42,10 @@ div.user-details-item {
   align-items: center;
 }
 
+.editProfileLink {
+  margin-top: 1%;
+}
+
 @media only screen and (max-width: 700px) {
   div.user-details {
     grid-template-columns: auto;
@@ -52,5 +56,8 @@ div.user-details-item {
   }
   div.user-details > div {
     margin-left: 0;
+  }
+  .editProfileLink {
+    margin-top: 2%;
   }
 }
