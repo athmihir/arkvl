@@ -37,7 +37,7 @@ class SummarySkeleton extends Component {
               <Skeleton count={1} height={20} />
             </div>
             <div className="skeletonGenre">
-              <Skeleton count={1} height={20} width={300} />
+              <Skeleton count={1} height={20} />
             </div>
             <div className="skeletonAbout">
               <Skeleton count={10} />

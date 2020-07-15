@@ -1,10 +1,15 @@
 div.user-profile-page {
-  padding: 7vh 5vw 7vh 17vw;
+  padding: 7vh 5vw 7vh 14vw;
+}
+
+.user-favorites h1 {
+  margin-left: 10px;
+  font-size: 1.7em;
 }
 
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
-    padding: 1vh 10vw;
+    padding: 1vh 10vw 6rem 10vw;
     padding-top: 3vh;
   }
 }

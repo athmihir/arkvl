@@ -97,11 +97,11 @@
   background: none;
   border-left: 2px solid var(--bg-primary);
 }
-.user-avatar.active {
+.user-avatar .active {
   background: var(--bg-primary);
   color: var(--primary-color);
   fill: var(--text-primary) !important;
-  border-left: 2px solid transparent;
+  border-left: none;
 }
 /* Small screens */
 @media only screen and (max-width: 700px) {
@@ -137,7 +137,9 @@
     padding-bottom: 10px;
     padding-top: 0;
   }
-
+  .user-avatar .active {
+    border-bottom: none;
+  }
   .nav-link:not(.user-avatar):hover {
     border-left: 2px solid var(--bg-primary);
   }

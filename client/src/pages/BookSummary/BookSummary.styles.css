@@ -29,8 +29,8 @@ div .rating {
 }
 
 .skeletonDetails {
-  margin-left: 50px;
-  margin-top: 50px;
+  margin: 5vh 1vw;
+  width: 70vw;
 }
 
 .skeletonAuthor {
@@ -43,6 +43,7 @@ div .rating {
   flex-flow: row;
   margin-top: 20px;
   vertical-align: auto;
+  width: 70vw;
 }
 
 .skeletoninnergenre {
@@ -62,7 +63,7 @@ div .rating {
   .book-summary-container {
     grid-template-columns: auto;
     margin-left: 0;
-    padding: 10vh 10%;
+    padding: 10vh 10% 7rem 10%;
   }
 
   .book-image-container {

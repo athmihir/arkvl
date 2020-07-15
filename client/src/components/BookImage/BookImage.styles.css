@@ -18,4 +18,10 @@ img.cover-image {
     max-width: 150px;
     max-height: 200px;
   }
+
+  img.cover-image {
+    max-width: 310px;
+    width: 50vw;
+    box-shadow: 0px 4px 10px #0000007d;
+  }
 }

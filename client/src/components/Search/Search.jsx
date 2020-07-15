@@ -24,7 +24,7 @@ const formatOptionLabel = ({ value, label, image, author }) => (
     </div>
   </Link>
 );
-const CaretDownIcon = () => {
+const SearchIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ const CaretDownIcon = () => {
 const DropdownIndicator = (props) => {
   return (
     <components.DropdownIndicator {...props}>
-      <CaretDownIcon />
+      <SearchIcon />
     </components.DropdownIndicator>
   );
 };
@@ -49,7 +49,11 @@ class Search extends React.Component {
   state = {
     inputValue: '',
   };
+
   loadOptions = (inputText, callback) => {
+    this.setState({
+      inputValue: inputText,
+    });
     axios.get(`/api/search/${inputText}`).then((res) => {
       console.log(res.data);
       callback(
@@ -68,6 +72,11 @@ class Search extends React.Component {
     return (
       <AsyncSelect
         components={{ animatedComponents, DropdownIndicator }}
+        noOptionsMessage={() =>
+          this.state.inputValue.length > 0
+            ? 'No such books found'
+            : 'Search for a book'
+        }
         loadOptions={this.debouncedLoadOptions}
         placeholder="Search"
         value={this.state.inputValue}

@@ -13,8 +13,9 @@ export default function BookCard({ book, bookno, removeRated }) {
         rating: newRating,
         book_id: book.id,
       })
-      .then((res) => removeRated(book.id))
+      .then((res) => removeRated && removeRated(book.id))
       .catch((err) => {
+        console.log(err);
         toast.error('Something went wrong. Please try again', {
           position: 'top-right',
           autoClose: 5000,
