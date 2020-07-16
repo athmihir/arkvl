@@ -1,0 +1,53 @@
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.errorHeader h1 {
+    font-size: 10em;
+    color: #707070;
+    margin-bottom: 0px;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.errorHeader p {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.errorBody {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.errorFooter {
+    font-size: 1.5em;
+    margin-top: 3%;
+    text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+    .errorContainer {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .errorHeader h1 {
+        font-size: 4em;
+    }
+
+    .errorBody {
+        font-size: 0.8em;
+    }
+
+    .errorFooter {
+        font-size: 1.2em;
+    }
+}
