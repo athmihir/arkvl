@@ -135,7 +135,7 @@ def apiprofile():
                 my_fav_genres.extend(myFavGenresList)
             ratedBooks.append({ 'id': book.book_id, 'title':  original_books['original_title'][book.book_id - 1], 'image': original_books['image_url'][book.book_id - 1], 'author':original_books['authors'][book.book_id - 1], 'rating': book.rating})
         if checkIfDuplicates(my_fav_genres):
-            my_fav_genres = [key for key, value in Counter(my_fav_genres).most_common()] 
+            my_fav_genres = [key for key, value in Counter(my_fav_genres).most_common()]
             if len(my_fav_genres) >= 4:
                 my_fav_genres = my_fav_genres[:4]
         else:
@@ -177,11 +177,13 @@ def apirecommend():
 
         else:
             my_fav_ID=[]
+            read_books = []
             for book in books:
-                if book.rating >=4:
+                if book.rating >=3:
                     my_fav_ID.append(book.book_id)
+                read_books.append(book.book_id)
 
-            recommendations=obj.get_recommendations(my_fav_ID)
+            recommendations=obj.get_recommendations(my_fav_ID, read_books)
             return ({ 'Recommendations': recommendations }), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
