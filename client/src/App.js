@@ -11,100 +11,58 @@ import Recommended from './pages/Recommended/Recommended';
 import Trending from './pages/Trending/Trending';
 import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
-import Error404 from './pages/404/404'
+import Error404 from './pages/404/404';
+import Loader from './components/loader/loader.component';
 
 class App extends React.Component {
-  componentDidMount() {
-    console.log(this.props.isAuthenticated);
-    if (this.props.isAuthenticated === undefined) {
-      this.props.checkUserLoggedIn();
-    }
-  }
   render() {
     const { isAuthenticated } = this.props;
-    console.log(isAuthenticated);
+    if (isAuthenticated === undefined) {
+      this.props.checkUserLoggedIn();
+    }
     return (
       <div className="App">
         <ToastContainer />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() =>
-              isAuthenticated !== undefined ? (
-                isAuthenticated ? (
-                  <Recommended />
-                ) : (
-                  <LoginRegister />
-                )
-              ) : (
-                <LoginRegister />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/trending"
-            render={() =>
-              isAuthenticated !== undefined ? (
-                isAuthenticated ? (
-                  <Trending />
-                ) : (
-                  <LoginRegister />
-                )
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/login"
-            render={() =>
-              isAuthenticated !== undefined ? (
-                isAuthenticated ? (
-                  <Recommended />
-                ) : (
-                  <LoginRegister />
-                )
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/user-profile"
-            render={() =>
-              isAuthenticated !== undefined ? (
-                isAuthenticated ? (
-                  <UserProfile />
-                ) : (
-                  <LoginRegister />
-                )
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/book-summary/:bookid"
-            component={BookSummary}
-            render={() =>
-              isAuthenticated !== undefined ? (
-                isAuthenticated ? (
-                  <BookSummary />
-                ) : (
-                  <LoginRegister />
-                )
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route 
-            path="/404"
-            component={Error404}
-          />
-        </Switch>
+        {isAuthenticated === undefined ? (
+          <Loader />
+        ) : (
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() =>
+                isAuthenticated ? <Recommended /> : <LoginRegister />
+              }
+            />
+            <Route
+              exact
+              path="/trending"
+              render={() =>
+                isAuthenticated ? <Trending /> : <LoginRegister />
+              }
+            />
+            <Route
+              path="/login"
+              render={() =>
+                isAuthenticated ? <Recommended /> : <LoginRegister />
+              }
+            />
+            <Route
+              path="/user-profile"
+              render={() =>
+                isAuthenticated ? <UserProfile /> : <LoginRegister />
+              }
+            />
+            <Route
+              path="/book-summary/:bookid"
+              component={BookSummary}
+              render={() =>
+                isAuthenticated ? <BookSummary /> : <LoginRegister />
+              }
+            />
+            <Route path="/404" component={Error404} />
+          </Switch>
+        )}
         {isAuthenticated ? <SideBar /> : null}
       </div>
     );
