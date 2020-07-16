@@ -246,6 +246,7 @@ def apitrending():
                 sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]                #filter
                 sorted_avg_ratings = sorted_avg_ratings.sample(frac=1).reset_index(drop=True)                       #randomize
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
+                sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
                 final = final + sorted_avg_ratings[:n]                          #get top n according ot the ratio we calculated
 
             trending=[]                 #getting books and returning them
