@@ -11,6 +11,7 @@ import Recommended from './pages/Recommended/Recommended';
 import Trending from './pages/Trending/Trending';
 import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
+import Error404 from './pages/404/404'
 
 class App extends React.Component {
   componentDidMount() {
@@ -98,6 +99,10 @@ class App extends React.Component {
                 <Redirect to="/" />
               )
             }
+          />
+          <Route 
+            path="/404"
+            component={Error404}
           />
         </Switch>
         {isAuthenticated ? <SideBar /> : null}
