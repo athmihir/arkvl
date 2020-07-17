@@ -7,17 +7,28 @@ import {
 } from '../../redux/recommendations/recommendations.actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { toast, Slide } from 'react-toastify';
 import { motion } from 'framer-motion';
 import Search from '../../components/Search/Search';
 
 class Recommended extends Component {
-  constructor(props) {
-    super(props);
-    props.fetchedBooks();
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
+    if (this.props.loadRecs && this.props.loadRecs.length === 0) {
+      this.props.fetchedBooks();
+      if (this.props.newUser) {
+        toast('Rate books to get recommendations curated for you.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          transition: Slide,
+        });
+      }
+    }
   }
 
   render() {
@@ -57,6 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   loadRecs: state.recommendations,
+  newUser: state.user.newUser,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recommended);

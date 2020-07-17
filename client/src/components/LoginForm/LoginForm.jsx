@@ -45,7 +45,9 @@ const LoginForm = ({ submitUserDetails }) => {
             placeholder=" "
             onChange={handleChange}
           />
-          <SubmitButton type="submit">Login</SubmitButton>
+          <SubmitButton type="submit" onClick={handleSubmit}>
+            Login
+          </SubmitButton>
         </form>
       </div>
     </div>

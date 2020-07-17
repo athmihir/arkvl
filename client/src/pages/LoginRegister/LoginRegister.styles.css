@@ -8,6 +8,7 @@ div.login-register-container {
 
 @media screen and (max-width: 700px) {
   div.login-register-container {
+    grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
     align-items: center;
     padding: 7vh 3vh;
   }

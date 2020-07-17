@@ -56,7 +56,9 @@ const RegisterForm = ({ registerUserSubmit }) => {
             onChange={handleChange}
             value={registerInfo.password}
           />
-          <SubmitButton type="submit">Register</SubmitButton>
+          <SubmitButton type="submit" onClick={handleSubmit}>
+            Register
+          </SubmitButton>
         </form>
       </div>
     </div>

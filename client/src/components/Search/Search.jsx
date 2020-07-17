@@ -73,7 +73,7 @@ class Search extends React.Component {
       menuList: this.props.large
         ? (base, state) => ({
             ...base,
-            'min-height': this.state.inputValue.length !== 0 ? '700px' : '',
+            minHeight: this.state.inputValue.length !== 0 ? '70vh' : '',
           })
         : (base) => ({
             ...base,

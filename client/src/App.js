@@ -17,16 +17,11 @@ import Loader from './components/loader/loader.component';
 import Search from './pages/search/search';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    if (this.props.isAuthenticated === undefined) {
-      setTimeout(this.props.checkUserLoggedIn, 2000);
-    }
-  }
-
   render() {
     const { isAuthenticated } = this.props;
-
+    if (isAuthenticated === undefined) {
+      setTimeout(this.props.checkUserLoggedIn, 1000);
+    }
     const pageVariants = {
       initial: {
         opacity: 0,
@@ -41,8 +36,8 @@ class App extends React.Component {
 
     const pageTransition = {
       type: 'tween',
-      ease: 'anticipate',
-      duration: 0.3,
+      ease: 'linear',
+      duration: 0.2,
     };
 
     return (
