@@ -4,6 +4,7 @@ const UserActionTypes = {
   ERROR_REGISTER: 'ERROR_REGISTER',
   SUCCESS_REGISTER: 'SUCCESS_REGISTER',
   UNSET_ERROR: 'UNSET_ERROR',
+  NO_USER: 'NO_USER',
 };
 
 export default UserActionTypes;

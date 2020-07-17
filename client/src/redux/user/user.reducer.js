@@ -32,6 +32,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
         isAuthenticated: false,
         error: action.payload,
       };
+    case UserActionType.NO_USER:
+      return {
+        isAuthenticated: false,
+      };
     case UserActionType.UNSET_ERROR:
       return {
         ...state,

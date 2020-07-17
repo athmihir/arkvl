@@ -25,6 +25,10 @@ export const unsetError = () => ({
   type: UserActionTypes.UNSET_ERROR,
 });
 
+export const userError = () => ({
+  type: UserActionTypes.NO_USER,
+});
+
 export const checkUserStatus = () => async (dispatch) => {
   axios
     .get('/api/login')
@@ -33,7 +37,9 @@ export const checkUserStatus = () => async (dispatch) => {
         dispatch(loginUsersSuccess(res.data.Username));
       }
     })
-    .catch((err) => {});
+    .catch((err) => {
+      dispatch(userError());
+    });
 };
 
 export const loginUser = (userData) => (dispatch) => {
