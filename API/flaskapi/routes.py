@@ -33,7 +33,7 @@ from collections import Counter
 def apilogout():
     if current_user.is_authenticated:
         logout_user()
-        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 201
+        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -42,11 +42,11 @@ def apilogout():
 def apilogin():
     if request.method == 'GET':
         if current_user.is_authenticated:
-            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already','Username':current_user.username}), 201
+            return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already','Username':current_user.username}), 200
         else:
             return jsonify({'error': 'Invalid Request'}), 400
     if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 201
+        return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 200
     username = request.json.get('username')
     password = request.json.get('password')
     if username is None or password is None:
@@ -56,7 +56,7 @@ def apilogin():
     user = User.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password, password):
         login_user(user)
-        return jsonify({'logged_in': 'True', 'message': 'User Logged in', 'Username':current_user.username}), 201
+        return jsonify({'logged_in': 'True', 'message': 'User Logged in', 'Username':current_user.username}), 200
     else:
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
@@ -64,7 +64,7 @@ def apilogin():
 @app.route('/api/register', methods=['POST'])
 def apiregister():
     if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 401
+        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 400
     username = request.json.get('username')
     password = request.json.get('password')
     email = request.json.get('email')
@@ -118,7 +118,7 @@ def apirating():
             book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
             db.session.add(book)
         db.session.commit()
-        return 'OK'
+        return '201'
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -142,7 +142,7 @@ def apiprofile():
             if len(my_fav_genres) >= 4:
                 my_fav_genres = my_fav_genres[0::3]
         my_fav_genres = ','.join(my_fav_genres)
-        return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks})
+        return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -154,7 +154,6 @@ def checkIfDuplicates(eleList):
         else:
             setOfEle.add(elem)
     return False
-
 
 @app.route('/api/recommend', methods=['GET'])
 def apirecommend():
@@ -178,11 +177,13 @@ def apirecommend():
 
         else:
             my_fav_ID=[]
+            read_books = []
             for book in books:
                 if book.rating >=3:
                     my_fav_ID.append(book.book_id)
+                read_books.append(book.book_id)
 
-            recommendations=obj.get_recommendations(my_fav_ID)
+            recommendations=obj.get_recommendations(my_fav_ID, read_books)
             return ({ 'Recommendations': recommendations }), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
@@ -257,7 +258,6 @@ def apitrending():
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
-
 @app.route('/api/summary', methods=['POST'])
 def apisummary():
     if current_user.is_authenticated:
@@ -292,7 +292,6 @@ def apisummary():
             return ({"Summary":summary}),200
     else:
         return jsonify({'error': 'Invalid Request'}), 400
-
 
 @app.route('/api/search/<key>', methods=['GET'])
 def apisearch(key):
