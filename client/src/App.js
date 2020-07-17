@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
 

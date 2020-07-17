@@ -18,6 +18,7 @@ class UserProfile extends React.Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     axios.get('/api/user-profile').then((res) => this.setState(res.data));
   }
   handleLogout = () => {
@@ -42,7 +43,7 @@ class UserProfile extends React.Component {
           </CustomButton>
         </div>
         <div className="user-favorites">
-          <h1>Your Favorites</h1>
+          <h1>Books you rated</h1>
           <BookDirectory BOOKS={this.state.ratedBooks} />
         </div>
       </div>

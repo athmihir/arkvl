@@ -33,6 +33,7 @@ class BookSummary extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     axios
       .post('/api/summary', {
         book_id: this.state.book_id,
@@ -75,7 +76,7 @@ class BookSummary extends Component {
                   </div>
                 ) : (
                   <div className="rating-container">
-                    <h3 className="rating">Rate this book</h3>
+                    <p className="rating">Rate this book</p>
                     <ReactStars
                       count={5}
                       size={24}

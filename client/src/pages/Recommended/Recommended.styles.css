@@ -18,7 +18,7 @@ div.recommended-books {
 
 @media only screen and (max-width: 700px) {
   div.recommended-books {
-    padding: 2em 2em 6rem 2em;
+    padding: 2em 2em 10em 2em;
     margin: auto;
   }
   .page-header > div {

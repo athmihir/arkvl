@@ -11,6 +11,7 @@ import Search from '../../components/Search/Search';
 
 class Recommended extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.fetchedBooks();
   }
 

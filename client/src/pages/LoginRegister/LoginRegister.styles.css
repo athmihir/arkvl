@@ -1,6 +1,6 @@
 div.login-register-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
   padding: 20vh;
   justify-items: center;
   align-items: center;

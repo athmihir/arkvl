@@ -88,7 +88,6 @@ div.book-details.cover .book-link {
 
 @media screen and (max-width: 1000px) {
   div.book-details.cover {
-    max-width: 70%;
     margin: auto;
     margin-top: 15px;
   }
@@ -100,10 +99,6 @@ div.book-details.cover .book-link {
 }
 
 @media screen and (max-width: 370px) {
-  div.book-details.cover {
-    margin: 10%;
-    margin-top: 15px;
-  }
   div span.rating {
     max-width: 5em;
   }

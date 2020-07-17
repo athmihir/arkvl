@@ -4,7 +4,7 @@ div.trending-books {
 
 @media only screen and (max-width: 700px) {
   div.trending-books {
-    padding: 2em;
+    padding: 2em 2em 10em 2em;
     margin: auto;
   }
 }
