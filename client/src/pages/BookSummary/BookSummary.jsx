@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { motion } from 'framer-motion';
 import BookCard from '../../components/BookImage/BookImage';
 import BookDetails from '../../components/BookDetails/BookDetails';
 import ReactStars from 'react-rating-stars-component';
@@ -55,7 +56,13 @@ class BookSummary extends Component {
 
   render() {
     return (
-      <div>
+      <motion.div
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={this.props.pageVariants}
+        transition={this.props.pageTransition}
+      >
         {this.state.imgSource ? (
           <div className="book-summary-container">
             <div className="book-image-container">
@@ -102,7 +109,7 @@ class BookSummary extends Component {
         ) : (
           <SummarySkeleton />
         )}
-      </div>
+      </motion.div>
     );
   }
 }

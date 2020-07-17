@@ -4,6 +4,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
+import { ReactComponent as SearchIcon } from '../../assets/icons/search-24px.svg';
 import { ReactComponent as UserAvatar } from '../../assets/user.svg';
 import './sidebar.styles.css';
 
@@ -35,6 +36,13 @@ const SideBar = () => {
             >
               <TrendingIcon />
               <div className="link-text">Trending</div>
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink to="/search" className="nav-link" activeClassName="active">
+              <SearchIcon />
+              <div className="link-text">Search</div>
             </NavLink>
           </li>
 

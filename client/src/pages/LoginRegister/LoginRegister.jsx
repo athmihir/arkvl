@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { toast, Slide } from 'react-toastify';
+import { motion } from 'framer-motion';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import { unsetError } from '../../redux/user/user.actions';
 import './LoginRegister.styles.css';
 
-function LoginRegister({ error, newUser, removeError }) {
+function LoginRegister({
+  error,
+  newUser,
+  removeError,
+  pageVariants,
+  pageTransition,
+}) {
   useEffect(() => {
     if (error) {
       toast.error(error, {
@@ -35,10 +42,17 @@ function LoginRegister({ error, newUser, removeError }) {
     removeError();
   }, [error, newUser, removeError]);
   return (
-    <div className="login-register-container">
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="login-register-container"
+    >
       <LoginForm />
       <RegisterForm />
-    </div>
+    </motion.div>
   );
 }
 

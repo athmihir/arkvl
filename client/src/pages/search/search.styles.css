@@ -1,0 +1,20 @@
+.search-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50vw;
+  margin: 4% auto;
+}
+
+.search-page h1 {
+  font-size: 1.5em;
+}
+
+@media screen and (max-width: 700px) {
+  .search-page {
+    width: 95%;
+  }
+  .search-page h1 {
+    font-size: 1.5em;
+  }
+}

@@ -69,11 +69,22 @@ class Search extends React.Component {
   wait = 1000; // milliseconds
   debouncedLoadOptions = _.debounce(this.loadOptions, this.wait);
   render() {
+    const customStyles = {
+      menuList: this.props.large
+        ? (base, state) => ({
+            ...base,
+            'min-height': this.state.inputValue.length !== 0 ? '700px' : '',
+          })
+        : (base) => ({
+            ...base,
+          }),
+    };
+
     return (
       <AsyncSelect
         components={{ animatedComponents, DropdownIndicator }}
         noOptionsMessage={() =>
-          this.state.inputValue.length > 0
+          this.state.inputValue.length !== 0
             ? 'No such books found'
             : 'Search for a book'
         }
@@ -94,6 +105,7 @@ class Search extends React.Component {
             primary50: 'var(--bg-secondary)',
           },
         })}
+        styles={customStyles}
       />
     );
   }

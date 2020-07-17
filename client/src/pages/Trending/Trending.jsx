@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { motion } from 'framer-motion';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import Search from '../../components/Search/Search';
 
@@ -21,13 +22,20 @@ class Trending extends React.Component {
       this.props.fetchTrending();
     }
     return (
-      <div className="trending-books">
+      <motion.div
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={this.props.pageVariants}
+        transition={this.props.pageTransition}
+        className="trending-books"
+      >
         <div className="page-header">
           <h1> Trending </h1>
           <Search />
         </div>
         <BookDirectory BOOKS={trending} removeRated={this.props.removeRated} />
-      </div>
+      </motion.div>
     );
   }
 }

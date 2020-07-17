@@ -30,6 +30,7 @@ div .rating {
 .skeletonDetails {
   margin: 5vh 1vw;
   width: 70vw;
+  max-width: 700px;
 }
 
 .skeletonAuthor {

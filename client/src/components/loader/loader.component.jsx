@@ -24,10 +24,10 @@ const Loader = () => {
     <div className="span">
       <div>
         <div className="coffee_cup"></div>
-        <p
+        <div
           dangerouslySetInnerHTML={{ __html: randomQuote }}
           className="loader-text"
-        ></p>
+        ></div>
       </div>
     </div>
   );

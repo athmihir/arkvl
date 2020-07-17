@@ -3,6 +3,7 @@ import UserDetails from '../../components/UserDetails/UserDetails';
 import axios from 'axios';
 import { userLogout } from '../../redux/rootreducer';
 import { connect } from 'react-redux';
+import { motion } from 'framer-motion';
 import './UserProfile.styles.css';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -30,7 +31,14 @@ class UserProfile extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div className="user-profile-page">
+      <motion.div
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={this.props.pageVariants}
+        transition={this.props.pageTransition}
+        className="user-profile-page"
+      >
         <div className="user-page-header">
           <UserDetails
             booksRated={this.state.booksRated}
@@ -46,7 +54,7 @@ class UserProfile extends React.Component {
           <h1>Books you rated</h1>
           <BookDirectory BOOKS={this.state.ratedBooks} />
         </div>
-      </div>
+      </motion.div>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 
 import { checkUserStatus } from './redux/user/user.actions';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
@@ -13,55 +14,158 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
 import Error404 from './pages/404/404';
 import Loader from './components/loader/loader.component';
+import Search from './pages/search/search';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    if (this.props.isAuthenticated === undefined) {
+      setTimeout(this.props.checkUserLoggedIn, 2000);
+    }
+  }
+
   render() {
     const { isAuthenticated } = this.props;
-    if (isAuthenticated === undefined) {
-      this.props.checkUserLoggedIn();
-    }
+
+    const pageVariants = {
+      initial: {
+        opacity: 0,
+      },
+      in: {
+        opacity: 1,
+      },
+      out: {
+        opacity: 0,
+      },
+    };
+
+    const pageTransition = {
+      type: 'tween',
+      ease: 'anticipate',
+      duration: 0.3,
+    };
+
     return (
       <div className="App">
         <ToastContainer />
         {isAuthenticated === undefined ? (
           <Loader />
         ) : (
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() =>
-                isAuthenticated ? <Recommended /> : <LoginRegister />
-              }
-            />
-            <Route
-              exact
-              path="/trending"
-              render={() =>
-                isAuthenticated ? <Trending /> : <LoginRegister />
-              }
-            />
-            <Route
-              path="/login"
-              render={() =>
-                isAuthenticated ? <Recommended /> : <LoginRegister />
-              }
-            />
-            <Route
-              path="/user-profile"
-              render={() =>
-                isAuthenticated ? <UserProfile /> : <LoginRegister />
-              }
-            />
-            <Route
-              path="/book-summary/:bookid"
-              component={BookSummary}
-              render={() =>
-                isAuthenticated ? <BookSummary /> : <LoginRegister />
-              }
-            />
-            <Route path="/404" component={Error404} />
-          </Switch>
+          <AnimatePresence exitBeforeEnter>
+            <Switch
+              location={this.props.location}
+              key={this.props.location.pathname}
+            >
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  isAuthenticated ? (
+                    <Recommended
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/trending"
+                render={() =>
+                  isAuthenticated ? (
+                    <Trending
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/search"
+                render={() =>
+                  isAuthenticated ? (
+                    <Search
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/login"
+                render={() =>
+                  isAuthenticated ? (
+                    <Recommended
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/user-profile"
+                render={() =>
+                  isAuthenticated ? (
+                    <UserProfile
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/book-summary/:bookid"
+                component={BookSummary}
+                render={() =>
+                  isAuthenticated ? (
+                    <BookSummary
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
+              />
+              <Route
+                render={() => (
+                  <Error404
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                )}
+              />
+            </Switch>
+          </AnimatePresence>
         )}
         {isAuthenticated ? <SideBar /> : null}
       </div>
@@ -77,4 +181,4 @@ const mapDispatchToProps = (dispatch) => ({
   checkUserLoggedIn: () => dispatch(checkUserStatus()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
