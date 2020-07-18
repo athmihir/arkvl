@@ -12,10 +12,13 @@ div.user-page-header {
 }
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
-    padding: 1vh 10vw 6rem 10vw;
+    padding: 1vh 10vw 10em 10vw;
     padding-top: 3vh;
   }
   div.user-page-header {
     display: initial;
+  }
+  .user-favorites h1 {
+    margin-left: 0;
   }
 }

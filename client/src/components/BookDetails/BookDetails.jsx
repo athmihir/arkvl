@@ -46,10 +46,11 @@ const BookTitle = ({
           <span className="rating">Average Rating</span>
           <ReactStars
             count={5}
-            size={18}
+            size={20}
             color2="var(--primary-color)"
             className="ratingStars"
             edit={false}
+            half={false}
             value={avgRating}
           />
         </div>

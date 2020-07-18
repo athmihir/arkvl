@@ -35,10 +35,6 @@ div.user-details-item {
   align-items: center;
 }
 
-.editProfileLink {
-  margin-top: 1%;
-}
-
 @media only screen and (max-width: 700px) {
   div.user-details {
     margin-left: 0;
@@ -48,8 +44,5 @@ div.user-details-item {
   }
   div.user-details > div {
     margin-left: 0;
-  }
-  .editProfileLink {
-    margin-top: 2%;
   }
 }

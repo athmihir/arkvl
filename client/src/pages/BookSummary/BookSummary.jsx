@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { motion } from 'framer-motion';
 import BookCard from '../../components/BookImage/BookImage';
 import BookDetails from '../../components/BookDetails/BookDetails';
 import ReactStars from 'react-rating-stars-component';
@@ -33,6 +34,7 @@ class BookSummary extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     axios
       .post('/api/summary', {
         book_id: this.state.book_id,
@@ -54,7 +56,13 @@ class BookSummary extends Component {
 
   render() {
     return (
-      <div>
+      <motion.div
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={this.props.pageVariants}
+        transition={this.props.pageTransition}
+      >
         {this.state.imgSource ? (
           <div className="book-summary-container">
             <div className="book-image-container">
@@ -75,7 +83,7 @@ class BookSummary extends Component {
                   </div>
                 ) : (
                   <div className="rating-container">
-                    <h3 className="rating">Rate this book</h3>
+                    <p className="rating">Rate this book</p>
                     <ReactStars
                       count={5}
                       size={24}
@@ -101,7 +109,7 @@ class BookSummary extends Component {
         ) : (
           <SummarySkeleton />
         )}
-      </div>
+      </motion.div>
     );
   }
 }

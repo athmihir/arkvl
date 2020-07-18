@@ -12,7 +12,6 @@
 
 div .rating {
   color: var(--primary-text);
-  font-size: 1.1em;
   margin: 0;
   margin-right: 10px;
   max-width: 7em;
@@ -31,6 +30,7 @@ div .rating {
 .skeletonDetails {
   margin: 5vh 1vw;
   width: 70vw;
+  max-width: 700px;
 }
 
 .skeletonAuthor {
@@ -63,7 +63,6 @@ div .rating {
   .book-summary-container {
     grid-template-columns: auto;
     margin-left: 0;
-    padding: 10vh 10% 7rem 10%;
   }
 
   .book-image-container {
