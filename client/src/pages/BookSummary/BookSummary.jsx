@@ -20,6 +20,7 @@ class BookSummary extends Component {
       bookDesc: null,
       avgRating: 0,
       amazonLink: '',
+      isShown: false,
     };
   }
 
@@ -71,29 +72,36 @@ class BookSummary extends Component {
                 {this.state && this.state.rating !== 0 ? (
                   <div className="rating-container">
                     <span className="rating">You Rated</span>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      color2={'var(--primary-color)'}
-                      className="ratingStars"
-                      edit={false}
-                      half={false}
-                      value={this.state.rating}
-                    />
+                    <div onMouseEnter={() => this.setState({ isShown: !this.state.isShown })} onMouseLeave={() => this.setState({ isShown: !this.state.isShown })}>
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        color2={'var(--primary-color)'}
+                        className="ratingStars"
+                        edit={true}
+                        half={false}
+                        value={this.state.rating}
+                      />
+                    </div>
+                    {this.state.isShown && (
+                      <p>
+                        Edit rating
+                      </p>
+                    )}
                   </div>
                 ) : (
-                  <div className="rating-container">
-                    <p className="rating">Rate this book</p>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      color2={'var(--primary-color)'}
-                      className="ratingStars"
-                      onChange={this.ratingChanged}
-                      half={false}
-                    />
-                  </div>
-                )}
+                    <div className="rating-container">
+                      <p className="rating">Rate this book</p>
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        color2={'var(--primary-color)'}
+                        className="ratingStars"
+                        onChange={this.ratingChanged}
+                        half={false}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <BookDetails
@@ -107,8 +115,8 @@ class BookSummary extends Component {
             />
           </div>
         ) : (
-          <SummarySkeleton />
-        )}
+            <SummarySkeleton />
+          )}
       </motion.div>
     );
   }
