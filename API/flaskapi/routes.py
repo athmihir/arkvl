@@ -91,7 +91,7 @@ def apiregister():
         login_user(user)
         return jsonify({'registered': 'True', 'message': 'Account Created','Username':current_user.username}), 201
 
-@app.route('/api/new-rating', methods=['POST', 'PUT'])
+@app.route('/api/new-rating', methods=['POST', 'PUT', 'DELETE'])
 def apirating():
     if current_user.is_authenticated:
         book_id = request.json.get('book_id')
@@ -107,12 +107,17 @@ def apirating():
             return jsonify({'error': 'Invalid Request'}), 400
         else:
             rating=int(rating)
-        if not (1 <= rating <= 5):
-            return jsonify({'message': 'Rating can only be in tha range 1 to 5'}), 400
+        if not (0 <= rating <= 5):
+            return jsonify({'message': 'Rating can only be in tha range 0 to 5'}), 400
         genres=original_books['genres'][book_id-1]
         print(genres)
         title=original_books['title'][book_id-1]
-        if booky:
+        if rating == 0:
+            if booky:
+                db.session.delete(booky)
+            else:
+                return jsonify({'error': 'Book has not been rated before'}), 400
+        elif booky:
             booky.rating = rating
         else:
             book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
