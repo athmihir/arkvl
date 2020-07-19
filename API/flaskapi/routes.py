@@ -285,9 +285,9 @@ def apitrending():
                         thirdBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
                 genreNumber = genreNumber + 1
 
-            genreOne = "Best Of" + top3[0][0]
-            genreTwo = "Best Of" + top3[1][0]
-            genreThree = "Best Of" + top3[2][0]
+            genreOne = "Best Of " + top3[0][0]
+            genreTwo = "Best Of " + top3[1][0]
+            genreThree = "Best Of " + top3[2][0]
             return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}]}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 401

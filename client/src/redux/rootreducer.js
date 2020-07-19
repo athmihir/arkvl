@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import recommendationsReducer from './recommendations/recommendations.reducer';
 import userReducer from './user/user.reducer';
-import trendingReducer from './trending/trending.reducer';
+import libraryReducer from './library/library.reducer';
 
 const appReducer = combineReducers({
   recommendations: recommendationsReducer,
   user: userReducer,
-  trending: trendingReducer,
+  library: libraryReducer,
 });
 
 export const userLogout = () => ({

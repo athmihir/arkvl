@@ -55,7 +55,12 @@ div.book-card-details .book-rating {
 }
 
 div.book-card-details .book-rating > div {
-  display: inline;
+  display: flex;
+}
+
+div.book-card-details .book-rating > div > span {
+  align-self: center;
+  margin-left: 5px;
 }
 
 div.book-details.cover > .genre {

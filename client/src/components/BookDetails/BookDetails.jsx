@@ -25,7 +25,6 @@ const BookTitle = ({
             onMouseLeave={() => setIsShown(false)}
           >
             <ReactStars
-              className="starsOwnClass"
               count={5}
               size={25}
               color2="var(--primary-color)"
@@ -34,7 +33,7 @@ const BookTitle = ({
               half={false}
               value={rating}
             />
-            {isShown && <span>Clear Rating</span>}
+            {isShown && rating > 0 && <span>Clear Rating</span>}
           </div>
         </div>
       </div>

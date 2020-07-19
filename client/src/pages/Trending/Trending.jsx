@@ -7,20 +7,20 @@ import Search from '../../components/Search/Search';
 import {
   FetchTrendingBooks,
   RemoveRatedBook,
-} from '../../redux/trending/trending.actions';
+} from '../../redux/library/library.actions';
 import './Trending.styles.css';
 
 class Trending extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
-    this.props.fetchTrending();
+    if (this.props.library.length === 0) {
+      this.props.fetchTrending();
+    }
   }
 
   render() {
-    const { trending } = this.props;
-    if (trending && trending.length > 0 && trending.length < 5) {
-      this.props.fetchTrending();
-    }
+    const { library } = this.props;
+    console.log(library);
     return (
       <motion.div
         initial="initial"
@@ -31,10 +31,20 @@ class Trending extends React.Component {
         className="trending-books"
       >
         <div className="page-header">
-          <h1> Trending </h1>
+          <h1> Library </h1>
           <Search />
         </div>
-        <BookDirectory BOOKS={trending} removeRated={this.props.removeRated} />
+        {library.map((item, index) => {
+          return (
+            <div key={index}>
+              <h2>{item.header}</h2>
+              <BookDirectory
+                BOOKS={item.books}
+                removeRated={this.props.removeRated}
+              />
+            </div>
+          );
+        })}
       </motion.div>
     );
   }
@@ -45,7 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
   removeRated: (id) => dispatch(RemoveRatedBook(id)),
 });
 const mapStateToProps = (state) => ({
-  trending: state.trending,
+  library: state.library,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trending);

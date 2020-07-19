@@ -62,7 +62,7 @@ export const loginUser = (userData) => (dispatch) => {
       dispatch(
         loginError(
           err.response.data
-            ? err.response.data.message
+            ? err.response.data.message || err.response.data.error
             : 'Something went wrong',
         ),
       );
@@ -86,7 +86,7 @@ export const registerUser = (userData) => (dispatch) => {
       dispatch(
         registerError(
           err.response.data
-            ? err.response.data.message
+            ? err.response.data.message || err.response.data.error
             : 'Something went wrong',
         ),
       );
