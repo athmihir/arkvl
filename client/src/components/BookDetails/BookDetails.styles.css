@@ -53,6 +53,11 @@ div.book-card-details .book-rating {
   margin-top: 8px;
   font-size: 14px;
 }
+
+div.book-card-details .book-rating > div {
+  display: inline;
+}
+
 div.book-details.cover > .genre {
   margin-right: 10px;
   font-size: 1.1em;

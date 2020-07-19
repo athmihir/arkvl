@@ -2,6 +2,10 @@ div.user-profile-page {
   padding: 7vh 5vw 7vh 14vw;
 }
 
+.user-favorites {
+  margin-top: 20px;
+}
+
 .user-favorites h1 {
   margin-left: 10px;
   font-size: 1.7em;

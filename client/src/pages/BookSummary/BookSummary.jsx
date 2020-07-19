@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { motion } from 'framer-motion';
 import BookCard from '../../components/BookImage/BookImage';
-import BookDetails from '../../components/BookDetails/BookDetails';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import SummarySkeleton from '../../components/Skeleton/summarySkeleton';
 import './BookSummary.styles.css';
+import BookCover from '../../components/BookCover/BookCover';
 
 class BookSummary extends Component {
   constructor(props) {
@@ -26,6 +26,7 @@ class BookSummary extends Component {
 
   ratingChanged = (newRating) => {
     this.setState({
+      ...this.state,
       rating: newRating,
     });
     axios.post(`/api/new-rating`, {
@@ -70,53 +71,56 @@ class BookSummary extends Component {
               <BookCard imagesource={this.state.imgSource} isCover />
               <div>
                 {this.state && this.state.rating !== 0 ? (
-                  <div className="rating-container">
-                    <span className="rating">You Rated</span>
-                    <div onMouseEnter={() => this.setState({ isShown: !this.state.isShown })} onMouseLeave={() => this.setState({ isShown: !this.state.isShown })}>
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        color2={'var(--primary-color)'}
-                        className="ratingStars"
-                        edit={true}
-                        half={false}
-                        value={this.state.rating}
-                      />
-                    </div>
-                    {this.state.isShown && (
-                      <p>
-                        Edit rating
-                      </p>
-                    )}
+                  <div
+                    className="rating-container"
+                    onMouseEnter={() =>
+                      this.setState({ isShown: !this.state.isShown })
+                    }
+                    onMouseLeave={() =>
+                      this.setState({ isShown: !this.state.isShown })
+                    }
+                  >
+                    <span className="rating">{`${
+                      this.state.isShown ? `Edit Rating` : `You Rated`
+                    }`}</span>
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      color2={'var(--primary-color)'}
+                      className="ratingStars"
+                      edit={true}
+                      half={false}
+                      value={this.state.rating}
+                      onChange={this.ratingChanged}
+                    />
                   </div>
                 ) : (
-                    <div className="rating-container">
-                      <p className="rating">Rate this book</p>
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        color2={'var(--primary-color)'}
-                        className="ratingStars"
-                        onChange={this.ratingChanged}
-                        half={false}
-                      />
-                    </div>
-                  )}
+                  <div className="rating-container">
+                    <p className="rating">Rate this book</p>
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      color2={'var(--primary-color)'}
+                      className="ratingStars"
+                      onChange={this.ratingChanged}
+                      half={false}
+                    />
+                  </div>
+                )}
               </div>
             </div>
-            <BookDetails
+            <BookCover
               booktitleis={this.state.bookTitle}
               bookauthoris={this.state.bookAuthor}
               bookgenreis={this.state.bookGenre}
               booksummary={this.state.bookDesc}
               avgRating={this.state.avgRating}
               amazonreadlink={this.state.amazonLink}
-              isCover
             />
           </div>
         ) : (
-            <SummarySkeleton />
-          )}
+          <SummarySkeleton />
+        )}
       </motion.div>
     );
   }
