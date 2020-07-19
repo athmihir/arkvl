@@ -33,9 +33,9 @@ from collections import Counter
 def apilogout():
     if current_user.is_authenticated:
         logout_user()
-        return jsonify({'logged_out': 'True', 'message': 'User Logged out'}), 200
+        return jsonify({'logged_out': 'True', 'message': 'User logged out'}), 200
     else:
-        return jsonify({'error': 'Invalid Request'}), 400
+        return jsonify({'error': 'Invalid Request'}), 401
 
 
 @app.route('/api/login', methods=['POST','GET'])
@@ -44,7 +44,7 @@ def apilogin():
         if current_user.is_authenticated:
             return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already','Username':current_user.username}), 200
         else:
-            return jsonify({'error': 'Invalid Request'}), 400
+            return jsonify({'error': 'Invalid Request'}), 401
     if current_user.is_authenticated:
         return jsonify({'logged_in': 'True', 'message': 'User was Logged in Already'}), 200
     username = request.json.get('username')
@@ -64,18 +64,18 @@ def apilogin():
 @app.route('/api/register', methods=['POST'])
 def apiregister():
     if current_user.is_authenticated:
-        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 400
+        return jsonify({'logged_in': 'True', 'message': 'Logout to register a new user!'}), 401
     username = request.json.get('username')
     password = request.json.get('password')
     email = request.json.get('email')
     if username is None or password is None or email is None:
-        return jsonify({'error': 'Invalid Request'}), 400  # missing arguments
+        return jsonify({'message': 'Fields cannot be blank!'}), 400  # missing arguments
     if len(username) < 1 or len(username) > 20:
         return jsonify({'message': 'Username too long'}), 400
     if len(password) < 1 or len(password) > 60:
-        return jsonify({'message': 'password too long'}), 400
+        return jsonify({'message': 'Password too long'}), 400
     if len(email) < 1 or len(email) > 120:
-        return jsonify({'message': 'email too long'}), 400
+        return jsonify({'message': 'Email too long'}), 400
     bool_result = is_email(email)
     if bool_result is False:
         return jsonify({'message': 'Invalid email!'}), 400
@@ -123,7 +123,7 @@ def apirating():
             book = Book(book_id=book_id, user_id=current_user.id, rating=rating,genres=genres,title=title)
             db.session.add(book)
         db.session.commit()
-        return '201'
+        return jsonify({'message': 'Book rated'}),201
     else:
         return jsonify({'error': 'Invalid Request'}), 400
 
@@ -149,7 +149,7 @@ def apiprofile():
         my_fav_genres = ','.join(my_fav_genres)
         return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks}), 200
     else:
-        return jsonify({'error': 'Invalid Request'}), 400
+        return jsonify({'error': 'Invalid Request'}), 401
 
 def checkIfDuplicates(eleList):
     setOfEle = set()
@@ -191,7 +191,7 @@ def apirecommend():
             recommendations=obj.get_recommendations(my_fav_ID, read_books)
             return ({ 'Recommendations': recommendations }), 200
     else:
-        return jsonify({'error': 'Invalid Request'}), 400
+        return jsonify({'error': 'Invalid Request'}), 401
 
 
 @app.route('/api/trending', methods=['GET'])
@@ -199,29 +199,50 @@ def apitrending():
     if current_user.is_authenticated:
         books= Book.query.filter_by(rater=current_user).all()
         count=len(books)
+        minimum_to_include = 1000000 #<-- You can try changing this minimum to include movies rated by fewer or more people
+        average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
+        sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] > 3.5]
+        sorted_avg_ratings_book_id=[]
+        for j in sorted_avg_ratings.book_id:
+            sorted_avg_ratings_book_id.append(j)
+        random.shuffle(sorted_avg_ratings_book_id)
+        sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:10]
+        allTimeFavs = []
+        for i in sorted_avg_ratings_book_id:
+            allTimeFavs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
         if count==0:
-            minimum_to_include = 300000 #<-- You can try changing this minimum to include movies rated by fewer or more people
-            average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
-            sorted_avg_ratings = average_ratings.loc[average_ratings['average_rating'] >= 3]
-            sorted_avg_ratings_book_id=[]
-            for j in sorted_avg_ratings.book_id:
-                sorted_avg_ratings_book_id.append(j)
-            random.shuffle(sorted_avg_ratings_book_id)
-            sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:20]
-            recs = []
-            for i in sorted_avg_ratings_book_id:
-                recs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
-            return ({'Trending': recs}),200
-        else:
+            minimum_to_include = 100000
+            sciFiBooks = original_books.loc[original_books['genres'].str.contains(' Science Fiction')]
+            sciFiBooks = sciFiBooks.sort_values(by="average_rating", ascending=False)
+            sciFiBooks = sciFiBooks.loc[sciFiBooks['ratings_count'] > minimum_to_include]
+            sciFiBooks = sciFiBooks[:10]
 
+            thrillerBooks = original_books.loc[original_books['genres'].str.contains(' Thriller')]
+            thrillerBooks = thrillerBooks.sort_values(by="average_rating", ascending=False)
+            thrillerBooks = thrillerBooks.loc[thrillerBooks['ratings_count'] > minimum_to_include]
+            thrillerBooks = thrillerBooks[:10]
+
+            actionBooks = original_books.loc[original_books['genres'].str.contains(' Action')]
+            actionBooks = actionBooks.sort_values(by="average_rating", ascending=False)
+            actionBooks = actionBooks.loc[actionBooks['ratings_count'] > minimum_to_include]
+            actionBooks = actionBooks[:10]
+
+            sciFi = []
+            thriller = []
+            action = []       
+            for i in range(10):
+                sciFi.append({'id': int(sciFiBooks['book_id'].iloc[i]), 'title': sciFiBooks['original_title'].iloc[i], 'image': sciFiBooks['image_url'].iloc[i], 'author': sciFiBooks['authors'].iloc[i]})
+                thriller.append({'id': int(thrillerBooks['book_id'].iloc[i]), 'title': thrillerBooks['original_title'].iloc[i], 'image': thrillerBooks['image_url'].iloc[i], 'author': thrillerBooks['authors'].iloc[i]})
+                action.append({'id': int(actionBooks['book_id'].iloc[i]), 'title': actionBooks['original_title'].iloc[i], 'image': actionBooks['image_url'].iloc[i], 'author': actionBooks['authors'].iloc[i]})
+            return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': 'Best Of Sci-Fi', 'books': sciFi}, {'header': 'Best Of Thriller', 'books': thriller}, {'header': 'Best Of Action', 'books': action}]}), 200
+        else:
             my_fav_genres=[]                                    #getting fav genres
             for book in books:
                 my_fav_genres.append(book.genres)
 
-            separator = ','
+            separator = ', '
             new=separator.join(my_fav_genres)
-            a = new.split(",")
-
+            a = new.split(", ")
             unique_list = []
             dict1={}
             for x in a:
@@ -231,37 +252,45 @@ def apitrending():
                 else :
                     dict1[x]=dict1[x]+1
 
-            top3 = Counter(x).most_common(3)            #top 3 most repeated genres
-
-            print(dict1)
-            sum = 0
-            for k in top3:
-                sum+=k[1]
+            dict1 = sorted(dict1.items(), key=lambda x: x[1], reverse=True)
+            top3 = dict1[:3]
 
             my_fav_ID=[]                                    #books already rated
             for book in books:
-                if book.rating >=3:
-                    my_fav_ID.append(book.book_id)
+                my_fav_ID.append(book.book_id)
 
             final = []
+            firstBookList = []
+            secondBookList = []
+            thirdBookList = []
+            genreNumber = 1
             for k in top3:
-                n = int(k[1]/sum*20)                                                                        #ratio of books to show
+                n = 10                                                                        #ratio of books to show
                 average_ratings = original_books.loc[original_books['genres'].str.contains(k[0])]
                 sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
                 sorted_avg_ratings = sorted_avg_ratings.sort_values(by="ratings_count", ascending=False)
-                sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['ratings_count']>=30000]
+                sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['ratings_count']>=100000]
                 sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]                #filter
                 sorted_avg_ratings = sorted_avg_ratings.sample(frac=1).reset_index(drop=True)                       #randomize
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
                 sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
-                final = final + sorted_avg_ratings[:n]                          #get top n according ot the ratio we calculated
+                sorted_avg_ratings = sorted_avg_ratings[:n]  #get top n according to the ratio we calculated
+                final = final + sorted_avg_ratings                       
+                for i in sorted_avg_ratings:
+                    if genreNumber == 1:
+                        firstBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                    elif genreNumber == 2:
+                        secondBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                    else:
+                        thirdBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                genreNumber = genreNumber + 1
 
-            trending=[]                 #getting books and returning them
-            for trends in final:
-                trending.append({'id': int(trends), 'title':  original_books['original_title'][trends-1], 'image': original_books['image_url'][trends-1], 'author':original_books['authors'][trends-1]})
-            return ({ 'Trending': trending }), 200
+            genreOne = "Best Of" + top3[0][0]
+            genreTwo = "Best Of" + top3[1][0]
+            genreThree = "Best Of" + top3[2][0]
+            return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}]}), 200
     else:
-        return jsonify({'error': 'Invalid Request'}), 400
+        return jsonify({'error': 'Invalid Request'}), 401
 
 @app.route('/api/summary', methods=['POST'])
 def apisummary():
@@ -296,7 +325,7 @@ def apisummary():
             summary.append({'author':authors,'title':title,'average_rating':average_rating,'image_url':image_url,'genres':genres,'description':description, 'amazonLink': amazon_link, 'read_or_not': 0})
             return ({"Summary":summary}),200
     else:
-        return jsonify({'error': 'Invalid Request'}), 400
+        return jsonify({'error': 'Invalid Request'}), 401
 
 @app.route('/api/search/<key>', methods=['GET'])
 def apisearch(key):
@@ -315,7 +344,7 @@ def apisearch(key):
                 searchResults.append(result)
         return jsonify({"searchResults": searchResults}),200
     else:
-        return jsonify({'error': 'Invalid Request'}), 400
+        return jsonify({'error': 'Invalid Request'}), 401
 
 
 
