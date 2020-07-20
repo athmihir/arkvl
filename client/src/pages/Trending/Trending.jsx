@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
-import BookDirectory from '../../components/BookDirectory/BookDirectory';
+import Slider from '../../components/Slider/Slider';
+
 import Search from '../../components/Search/Search';
 
 import {
@@ -38,10 +39,7 @@ class Trending extends React.Component {
           return (
             <div key={index}>
               <h2>{item.header}</h2>
-              <BookDirectory
-                BOOKS={item.books}
-                removeRated={this.props.removeRated}
-              />
+              <Slider books={item.books} />
             </div>
           );
         })}
