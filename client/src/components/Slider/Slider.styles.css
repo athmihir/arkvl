@@ -1,0 +1,10 @@
+.BrainhubCarousel__arrows {
+  background: transparent !important;
+}
+.BrainhubCarousel__arrows:hover,
+.BrainhubCarousel__arrows:active {
+  background: transparent !important;
+}
+.BrainhubCarousel__arrows span {
+  border-color: var(--primary-text) !important;
+}

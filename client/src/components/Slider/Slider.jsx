@@ -1,32 +1,38 @@
-import React, { useRef, Fragment } from 'react';
-import Glide from 'react-glidejs';
-import leftArrow from '../../assets/icons/chevron_left-black-18dp.svg';
-import rightArrow from '../../assets/icons/chevron_right-black-18dp.svg';
+import React from 'react';
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
+import { AnimatePresence } from 'framer-motion';
 import BookCard from '../BookCard/BookCard';
-import 'react-glidejs/dist/index.css';
+import './Slider.styles.css';
+import BookDirectorySkeleton from '../Skeleton/skeleton';
 
 const Slider = ({ books }) => {
-  const gliderRef = useRef(null);
-
+  const carouselRef = React.useRef(null);
   return (
-    <Glide
-      ref={gliderRef}
-      type="slider"
-      animationDuration={500}
-      perView={5}
-      keyboard={true}
-      slideClassName="slider__frame"
-      rewindDuration={700}
-      focusAt={0}
-    >
-      {books && books.length > 0
-        ? books.map((book) => (
-            <Fragment>
+    <>
+      {books && books.length > 0 ? (
+        <AnimatePresence exitBeforeEnter>
+          <Carousel
+            arrows
+            slidesPerPage={4}
+            slidesPerScroll={3}
+            infinite
+            draggable
+            minDraggableOffset={45}
+            keepDirectionWhenDragging
+            ref={carouselRef}
+          >
+            {books.map((book) => (
               <BookCard book={book} bookno={book.id} key={book.id} />
-            </Fragment>
-          ))
-        : null}
-    </Glide>
+            ))}
+          </Carousel>
+        </AnimatePresence>
+      ) : (
+        [...Array(20)].map((value, index) => {
+          return <BookDirectorySkeleton key={index} />;
+        })
+      )}
+    </>
   );
 };
 

@@ -99,10 +99,11 @@ class Search extends React.Component {
           colors: {
             ...theme.colors,
             primary25: 'var(--primary-color)',
-            primary: '#fff',
+            primary: 'var(--secondary-text)',
             neutral0: 'var( --bg-primary)',
             neutral80: 'var(--primary-text)',
             primary50: 'var(--bg-secondary)',
+            neutral10: 'var(--light-gray)',
           },
         })}
         styles={customStyles}

@@ -7,6 +7,7 @@ import os
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 # app.config['SQLALCHEMY_BINDS'] = {'db2': 'sqlite:///site2.db'}
 

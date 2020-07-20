@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@brainhubeu/react-carousel": "^1.19.22",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -10,7 +11,6 @@
     "framer-motion": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-glidejs": "^1.0.7",
     "react-loading-skeleton": "^2.1.1",
     "react-rating-stars-component": "^1.1.0",
     "react-redux": "^7.2.0",

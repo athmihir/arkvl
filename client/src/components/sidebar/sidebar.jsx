@@ -35,7 +35,7 @@ const SideBar = () => {
               activeClassName="active"
             >
               <TrendingIcon />
-              <div className="link-text">Trending</div>
+              <div className="link-text">Library</div>
             </NavLink>
           </li>
 
