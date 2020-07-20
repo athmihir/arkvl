@@ -1,28 +1,60 @@
 import React from 'react';
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
 import { AnimatePresence } from 'framer-motion';
+import SwiperCore, { A11y, Keyboard } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
 import BookCard from '../BookCard/BookCard';
-import './Slider.styles.css';
+
+SwiperCore.use([A11y, Keyboard]);
 
 const Slider = ({ books }) => {
-  const carouselRef = React.useRef(null);
   return (
     <>
       {books && books.length > 0 ? (
         <AnimatePresence>
-          <Carousel
-            arrows
-            slidesPerPage={4}
-            slidesPerScroll={3}
-            infinite
-            draggable={false}
-            ref={carouselRef}
+          <Swiper
+            spaceBetween={50}
+            slidesPerView={5}
+            spaceBetween={30}
+            keyboard
+            preloadImages
+            centeredSlides
+            a11y
+            loop
+            breakpoints={{
+              100: {
+                slidesPerView: 1,
+              },
+              320: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              // when window width is >= 640px
+              640: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              900: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+              1440: {
+                slidesPerView: 6,
+                spaceBetween: 40,
+              },
+            }}
           >
             {books.map((book) => (
-              <BookCard book={book} bookno={book.id} key={book.id} />
+              <SwiperSlide>
+                <BookCard book={book} bookno={book.id} key={book.id} />
+              </SwiperSlide>
             ))}
-          </Carousel>
+          </Swiper>
         </AnimatePresence>
       ) : null}
     </>

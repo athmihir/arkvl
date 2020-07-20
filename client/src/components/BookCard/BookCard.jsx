@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import './BookCard.styles.css';
 import { toast, Slide } from 'react-toastify';
 
-export default function BookCard({ book, bookno, removeRated, onDragStart }) {
+export default function BookCard({ book, bookno, removeRated }) {
   const ratingChanged = (newRating) => {
     axios
       .post('/api/new-rating', {
@@ -36,7 +36,6 @@ export default function BookCard({ book, bookno, removeRated, onDragStart }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="book-card"
-      onDragStart={onDragStart}
     >
       {<BookImage imagesource={book.image} bookid={bookno} /> || <Skeleton />}
       <BookDetails

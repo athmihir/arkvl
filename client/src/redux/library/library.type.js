@@ -1,6 +1,6 @@
-const UserActionTypes = {
-  SUCCESS_FETCH_TRENDING: 'SUCCESS_FETCH_TRENDING',
-  REMOVE_TRENDING: 'REMOVE_TRENDING',
+const LibraryActionTypes = {
+  SUCCESS_FETCH_LIBRARY: 'SUCCESS_FETCH_LIBRARY',
+  REMOVE_LIBRARY: 'REMOVE_LIBRARY',
 };
 
-export default UserActionTypes;
+export default LibraryActionTypes;

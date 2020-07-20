@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&display=swap');
 :root {
   --primary-color: #f8004f;
   --primary-text: #333;
@@ -11,7 +11,7 @@
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  font-family: 'Lora', serif;
+  font-family: 'Frank Ruhl Libre', serif;
 }
 
 /* Sections
@@ -23,7 +23,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Lora', serif;
+  font-family: 'Frank Ruhl Libre', serif;
 }
 
 /**
@@ -42,6 +42,11 @@ main {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+  font-weight: 500;
+}
+
+h2 {
+  font-weight: 400;
 }
 
 /* Grouping content
@@ -366,14 +371,13 @@ body {
   color: var(--primary-text);
 }
 
-h1,
-h2 {
+/* h1 {
   font-weight: 400;
 }
 
 h3 {
   font-weight: 400;
-}
+} */
 
 button {
   font-family: 'Lora', serif;

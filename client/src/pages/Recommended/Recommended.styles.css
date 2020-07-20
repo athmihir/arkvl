@@ -1,15 +1,11 @@
 div.recommended-books {
-  padding: 6vh 12vw 7vh 18vw;
+  padding: 4vh 12vw 7vh 18vw;
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.page-header > h1 {
-  font-size: 1.7em;
 }
 
 .page-header > div {

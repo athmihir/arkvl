@@ -1,10 +1,35 @@
 div.trending-books {
-  padding: 6vh 12vw 7vh 18vw;
+  padding: 4vh 12vw 0vh 9vw;
+}
+
+div.trending-books-container {
+  padding: 6vh 0vw 7vh 9vw;
+}
+
+div.trending-books-container > div {
+  margin-top: 4vh;
+}
+
+div.trending-books-container > div > h2 {
+  letter-spacing: 1px;
+}
+
+@media only screen and (max-width: 1100px) {
+  div.trending-books {
+    padding: 4vh 12vw 0vh 18vw;
+  }
+
+  div.trending-books-container {
+    padding: 6vh 0vw 7vh 18vw;
+  }
 }
 
 @media only screen and (max-width: 700px) {
   div.trending-books {
-    padding: 2em 2em 10em 2em;
+    padding: 2em 2em 0em 2em;
     margin: auto;
+  }
+  div.trending-books-container {
+    padding: 2em 0em 10em 2em;
   }
 }

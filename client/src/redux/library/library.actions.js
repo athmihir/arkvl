@@ -1,13 +1,13 @@
 import axios from 'axios';
-import TrendingActionTypes from './library.type';
+import LibraryActionTypes from './library.type';
 
 export const RemoveRatedBook = (id) => ({
-  type: TrendingActionTypes.REMOVE_TRENDING,
+  type: LibraryActionTypes.REMOVE_LIBRARY,
   payload: id,
 });
 
 const TrendingBookAction = (data) => ({
-  type: TrendingActionTypes.SUCCESS_FETCH_TRENDING,
+  type: LibraryActionTypes.SUCCESS_FETCH_LIBRARY,
   payload: data,
 });
 
