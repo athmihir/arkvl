@@ -4,22 +4,19 @@ import '@brainhubeu/react-carousel/lib/style.css';
 import { AnimatePresence } from 'framer-motion';
 import BookCard from '../BookCard/BookCard';
 import './Slider.styles.css';
-import BookDirectorySkeleton from '../Skeleton/skeleton';
 
 const Slider = ({ books }) => {
   const carouselRef = React.useRef(null);
   return (
     <>
       {books && books.length > 0 ? (
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence>
           <Carousel
             arrows
             slidesPerPage={4}
             slidesPerScroll={3}
             infinite
-            draggable
-            minDraggableOffset={45}
-            keepDirectionWhenDragging
+            draggable={false}
             ref={carouselRef}
           >
             {books.map((book) => (
@@ -27,11 +24,7 @@ const Slider = ({ books }) => {
             ))}
           </Carousel>
         </AnimatePresence>
-      ) : (
-        [...Array(20)].map((value, index) => {
-          return <BookDirectorySkeleton key={index} />;
-        })
-      )}
+      ) : null}
     </>
   );
 };
