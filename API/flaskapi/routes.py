@@ -237,9 +237,12 @@ def apitrending():
             return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': 'Best Of Sci-Fi', 'books': sciFi}, {'header': 'Best Of Thriller', 'books': thriller}, {'header': 'Best Of Action', 'books': action}]}), 200
         else:
             my_fav_genres=[]                                    #getting fav genres
+            favAuthors = []
             for book in books:
-                my_fav_genres.append(book.genres)
-
+                if book.rating > 3:
+                    my_fav_genres.append(book.genres)
+                    favAuthors.append(original_books['authors'][book.book_id - 1])
+            
             separator = ', '
             new=separator.join(my_fav_genres)
             a = new.split(", ")
@@ -288,7 +291,66 @@ def apitrending():
             genreOne = "Best Of " + top3[0][0]
             genreTwo = "Best Of " + top3[1][0]
             genreThree = "Best Of " + top3[2][0]
-            return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}]}), 200
+
+            separator = ', '
+            new = separator.join(favAuthors)
+            a = new.split(", ")
+            unique_list = []
+            dict1={}
+            for x in a:
+                if x not in unique_list:                    #getting unique genres and count of each genre
+                    unique_list.append(x)
+                    dict1[x]=1
+                else :
+                    dict1[x]=dict1[x]+1
+
+            dict1 = sorted(dict1.items(), key=lambda x: x[1], reverse=True)
+            top3 = dict1[:3]
+            
+            authorList1 = []
+            authorList2 = []
+            authorList3 = []
+            authorNumber = 1
+            for k in top3:
+                n = 10                                                                        #ratio of books to show
+                average_ratings = original_books.loc[original_books['authors'].str.contains(k[0])]
+                sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
+                sorted_avg_ratings = sorted_avg_ratings.sample(frac=1).reset_index(drop=True)                       #randomize
+                sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
+                sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
+                sorted_avg_ratings = sorted_avg_ratings[:n]  #get top n according to the ratio we calculated
+                final = final + sorted_avg_ratings                       
+                for i in sorted_avg_ratings:
+                    if authorNumber == 1:
+                        authorList1.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                    elif authorNumber == 2:
+                        authorList2.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                    else:
+                        authorList3.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                
+                authorNumber = authorNumber + 1
+ 
+            if len(authorList2) == 0:
+                top3 = top3[0::2]
+            if len(authorList3) == 0:
+                top3 = top3[:2]
+            
+            authorOne = "Best Of " + top3[0][0]
+            if len(authorList1) == 0:
+                authorOne = ""
+            if len(top3) == 1:
+                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}]}), 200        
+
+            authorTwo = "Best Of " + top3[1][0]
+            if len(authorList2) == 0:
+                authorTwo = ""    
+            if len(top3) == 2:
+                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}]}), 200
+
+            authorThree = "Best Of " + top3[2][0]
+            if len(authorList3) == 0:
+                authorThree= ""
+            return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}, {'header': authorThree, 'books': authorList3}]}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 401
 
