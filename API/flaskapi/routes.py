@@ -207,9 +207,24 @@ def apitrending():
             sorted_avg_ratings_book_id.append(j)
         random.shuffle(sorted_avg_ratings_book_id)
         sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:10]
+        print(type(books))
+        print(books)
+        my_fav_genres=[]                                    #getting fav genres
+        favAuthors = []      
         allTimeFavs = []
+        my_fav_ID=[]                                    #books already rated
+        for book in books:
+            my_fav_ID.append(book.book_id)
+            if book.rating > 3:
+                my_fav_genres.append(book.genres)
+                favAuthors.append(original_books['authors'][book.book_id - 1])
+        
         for i in sorted_avg_ratings_book_id:
-            allTimeFavs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+            try:
+                foundPosition = my_fav_ID.index(i)
+                allTimeFavs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': books[foundPosition].rating})
+            except:
+                allTimeFavs.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
         if count==0:
             minimum_to_include = 100000
             sciFiBooks = original_books.loc[original_books['genres'].str.contains(' Science Fiction')]
@@ -231,18 +246,12 @@ def apitrending():
             thriller = []
             action = []       
             for i in range(10):
-                sciFi.append({'id': int(sciFiBooks['book_id'].iloc[i]), 'title': sciFiBooks['original_title'].iloc[i], 'image': sciFiBooks['image_url'].iloc[i], 'author': sciFiBooks['authors'].iloc[i]})
-                thriller.append({'id': int(thrillerBooks['book_id'].iloc[i]), 'title': thrillerBooks['original_title'].iloc[i], 'image': thrillerBooks['image_url'].iloc[i], 'author': thrillerBooks['authors'].iloc[i]})
-                action.append({'id': int(actionBooks['book_id'].iloc[i]), 'title': actionBooks['original_title'].iloc[i], 'image': actionBooks['image_url'].iloc[i], 'author': actionBooks['authors'].iloc[i]})
+                sciFi.append({'id': int(sciFiBooks['book_id'].iloc[i]), 'title': sciFiBooks['original_title'].iloc[i], 'image': sciFiBooks['image_url'].iloc[i], 'author': sciFiBooks['authors'].iloc[i], 'rating': 0})
+                thriller.append({'id': int(thrillerBooks['book_id'].iloc[i]), 'title': thrillerBooks['original_title'].iloc[i], 'image': thrillerBooks['image_url'].iloc[i], 'author': thrillerBooks['authors'].iloc[i], 'rating': 0})
+                action.append({'id': int(actionBooks['book_id'].iloc[i]), 'title': actionBooks['original_title'].iloc[i], 'image': actionBooks['image_url'].iloc[i], 'author': actionBooks['authors'].iloc[i], 'rating': 0})
             return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': 'Best Of Sci-Fi', 'books': sciFi}, {'header': 'Best Of Thriller', 'books': thriller}, {'header': 'Best Of Action', 'books': action}]}), 200
         else:
-            my_fav_genres=[]                                    #getting fav genres
-            favAuthors = []
-            for book in books:
-                if book.rating > 3:
-                    my_fav_genres.append(book.genres)
-                    favAuthors.append(original_books['authors'][book.book_id - 1])
-            
+
             separator = ', '
             new=separator.join(my_fav_genres)
             a = new.split(", ")
@@ -257,10 +266,6 @@ def apitrending():
 
             dict1 = sorted(dict1.items(), key=lambda x: x[1], reverse=True)
             top3 = dict1[:3]
-
-            my_fav_ID=[]                                    #books already rated
-            for book in books:
-                my_fav_ID.append(book.book_id)
 
             final = []
             firstBookList = []
@@ -281,11 +286,11 @@ def apitrending():
                 final = final + sorted_avg_ratings                       
                 for i in sorted_avg_ratings:
                     if genreNumber == 1:
-                        firstBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                        firstBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
                     elif genreNumber == 2:
-                        secondBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                        secondBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
                     else:
-                        thirdBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                        thirdBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1],'rating': 0})
                 genreNumber = genreNumber + 1
 
             genreOne = "Best Of " + top3[0][0]
@@ -322,11 +327,11 @@ def apitrending():
                 final = final + sorted_avg_ratings                       
                 for i in sorted_avg_ratings:
                     if authorNumber == 1:
-                        authorList1.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                        authorList1.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
                     elif authorNumber == 2:
-                        authorList2.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                        authorList2.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
                     else:
-                        authorList3.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1]})
+                        authorList3.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
                 
                 authorNumber = authorNumber + 1
  
