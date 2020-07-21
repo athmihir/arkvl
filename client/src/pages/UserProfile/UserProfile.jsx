@@ -50,10 +50,24 @@ class UserProfile extends React.Component {
             Logout
           </CustomButton>
         </div>
-        <div className="user-favorites">
-          <h1>Books you rated</h1>
-          <BookDirectory BOOKS={this.state.ratedBooks} />
-        </div>
+        {this.state.ratedBooks.length ? (
+          <div className="user-favorites">
+            <h1>Books you rated</h1>
+            {console.log(this.state.ratedBooks)}
+            <BookDirectory BOOKS={this.state.ratedBooks} />
+          </div>
+        ) : (
+            <div>
+              <h1>Books you rated</h1>
+              <div className="alternateText">
+                <p className="quote">We both looked into the abyss; the only difference is you blinked.</p>
+                <p className="quoteauthor">— Batman,  <i>Crisis On Two Earths</i></p>
+                <p className="userMessage">THE BOOKS YOU RATE WILL SHOW UP HERE</p>
+              </div>
+            </div>
+
+          )}
+
       </motion.div>
     );
   }

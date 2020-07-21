@@ -14,6 +14,30 @@ div.user-page-header {
   display: flex;
   align-items: center;
 }
+div.alternateText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+  margin-top: 10%;
+  font-size: 1.5em;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+p.quote {
+  display: flex;
+}
+p.quoteauthor {
+  display: flex;
+  max-width: 400px;
+  margin-left: 45%;
+}
+p.userMessage {
+  color: #707070;
+  font-size: 0.7em;
+  /* margin-bottom: 20%; */
+  margin-top: 5%;
+}
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
     padding: 1vh 10vw 10em 10vw;
