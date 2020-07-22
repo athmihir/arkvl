@@ -4,7 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import './BookDirectory.styles.css';
 import BookDirectorySkeleton from '../Skeleton/skeleton';
 
-export default function BookDirectory({ BOOKS, removeRated }) {
+export default function BookDirectory({ BOOKS, removeRated, removeOnClear }) {
   return (
     <div className="book-directory">
       {BOOKS && BOOKS.length > 0 ? (
@@ -15,6 +15,7 @@ export default function BookDirectory({ BOOKS, removeRated }) {
               bookno={book.id}
               removeRated={removeRated}
               key={book.id}
+              removeOnClear={removeOnClear}
             />
           ))}
         </AnimatePresence>

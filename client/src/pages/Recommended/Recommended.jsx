@@ -15,6 +15,7 @@ class Recommended extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     if (this.props.loadRecs && this.props.loadRecs.length === 0) {
+      console.log('Hello');
       this.props.fetchedBooks();
       if (this.props.newUser) {
         toast('Rate books to get recommendations curated for you.', {
@@ -50,7 +51,6 @@ class Recommended extends Component {
       >
         <div className="page-header">
           <h1> For You</h1>
-          <Search />
         </div>
         <BookDirectory
           BOOKS={this.props.loadRecs}

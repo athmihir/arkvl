@@ -6,7 +6,7 @@ import Slider from '../../components/Slider/Slider';
 import Search from '../../components/Search/Search';
 
 import { FetchTrendingBooks } from '../../redux/library/library.actions';
-import './Trending.styles.css';
+import './Library.styles.css';
 import BookDirectorySkeleton from '../../components/Skeleton/skeleton';
 
 class Trending extends React.Component {
@@ -29,7 +29,6 @@ class Trending extends React.Component {
       >
         <div className="page-header trending-books">
           <h1> Library </h1>
-          <Search />
         </div>
         <div className="trending-books-container">
           {library && library.length > 0 ? (

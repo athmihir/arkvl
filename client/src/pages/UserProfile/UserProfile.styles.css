@@ -21,7 +21,8 @@ div.alternateText {
   align-content: center; */
   margin-top: 2%;
   font-size: 1.5em;
-  flex-direction: row;
+  flex-direction: column;
+  bottom: 0;
   flex-wrap: wrap;
 }
 div.actualQuote {
@@ -42,10 +43,11 @@ p.userMessage {
   /* margin-bottom: 20%; */
   margin-top: 5%;
 }
-.userSVG {
-  height: 35%;
-  position: relative;
-  width: 35%;
+svg {
+  position: absolute;
+  z-index: 0;
+  width: 55vw;
+  right: 0;
   /* margin-left: 11%; */
   /* margin-bottom: 40%; */
 }

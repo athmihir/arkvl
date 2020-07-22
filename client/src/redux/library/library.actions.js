@@ -1,11 +1,6 @@
 import axios from 'axios';
 import LibraryActionTypes from './library.type';
 
-export const RemoveRatedBook = (id) => ({
-  type: LibraryActionTypes.REMOVE_LIBRARY,
-  payload: id,
-});
-
 const TrendingBookAction = (data) => ({
   type: LibraryActionTypes.SUCCESS_FETCH_LIBRARY,
   payload: data,

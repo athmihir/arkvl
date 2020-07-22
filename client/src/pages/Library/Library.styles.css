@@ -29,7 +29,10 @@ div.trending-books-container > div > h2 {
     padding: 2em 2em 0em 2em;
     margin: auto;
   }
+  div.trending-books-container > div > h2 {
+    margin-left: 1.3em;
+  }
   div.trending-books-container {
-    padding: 2em 0em 10em 2em;
+    padding: 2em 0em 10em 0;
   }
 }

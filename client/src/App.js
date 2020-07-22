@@ -9,7 +9,7 @@ import { checkUserStatus } from './redux/user/user.actions';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
 import SideBar from './components/sidebar/sidebar';
 import Recommended from './pages/Recommended/Recommended';
-import Trending from './pages/Trending/Trending';
+import Library from './pages/Library/Library';
 import UserProfile from './pages/UserProfile/UserProfile';
 import BookSummary from './pages/BookSummary/BookSummary';
 import Error404 from './pages/404/404';
@@ -70,10 +70,10 @@ class App extends React.Component {
               />
               <Route
                 exact
-                path="/trending"
+                path="/library"
                 render={() =>
                   isAuthenticated ? (
-                    <Trending
+                    <Library
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />

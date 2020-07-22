@@ -30,7 +30,7 @@ const SideBar = () => {
 
           <li className="nav-item">
             <NavLink
-              to="/trending"
+              to="/library"
               className="nav-link"
               activeClassName="active"
             >

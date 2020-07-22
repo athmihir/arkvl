@@ -15,7 +15,6 @@ const Slider = ({ books }) => {
           <Swiper
             spaceBetween={50}
             slidesPerView={5}
-            spaceBetween={30}
             keyboard
             preloadImages
             centeredSlides
@@ -48,10 +47,13 @@ const Slider = ({ books }) => {
                 spaceBetween: 40,
               },
             }}
+            style={{
+              cursor: 'grab',
+            }}
           >
             {books.map((book) => (
-              <SwiperSlide>
-                <BookCard book={book} bookno={book.id} key={book.id} />
+              <SwiperSlide key={book.id}>
+                <BookCard book={book} bookno={book.id} />
               </SwiperSlide>
             ))}
           </Swiper>

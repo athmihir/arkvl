@@ -91,7 +91,7 @@ def apiregister():
         login_user(user)
         return jsonify({'registered': 'True', 'message': 'Account Created','Username':current_user.username}), 201
 
-@app.route('/api/new-rating', methods=['POST', 'PUT', 'DELETE'])
+@app.route('/api/new-rating', methods=['POST', 'PUT'])
 def apirating():
     if current_user.is_authenticated:
         book_id = request.json.get('book_id')

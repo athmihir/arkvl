@@ -8,7 +8,7 @@ import './UserProfile.styles.css';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { withRouter } from 'react-router-dom';
-import bookSVG from './composition-24-edit.svg'
+import { ReactComponent as BookSVG } from '../../assets/composition-24-edit.svg';
 
 class UserProfile extends React.Component {
   state = {
@@ -27,6 +27,14 @@ class UserProfile extends React.Component {
     axios.post('/api/logout').then((res) => {
       this.props.logout();
       this.props.history.push('/');
+    });
+  };
+  handleClearRating = (id) => {
+    let delList = this.state.ratedBooks;
+    delList = delList.filter((item) => item.id !== id);
+    this.setState({
+      ...this.state,
+      ratedBooks: delList,
     });
   };
   render() {
@@ -51,28 +59,37 @@ class UserProfile extends React.Component {
             Logout
           </CustomButton>
         </div>
-        {this.state.ratedBooks.length ? (
+        {this.state.ratedBooks.length > 0 ? (
           <div className="user-favorites">
             <h1>Books you rated</h1>
-            {console.log(this.state.ratedBooks)}
-            <BookDirectory BOOKS={this.state.ratedBooks} />
+            <BookDirectory
+              BOOKS={this.state.ratedBooks}
+              removeOnClear={this.handleClearRating}
+            />
           </div>
         ) : (
+          <>
             <div>
               <h1>Books you rated</h1>
 
               <div className="alternateText">
                 <div className="actualQuote">
-                  <p className="quote">We both looked into the abyss; the only difference is you blinked.</p>
-                  <p className="quoteauthor">— Batman,  <i>Crisis On Two Earths</i></p>
+                  <p className="quote">
+                    We both looked into the abyss; the only difference is you
+                    blinked.
+                  </p>
+                  <p className="quoteauthor">
+                    — Batman, <i>Crisis On Two Earths</i>
+                  </p>
                 </div>
-                <img src={bookSVG} alt="React Logo" className="userSVG" />
-                <p className="userMessage">THE BOOKS YOU RATE WILL SHOW UP HERE</p>
+                <p className="userMessage">
+                  THE BOOKS YOU RATE WILL SHOW UP HERE
+                </p>
+                <BookSVG />
               </div>
             </div>
-
-          )}
-
+          </>
+        )}
       </motion.div>
     );
   }

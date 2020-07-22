@@ -42,8 +42,6 @@ div .rating {
   flex-direction: row;
   flex-flow: row;
   margin-top: 20px;
-  vertical-align: auto;
-  width: 70vw;
 }
 
 .skeletoninnergenre {
@@ -58,11 +56,21 @@ div .rating {
 .skeletonRating {
   margin-top: 20px;
 }
+button.go-back-button {
+  background: none;
+  outline: none;
+  font-size: 1.2em;
+  color: var(--primary-color);
+  border: none;
+  margin: 20px 0;
+}
 
 @media screen and (max-width: 1000px) {
   .book-summary-container {
     grid-template-columns: auto;
     margin-left: 0;
+    padding-top: 2vh;
+    padding-bottom: 6em;
   }
 
   .book-image-container {

@@ -68,6 +68,13 @@ class BookSummary extends Component {
         {this.state.imgSource ? (
           <div className="book-summary-container">
             <div className="book-image-container">
+              <button
+                onClick={() => this.props.history.goBack()}
+                className="go-back-button"
+              >
+                {' '}
+                Go back{' '}
+              </button>
               <BookCard imagesource={this.state.imgSource} isCover />
               <div>
                 {this.state && this.state.rating !== 0 ? (

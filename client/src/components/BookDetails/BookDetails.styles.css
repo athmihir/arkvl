@@ -17,13 +17,14 @@ p.title {
 p.author {
   font-size: 0.85em;
   color: var(--secondary-text);
-  /* line-height: 1; */
+  line-height: 1.5;
   margin: 0;
   max-width: 150px;
 }
 
 span.read-now {
   margin-top: 8px;
+  font-size: 1.1em;
 }
 
 span.read-now > a {
@@ -94,6 +95,18 @@ div.book-details.cover .book-link {
 
 .spanGenre {
   font-size: 1.1em;
+}
+
+button.clear-rating-button {
+  border: none;
+  background: none;
+  color: var(--primary-text);
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+button.clear-rating-button:hover {
+  color: var(--secondary-text);
 }
 
 @media screen and (max-width: 1000px) {
