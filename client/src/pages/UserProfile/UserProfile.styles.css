@@ -16,13 +16,17 @@ div.user-page-header {
 }
 div.alternateText {
   display: flex;
-  justify-content: center;
+  /* justify-content: center;
   text-align: center;
-  align-content: center;
-  margin-top: 10%;
+  align-content: center; */
+  margin-top: 2%;
   font-size: 1.5em;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
+}
+div.actualQuote {
+  display: flex;
+  flex-direction: column;
 }
 p.quote {
   display: flex;
@@ -37,6 +41,13 @@ p.userMessage {
   font-size: 0.7em;
   /* margin-bottom: 20%; */
   margin-top: 5%;
+}
+.userSVG {
+  height: 35%;
+  position: relative;
+  width: 35%;
+  /* margin-left: 11%; */
+  /* margin-bottom: 40%; */
 }
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
