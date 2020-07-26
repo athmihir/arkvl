@@ -10,23 +10,66 @@ import { connect } from 'react-redux';
 import { toast, Slide } from 'react-toastify';
 import { motion } from 'framer-motion';
 import Search from '../../components/Search/Search';
+import ReactModal from 'react-modal';
+import ReactDOM from 'react-dom';
 
 class Recommended extends Component {
+
+  constructor(props) {
+    super(props);
+    this.subtitle = undefined;
+    this.customStyles = {
+      content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+      }
+    };
+    this.state = {
+      modalIsOpen: false
+    }
+  }
+
+  setIsOpen = (currentValue) => {
+    this.setState({
+      modalIsOpen: currentValue
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false
+    });
+    document.getElementById('blurhook').style.removeProperty('filter');
+  }
+
+  afterOpenModal() {
+    document.getElementById('blurhook').style.filter = "blur(8px)";
+  }
+
+  subtitle = '';
+  customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  };
+
   componentDidMount() {
     window.scrollTo(0, 0);
     if (this.props.loadRecs && this.props.loadRecs.length === 0) {
       console.log('Hello');
       this.props.fetchedBooks();
       if (this.props.newUser) {
-        toast('Rate books to get recommendations curated for you.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          transition: Slide,
+        this.setState({
+          modalIsOpen: true
         });
       }
     }
@@ -48,7 +91,24 @@ class Recommended extends Component {
         variants={this.props.pageVariants}
         transition={this.props.pageTransition}
         className="recommended-books"
+        id="blurhook"
       >
+        {/* {ReactDOM.findDOMNode(this.refs.recommendedbooks)} */}
+        <ReactModal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={this.customStyles}
+          contentLabel="Example Modal"
+          className="Modal"
+          overlayClassName="Overlay"
+        >
+          <div className="emailVerifyClass">
+            <h2 ref={_subtitle => (this.subtitle = _subtitle)} className="alertHeader">Welcome to Arkvl!</h2>
+            <p className="alertParagraph">Rate your favourite books to get personalized recommendations!</p>
+            <button className="emailButton" onClick={this.closeModal}>Okay</button>
+          </div>
+        </ReactModal>
         <div className="page-header">
           <h1> For You</h1>
         </div>
