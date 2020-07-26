@@ -16,11 +16,9 @@ div.user-page-header {
 }
 div.alternateText {
   display: flex;
-  /* justify-content: center;
-  text-align: center;
-  align-content: center; */
+  align-items: center;
   margin-top: 2%;
-  font-size: 1.5em;
+  font-size: 1.3rem;
   flex-direction: column;
   bottom: 0;
   flex-wrap: wrap;
@@ -33,23 +31,11 @@ p.quote {
   display: flex;
 }
 p.quoteauthor {
-  display: flex;
-  max-width: 400px;
-  margin-left: 45%;
+  align-self: flex-end;
 }
 p.userMessage {
-  color: #707070;
+  color: var(--secondary-text);
   font-size: 0.7em;
-  /* margin-bottom: 20%; */
-  margin-top: 5%;
-}
-svg {
-  position: absolute;
-  z-index: 0;
-  width: 55vw;
-  right: 0;
-  /* margin-left: 11%; */
-  /* margin-bottom: 40%; */
 }
 @media only screen and (max-width: 700px) {
   div.user-profile-page {

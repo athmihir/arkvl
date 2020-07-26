@@ -3,10 +3,6 @@ div.user-details svg {
   justify-self: right;
 }
 
-div.user-details > div {
-  margin-left: 10px;
-}
-
 div.user-details .user-name {
   display: flex;
   align-items: flex-end;

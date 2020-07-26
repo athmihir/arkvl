@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
 import Slider from '../../components/Slider/Slider';
 
-import Search from '../../components/Search/Search';
-
 import { FetchTrendingBooks } from '../../redux/library/library.actions';
 import './Library.styles.css';
 import BookDirectorySkeleton from '../../components/Skeleton/skeleton';

@@ -22,7 +22,7 @@ div.recommended-books {
 
 @media only screen and (max-width: 700px) {
   div.recommended-books {
-    padding: 2em 2em 10em 2em;
+    padding: 1em 2em 10em 2em;
     margin: auto;
   }
   .page-header > div {
@@ -36,11 +36,11 @@ div.recommended-books {
   transition: opacity 500ms ease-in-out;
 }
 
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
   opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
+.ReactModal__Overlay--before-close {
   opacity: 0;
 }
 
@@ -50,7 +50,7 @@ div.recommended-books {
   left: 40px;
   right: 40px;
   bottom: 40px;
-  background-color:#444b57;
+  background-color: var(--highlight-color);
   height: 22%;
   width: 40%;
 }
@@ -64,19 +64,37 @@ div.recommended-books {
 }
 
 @-webkit-keyframes emailVerifyAnimation {
-  0%{background-position:86% 0%}
-  50%{background-position:15% 100%}
-  100%{background-position:86% 0%}
+  0% {
+    background-position: 86% 0%;
+  }
+  50% {
+    background-position: 15% 100%;
+  }
+  100% {
+    background-position: 86% 0%;
+  }
 }
 @-moz-keyframes emailVerifyAnimation {
-  0%{background-position:86% 0%}
-  50%{background-position:15% 100%}
-  100%{background-position:86% 0%}
+  0% {
+    background-position: 86% 0%;
+  }
+  50% {
+    background-position: 15% 100%;
+  }
+  100% {
+    background-position: 86% 0%;
+  }
 }
 @keyframes emailVerifyAnimation {
-  0%{background-position:86% 0%}
-  50%{background-position:15% 100%}
-  100%{background-position:86% 0%}
+  0% {
+    background-position: 86% 0%;
+  }
+  50% {
+    background-position: 15% 100%;
+  }
+  100% {
+    background-position: 86% 0%;
+  }
 }
 
 .emailVerifyClass {
@@ -92,17 +110,8 @@ div.recommended-books {
 .alertParagraph {
   text-align: center;
   margin-bottom: 4%;
-}
-
-.emailButton {
-  background-color: var(--primary-color);
-  border: none;
-  color: white;
-  padding: 10px 32px;
-}
-
-.emailButton:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  letter-spacing: 1px;
+  line-height: 1.4;
 }
 
 @media screen and (max-width: 1000px) {
@@ -112,7 +121,7 @@ div.recommended-books {
     left: 40px;
     right: 40px;
     bottom: 40px;
-    background-color:#444b57;
+    background-color: var(--highlight-color);
     height: 21%;
     width: 75%;
   }

@@ -8,7 +8,6 @@ import './UserProfile.styles.css';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { withRouter } from 'react-router-dom';
-import { ReactComponent as BookSVG } from '../../assets/composition-24-edit.svg';
 
 class UserProfile extends React.Component {
   state = {
@@ -85,7 +84,6 @@ class UserProfile extends React.Component {
                 <p className="userMessage">
                   THE BOOKS YOU RATE WILL SHOW UP HERE
                 </p>
-                <BookSVG />
               </div>
             </div>
           </>

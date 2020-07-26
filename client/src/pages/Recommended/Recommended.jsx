@@ -7,14 +7,11 @@ import {
 } from '../../redux/recommendations/recommendations.actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { toast, Slide } from 'react-toastify';
 import { motion } from 'framer-motion';
-import Search from '../../components/Search/Search';
 import ReactModal from 'react-modal';
-import ReactDOM from 'react-dom';
+import CustomButton from '../../components/CustomButton/CustomButton';
 
 class Recommended extends Component {
-
   constructor(props) {
     super(props);
     this.subtitle = undefined;
@@ -25,29 +22,29 @@ class Recommended extends Component {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-      }
+        transform: 'translate(-50%, -50%)',
+      },
     };
     this.state = {
-      modalIsOpen: false
-    }
+      modalIsOpen: false,
+    };
   }
 
   setIsOpen = (currentValue) => {
     this.setState({
-      modalIsOpen: currentValue
+      modalIsOpen: currentValue,
     });
-  }
+  };
 
   closeModal = () => {
     this.setState({
-      modalIsOpen: false
+      modalIsOpen: false,
     });
     document.getElementById('blurhook').style.removeProperty('filter');
-  }
+  };
 
   afterOpenModal() {
-    document.getElementById('blurhook').style.filter = "blur(8px)";
+    document.getElementById('blurhook').style.filter = 'blur(8px)';
   }
 
   subtitle = '';
@@ -58,8 +55,8 @@ class Recommended extends Component {
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
-    }
+      transform: 'translate(-50%, -50%)',
+    },
   };
 
   componentDidMount() {
@@ -69,7 +66,7 @@ class Recommended extends Component {
       this.props.fetchedBooks();
       if (this.props.newUser) {
         this.setState({
-          modalIsOpen: true
+          modalIsOpen: true,
         });
       }
     }
@@ -93,7 +90,6 @@ class Recommended extends Component {
         className="recommended-books"
         id="blurhook"
       >
-        {/* {ReactDOM.findDOMNode(this.refs.recommendedbooks)} */}
         <ReactModal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -104,9 +100,18 @@ class Recommended extends Component {
           overlayClassName="Overlay"
         >
           <div className="emailVerifyClass">
-            <h2 ref={_subtitle => (this.subtitle = _subtitle)} className="alertHeader">Welcome to Arkvl!</h2>
-            <p className="alertParagraph">Rate your favourite books to get personalized recommendations!</p>
-            <button className="emailButton" onClick={this.closeModal}>Okay</button>
+            <h2
+              ref={(_subtitle) => (this.subtitle = _subtitle)}
+              className="alertHeader"
+            >
+              Welcome to Arkvl!
+            </h2>
+            <p className="alertParagraph">
+              Rate your favourite books to get personalized recommendations!
+            </p>
+            <CustomButton style={{ margin: 'auto' }} onClick={this.closeModal}>
+              Okay
+            </CustomButton>
           </div>
         </ReactModal>
         <div className="page-header">

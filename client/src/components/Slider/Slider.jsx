@@ -19,7 +19,7 @@ const Slider = ({ books }) => {
             preloadImages
             centeredSlides
             a11y
-            loop
+            loop={books.length > 3 ? true : false}
             breakpoints={{
               100: {
                 slidesPerView: 1,
