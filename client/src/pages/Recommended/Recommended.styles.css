@@ -51,7 +51,7 @@ div.recommended-books {
   right: 40px;
   bottom: 40px;
   background-color:#444b57;
-  height: 21%;
+  height: 22%;
   width: 40%;
 }
 
@@ -91,6 +91,7 @@ div.recommended-books {
 
 .alertParagraph {
   text-align: center;
+  margin-bottom: 4%;
 }
 
 .emailButton {
@@ -102,4 +103,17 @@ div.recommended-books {
 
 .emailButton:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+@media screen and (max-width: 1000px) {
+  .Modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-color:#444b57;
+    height: 21%;
+    width: 75%;
+  }
 }
