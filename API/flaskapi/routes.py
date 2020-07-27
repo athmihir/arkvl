@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect
-from flaskapi import app, db, bcrypt
+from flaskapi import app, db, bcrypt, mail
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskapi import models
 from email_validator import validate_email, EmailNotValidError
@@ -61,6 +61,18 @@ def apilogin():
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
 
 
+def send_verification_email(user):
+    token = user.get_verification_token()
+    msg = Message('Account Verification',
+                  sender='Arkvlspace@em1215.arkvl.space',
+                  recipients=[user.email])
+    msg.body = f''' To verify your account, click on the link below:
+{url_for('verify_register', token=token, _external=True)}
+
+If you did not make this request then simply ignore this email and no changes will be made
+'''
+    mail.send(msg)
+
 @app.route('/api/register', methods=['POST'])
 def apiregister():
     if current_user.is_authenticated:
@@ -88,6 +100,7 @@ def apiregister():
         user = User(username=username, email=email, password=pw_hash, date_created = datetime.now())
         db.session.add(user)
         db.session.commit()
+        send_verification_email(user)
         login_user(user)
         return jsonify({'registered': 'True', 'message': 'Account Created','Username':current_user.username}), 201
 
@@ -147,7 +160,7 @@ def apiprofile():
             if len(my_fav_genres) >= 4:
                 my_fav_genres = my_fav_genres[0::3]
         my_fav_genres = ','.join(my_fav_genres)
-        return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks}), 200
+        return jsonify({'username': current_user.username, 'dateJoined': current_user.date_created.strftime('%d/%m/%Y'), 'booksRated': len(books), 'favGenres': my_fav_genres, 'ratedBooks': ratedBooks, 'verified':current_user.verified}), 200
     else:
         return jsonify({'error': 'Invalid Request'}), 401
 
@@ -210,7 +223,7 @@ def apitrending():
         print(type(books))
         print(books)
         my_fav_genres=[]                                    #getting fav genres
-        favAuthors = []      
+        favAuthors = []
         allTimeFavs = []
         my_fav_ID=[]                                    #books already rated
         for book in books:
@@ -218,7 +231,7 @@ def apitrending():
             if book.rating > 3:
                 my_fav_genres.append(book.genres)
                 favAuthors.append(original_books['authors'][book.book_id - 1])
-        
+
         for i in sorted_avg_ratings_book_id:
             try:
                 foundPosition = my_fav_ID.index(i)
@@ -244,7 +257,7 @@ def apitrending():
 
             sciFi = []
             thriller = []
-            action = []       
+            action = []
             for i in range(10):
                 sciFi.append({'id': int(sciFiBooks['book_id'].iloc[i]), 'title': sciFiBooks['original_title'].iloc[i], 'image': sciFiBooks['image_url'].iloc[i], 'author': sciFiBooks['authors'].iloc[i], 'rating': 0})
                 thriller.append({'id': int(thrillerBooks['book_id'].iloc[i]), 'title': thrillerBooks['original_title'].iloc[i], 'image': thrillerBooks['image_url'].iloc[i], 'author': thrillerBooks['authors'].iloc[i], 'rating': 0})
@@ -283,7 +296,7 @@ def apitrending():
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
                 sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
                 sorted_avg_ratings = sorted_avg_ratings[:n]  #get top n according to the ratio we calculated
-                final = final + sorted_avg_ratings                       
+                final = final + sorted_avg_ratings
                 for i in sorted_avg_ratings:
                     if genreNumber == 1:
                         firstBookList.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
@@ -311,7 +324,7 @@ def apitrending():
 
             dict1 = sorted(dict1.items(), key=lambda x: x[1], reverse=True)
             top3 = dict1[:3]
-            
+
             authorList1 = []
             authorList2 = []
             authorList3 = []
@@ -324,7 +337,7 @@ def apitrending():
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
                 sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
                 sorted_avg_ratings = sorted_avg_ratings[:n]  #get top n according to the ratio we calculated
-                final = final + sorted_avg_ratings                       
+                final = final + sorted_avg_ratings
                 for i in sorted_avg_ratings:
                     if authorNumber == 1:
                         authorList1.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
@@ -332,23 +345,23 @@ def apitrending():
                         authorList2.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
                     else:
                         authorList3.append({'id': i, 'title': original_books['original_title'][i-1], 'image': original_books['image_url'][i-1], 'author':original_books['authors'][i-1], 'rating': 0})
-                
+
                 authorNumber = authorNumber + 1
- 
+
             if len(authorList2) == 0:
                 top3 = top3[0::2]
             if len(authorList3) == 0:
                 top3 = top3[:2]
-            
+
             authorOne = "Best Of " + top3[0][0]
             if len(authorList1) == 0:
                 authorOne = ""
             if len(top3) == 1:
-                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}]}), 200        
+                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}]}), 200
 
             authorTwo = "Best Of " + top3[1][0]
             if len(authorList2) == 0:
-                authorTwo = ""    
+                authorTwo = ""
             if len(top3) == 2:
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}]}), 200
 
@@ -413,6 +426,90 @@ def apisearch(key):
     else:
         return jsonify({'error': 'Invalid Request'}), 401
 
+
+
+#reset password
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',
+                  sender='Arkvlspace@em1215.arkvl.space',
+                  recipients=[user.email])
+    msg.body = f''' To reset your password, visit the following link:
+{url_for('change_password', token=token, _external=True)}
+
+If you did not make this request then simply ignore this email and no changes will be made
+'''
+    mail.send(msg)
+
+
+@app.route("/api/reset_password", methods=['POST'])
+def reset_password():
+    if current_user.is_authenticated:
+        return jsonify({'error': 'Already Logged In'}), 400
+    email = request.json.get('email')
+    if not email:
+        return jsonify({'error': 'Invalid request'}), 400
+    if not 0 < len(email) < 120:
+        return jsonify({'error': 'This is not a valid email'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'User does not Exist'}), 400
+    send_reset_email(user)
+    return jsonify({'message': 'Reset Email sent Successfully'}), 200
+
+
+@app.route("/change_password/<token>", methods=['GET'])
+def change_password(token):
+    if current_user.is_authenticated:
+        return jsonify({'error': 'Already Logged In'}), 400
+    user = User.verify_reset_token(token)
+    if user is None:
+        return jsonify({'error': 'Invalid or expired token'}), 400
+    return app.send_static_file('index.html')
+
+
+@app.route("/api/verifyreset", methods=['POST'])
+def verifyreset():
+    if current_user.is_authenticated:
+        return jsonify({'error': 'Already Logged In'}), 400
+    token = request.json.get('token')
+    password = request.json.get('password')
+    if token is None or password is None:
+        return jsonify({'error': 'Invalid Request'}), 400
+    if len(password) < 1 or len(password) > 60:
+        return jsonify({'message': 'Password too long'}), 400
+    user = User.verify_reset_token(token)
+    if user is None:
+        return jsonify({'error': 'Invalid or expired token'}), 400
+    user.password = bcrypt.generate_password_hash(password).decode('utf-8')
+    db.session.commit()
+    return jsonify({'message': 'Password reset Successfully'}), 201
+
+
+
+#verifying user by email
+
+@app.route("/api/verify/<token>", methods=['GET'])
+def verify_register(token):
+    user = User.verify_verification_token(token)
+    if user is None:
+        return jsonify({'error': 'Invalid or expired token'}), 400
+    user.verified = 1
+    db.session.commit()
+    return app.send_static_file('index.html')
+
+
+
+@app.route("/api/reverify", methods=['GET'])
+def reverify(token):
+    if current_user.is_authenticated:
+        if current_user.verified == 1:
+            return jsonify({'error': 'Account Already Verified'}), 400
+        send_verification_email(current_user)
+        return jsonify({'message': 'Verification Email has been sent Successfully!'}), 200
+    else:
+        return jsonify({'error': 'You need to login first'}), 400
 
 
 
