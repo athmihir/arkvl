@@ -4,6 +4,7 @@ import Unlock from './unlock.svg'
 import SubmitButton from '../../components/CustomButton/CustomButton';
 import Lock from './lock.svg'
 import InputField from '../../components/InputField/InputField';
+import axios from 'axios';
 
 class ForgotPassword extends Component {
 
@@ -20,6 +21,16 @@ class ForgotPassword extends Component {
         this.setState({
             lock: true
         });
+        console.log("bruh pls");
+        axios.post(`/api/reset_password`, { 'email': this.state.email })
+            .then(res => {
+                console.log("here is the API response")
+                console.log(res);
+      })
+            .catch((err) => {
+                console.log("no cap")
+                console.log(err);
+            })
     };
 
     handleChange = (event) => {
@@ -42,9 +53,8 @@ class ForgotPassword extends Component {
                             <p>Enter your email ID and we'll send you a password reset link.</p>
                             <InputField
                                 name="email"
-                                label="Email"
                                 type="email"
-                                placeholder=" "
+                                placeholder="Email"
                                 className="inputEmailField"
                                 style={{
                                     'display': 'flex',
@@ -52,7 +62,6 @@ class ForgotPassword extends Component {
                                     'margin': 'auto'
                                 }}
                                 onChange={this.handleChange}
-                            // value={registerInfo.email}
                             />
                             <SubmitButton className="submitButton" type="submit" onClick={this.handleSubmit} style={{
                                 'display': 'flex',

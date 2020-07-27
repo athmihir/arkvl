@@ -16,6 +16,7 @@ import Error404 from './pages/404/404';
 import Loader from './components/loader/loader.component';
 import Search from './pages/search/search';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 class App extends React.Component {
   render() {
@@ -155,6 +156,10 @@ class App extends React.Component {
               <Route
                 path="/forgotpassword"
                 component={ForgotPassword}
+              />
+              <Route
+                path="/reset_password/:token"
+                component={ResetPassword}
               />
               <Route
                 render={() => (
