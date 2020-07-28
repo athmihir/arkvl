@@ -26,15 +26,11 @@ class Recommended extends Component {
       },
     };
     this.state = {
-      modalIsOpen: false,
+      modalIsOpen: true,
+      verifyIsOpen: true,
+      token: ((this.props.match) ? this.props.match.params.token : false),
     };
   }
-
-  setIsOpen = (currentValue) => {
-    this.setState({
-      modalIsOpen: currentValue,
-    });
-  };
 
   closeModal = () => {
     this.setState({
@@ -47,7 +43,17 @@ class Recommended extends Component {
     document.getElementById('blurhook').style.filter = 'blur(8px)';
   }
 
-  subtitle = '';
+  afterOpenVerifyModal() {
+    document.getElementById('blurhook').style.filter = 'blur(8px)';
+  }
+
+  closeVerifyModal = () => {
+    this.setState({
+      verifyIsOpen: false,
+    });
+    document.getElementById('blurhook').style.removeProperty('filter');
+  };
+
   customStyles = {
     content: {
       top: '50%',
@@ -101,7 +107,6 @@ class Recommended extends Component {
         >
           <div className="emailVerifyClass">
             <h2
-              ref={(_subtitle) => (this.subtitle = _subtitle)}
               className="alertHeader"
             >
               Welcome to Arkvl!
@@ -114,6 +119,34 @@ class Recommended extends Component {
             </CustomButton>
           </div>
         </ReactModal>
+        {console.log(this.state.token)}
+        {this.state.token.length ? (
+          <ReactModal
+            isOpen={this.state.verifyIsOpen}
+            onAfterOpen={this.afterOpenVerifyModal}
+            onRequestClose={this.closeVerifyModal}
+            style={this.customStyles}
+            contentLabel="Example Modal"
+            className="Modal"
+            overlayClassName="Overlay"
+          >
+            <div className="emailVerifyClass">
+              <h2
+                className="alertHeader"
+              >
+                Your Arkvl account has been successfully verified!
+            </h2>
+              <p className="alertParagraph">
+                Have fun browsing!
+            </p>
+              <CustomButton style={{ margin: 'auto' }} onClick={this.closeVerifyModal}>
+                Okay
+            </CustomButton>
+            </div>
+          </ReactModal>
+        ) : (
+            <div></div>
+          )}
         <div className="page-header">
           <h1> For You</h1>
         </div>

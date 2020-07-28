@@ -16,6 +16,7 @@ class UserProfile extends React.Component {
     favGenres: '',
     ratedBooks: [],
     username: '',
+    emailSent: false,
   };
 
   componentDidMount() {
@@ -36,6 +37,15 @@ class UserProfile extends React.Component {
       ratedBooks: delList,
     });
   };
+  handleVerification = () => {
+    console.log("entered handleverification");
+    axios.get('/api/reverify');
+    console.log("email sent maybe?");
+    this.setState({
+      ...this.state,
+      emailSent: true,
+    });
+  };
   render() {
     console.log(this.state);
     return (
@@ -53,10 +63,25 @@ class UserProfile extends React.Component {
             dateJoined={this.state.dateJoined}
             favGenres={this.state.favGenres}
             username={this.state.username}
+            verified={this.state.verified}
           />
           <CustomButton onClick={this.handleLogout} small>
             Logout
           </CustomButton>
+          {this.state.verified ? (
+            // <img src={VerifiedSVG} alt="Verified" className="verifiedSVG" />
+            <div></div>
+          ) : (
+              <div>
+                {this.state.emailSent ? (
+                  <p>ok nigga email sent</p>
+                ) : (
+                    <CustomButton onClick={this.handleVerification} small>
+                      Verify me nigga
+                    </CustomButton>
+                  )}
+              </div>
+            )}
         </div>
         {this.state.ratedBooks.length > 0 ? (
           <div className="user-favorites">
@@ -67,27 +92,27 @@ class UserProfile extends React.Component {
             />
           </div>
         ) : (
-          <>
-            <div>
-              <h1>Books you rated</h1>
+            <>
+              <div>
+                <h1>Books you rated</h1>
 
-              <div className="alternateText">
-                <div className="actualQuote">
-                  <p className="quote">
-                    We both looked into the abyss; the only difference is you
-                    blinked.
+                <div className="alternateText">
+                  <div className="actualQuote">
+                    <p className="quote">
+                      We both looked into the abyss; the only difference is you
+                      blinked.
                   </p>
-                  <p className="quoteauthor">
-                    — Batman, <i>Crisis On Two Earths</i>
-                  </p>
-                </div>
-                <p className="userMessage">
-                  THE BOOKS YOU RATE WILL SHOW UP HERE
+                    <p className="quoteauthor">
+                      — Batman, <i>Crisis On Two Earths</i>
+                    </p>
+                  </div>
+                  <p className="userMessage">
+                    THE BOOKS YOU RATE WILL SHOW UP HERE
                 </p>
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
       </motion.div>
     );
   }

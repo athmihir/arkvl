@@ -70,6 +70,7 @@ class App extends React.Component {
                   )
                 }
               />
+              
               <Route
                 exact
                 path="/library"
@@ -160,6 +161,24 @@ class App extends React.Component {
               <Route
                 path="/reset_password/:token"
                 component={ResetPassword}
+              />
+              <Route
+                exact
+                path="/:token"
+                render={({match}) =>
+                  isAuthenticated ? (
+                    <Recommended
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                      match={match}
+                    />
+                  ) : (
+                    <LoginRegister
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
+                }
               />
               <Route
                 render={() => (

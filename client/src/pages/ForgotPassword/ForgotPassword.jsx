@@ -49,7 +49,7 @@ class ForgotPassword extends Component {
                     <h2>We've sent you a link to reset your password.</h2>
                 ) : (
                         <div>
-                            <h1>Forgot your password? No problem!</h1>
+                            <h1 className="forgotPasswordHeading">Forgot your password? No problem!</h1>
                             <p>Enter your email ID and we'll send you a password reset link.</p>
                             <InputField
                                 name="email"

@@ -1,13 +1,22 @@
 import React from 'react';
 
 import './UserDetails.styles.css';
+import VerifiedSVG from './verified.svg'
 
-function UserDetails({ booksRated, dateJoined, favGenres, username }) {
+
+function UserDetails({ booksRated, dateJoined, favGenres, username, verified }) {
   return (
     <div className="user-details">
       <div>
         <div className="user-name">
           <h1>{username}</h1>
+          {console.log(verified)}
+          {verified ? (
+            <img src={VerifiedSVG} alt="Verified" className="verifiedSVG" />
+
+          ) : (
+              <div></div>
+            )}
         </div>
         <div className="user-details-container">
           <div className="user-details-item">

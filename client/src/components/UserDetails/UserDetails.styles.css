@@ -31,6 +31,13 @@ div.user-details-item {
   align-items: center;
 }
 
+.verifiedSVG {
+  margin-left: 8px;
+  margin-bottom: 5px;
+  height: 20px;
+  width: 20px;
+}
+
 @media only screen and (max-width: 700px) {
   div.user-details {
     margin-left: 0;

@@ -490,7 +490,7 @@ def verifyreset():
 
 #verifying user by email
 
-@app.route("/api/verify/<token>", methods=['GET'])
+@app.route("/<token>", methods=['GET'])
 def verify_register(token):
     user = User.verify_verification_token(token)
     if user is None:
@@ -502,7 +502,7 @@ def verify_register(token):
 
 
 @app.route("/api/reverify", methods=['GET'])
-def reverify(token):
+def reverify():
     if current_user.is_authenticated:
         if current_user.verified == 1:
             return jsonify({'error': 'Account Already Verified'}), 400
