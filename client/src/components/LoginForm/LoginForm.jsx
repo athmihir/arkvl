@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../InputField/InputField';
 import SubmitButton from '../CustomButton/CustomButton';
 import { loginUser } from '../../redux/user/user.actions';
+import { Link } from 'react-router-dom';
 import './LoginForm.styles.css';
 import { connect } from 'react-redux';
 
@@ -27,7 +28,7 @@ const LoginForm = ({ submitUserDetails }) => {
   return (
     <div className="login-form-container">
       <div className="login-form">
-        <h1>Log into your account.</h1>
+        <h1>Log in to your arkvl.</h1>
         <form onSubmit={handleSubmit} method="POST">
           <InputField
             name="username"
@@ -48,6 +49,9 @@ const LoginForm = ({ submitUserDetails }) => {
           <SubmitButton type="submit" onClick={handleSubmit}>
             Login
           </SubmitButton>
+          <div className="forgot-password">
+            <Link to="/forgot-password">Forgot Password</Link>
+          </div>
         </form>
       </div>
     </div>
