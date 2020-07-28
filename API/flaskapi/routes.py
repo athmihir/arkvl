@@ -348,27 +348,23 @@ def apitrending():
 
                 authorNumber = authorNumber + 1
 
-            if len(authorList2) == 0:
-                top3 = top3[0::2]
-            if len(authorList3) == 0:
-                top3 = top3[:2]
+            authorLists = [authorList1, authorList2, authorList3]
+            authorLists = authorLists.sort(key=len, ascending=False)
 
-            authorOne = "Best Of " + top3[0][0]
-            if len(authorList1) == 0:
-                authorOne = ""
-            if len(top3) == 1:
+            if len(authorLists[0]) == 0:
+                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}]}), 200
+
+            authorOne = "Best Of " + top3[0][0] 
+            if len(authorLists[1]) == 0:
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}]}), 200
-
+            
             authorTwo = "Best Of " + top3[1][0]
-            if len(authorList2) == 0:
-                authorTwo = ""
-            if len(top3) == 2:
+            if len(authorLists[2]) == 0:          
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}]}), 200
 
             authorThree = "Best Of " + top3[2][0]
-            if len(authorList3) == 0:
-                authorThree= ""
             return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}, {'header': authorThree, 'books': authorList3}]}), 200
+  
     else:
         return jsonify({'error': 'Invalid Request'}), 401
 
