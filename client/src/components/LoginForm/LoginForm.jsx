@@ -50,7 +50,7 @@ const LoginForm = ({ submitUserDetails }) => {
             Login
           </SubmitButton>
           <div className="forgot-password">
-            <Link to="/forgot-password">Forgot Password</Link>
+            <Link className="forgotPasswordLink" to="/forgot-password">Forgot Password?</Link>
           </div>
         </form>
       </div>

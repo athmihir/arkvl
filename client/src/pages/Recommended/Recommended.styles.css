@@ -51,7 +51,7 @@ div.recommended-books {
   right: 40px;
   bottom: 40px;
   background-color: var(--highlight-color);
-  height: 22%;
+  height: 24%;
   width: 40%;
 }
 
@@ -122,7 +122,11 @@ div.recommended-books {
     right: 40px;
     bottom: 40px;
     background-color: var(--highlight-color);
-    height: 21%;
+    height: 24%;
     width: 75%;
+  }
+
+  .alertParagraph {
+    margin-bottom: 8%;
   }
 }

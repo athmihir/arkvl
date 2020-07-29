@@ -26,8 +26,8 @@ class Recommended extends Component {
       },
     };
     this.state = {
-      modalIsOpen: true,
-      verifyIsOpen: true,
+      modalIsOpen: false,
+      verifyIsOpen: false,
       token: ((this.props.match) ? this.props.match.params.token : false),
     };
   }
@@ -73,6 +73,11 @@ class Recommended extends Component {
       if (this.props.newUser) {
         this.setState({
           modalIsOpen: true,
+        });
+      }
+      if (this.state.token) {
+        this.setState({
+          verifyIsOpen: true,
         });
       }
     }

@@ -155,7 +155,7 @@ class App extends React.Component {
                 }
               />
               <Route path="/forgot-password" component={ForgotPassword} />
-              <Route path="/reset_password/:token" component={ResetPassword} />
+              <Route path="/change-password/:token" component={ResetPassword} />
               <Route
                 exact
                 path="/:token"
