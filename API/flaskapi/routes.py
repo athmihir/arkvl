@@ -21,7 +21,6 @@ import operator
 import random
 from collections import Counter
 
-
 #PLease do not run conventional db.drop and db.create....it will be applied to all the tables (including corr matrix db)
 
 # db.drop_all(bind=[None])            #Wipes out only default database aka user and books database
@@ -220,8 +219,6 @@ def apitrending():
             sorted_avg_ratings_book_id.append(j)
         random.shuffle(sorted_avg_ratings_book_id)
         sorted_avg_ratings_book_id=sorted_avg_ratings_book_id[:10]
-        print(type(books))
-        print(books)
         my_fav_genres=[]                                    #getting fav genres
         favAuthors = []
         allTimeFavs = []
@@ -288,10 +285,9 @@ def apitrending():
             for k in top3:
                 n = 10                                                                        #ratio of books to show
                 average_ratings = original_books.loc[original_books['genres'].str.contains(k[0])]
-                sorted_avg_ratings = average_ratings.sort_values(by="average_rating", ascending=False)
-                sorted_avg_ratings = sorted_avg_ratings.sort_values(by="ratings_count", ascending=False)
-                sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['ratings_count']>=100000]
-                sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]                #filter
+                sorted_avg_ratings = average_ratings.sort_values(by=["average_rating", "ratings_count"], ascending=[False, False])
+                #sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['ratings_count']>=100000]
+                #sorted_avg_ratings = sorted_avg_ratings[sorted_avg_ratings['average_rating']>=4]                #filter
                 sorted_avg_ratings = sorted_avg_ratings.sample(frac=1).reset_index(drop=True)                       #randomize
                 sorted_avg_ratings = [x for x in sorted_avg_ratings.iloc[:,0].tolist() if x not in my_fav_ID]       # remove if already rated
                 sorted_avg_ratings = [x for x in sorted_avg_ratings if x not in final]       # remove if already rated in final
@@ -348,22 +344,32 @@ def apitrending():
 
                 authorNumber = authorNumber + 1
 
-            authorLists = [authorList1, authorList2, authorList3]
-            authorLists = authorLists.sort(key=len, ascending=False)
-
-            if len(authorLists[0]) == 0:
+            authorList1.append(0)
+            authorList2.append(1)
+            authorList3.append(2)
+            authorLists = []
+            authorLists.append(authorList1)
+            authorLists.append(authorList2)
+            authorLists.append(authorList3)
+            authorLists.sort(key=len)
+            authorLists.reverse()
+            print(authorLists)
+            if len(authorLists[0]) == 1 or (len(authorLists[0]) == 1 and len(authorLists[1]) == 1 and len(authorLists[2]) == 1):
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}]}), 200
 
-            authorOne = "Best Of " + top3[0][0] 
-            if len(authorLists[1]) == 0:
-                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}]}), 200
+            authorOne = "Best Of " + top3[authorLists[0][-1]][0] 
+            authorLists[0] = authorLists[0][:-1]
+            if len(authorLists[1]) == 1:
+                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorLists[0]}]}), 200
             
-            authorTwo = "Best Of " + top3[1][0]
-            if len(authorLists[2]) == 0:          
-                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}]}), 200
+            authorTwo = "Best Of " + top3[authorLists[1][-1]][0]
+            authorLists[1] = authorLists[1][:-1]
+            if len(authorLists[2]) == 1:          
+                return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorLists[0]}, {'header': authorTwo, 'books': authorLists[1]}]}), 200
 
-            authorThree = "Best Of " + top3[2][0]
-            return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorList1}, {'header': authorTwo, 'books': authorList2}, {'header': authorThree, 'books': authorList3}]}), 200
+            authorThree = "Best Of " + top3[authorLists[2][-1]][0]
+            authorLists[2] = authorLists[2][:-1]
+            return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorLists[0]}, {'header': authorTwo, 'books': authorLists[1]}, {'header': authorThree, 'books': authorLists[2]}]}), 200
   
     else:
         return jsonify({'error': 'Invalid Request'}), 401
