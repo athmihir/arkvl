@@ -74,10 +74,10 @@ class UserProfile extends React.Component {
           ) : (
               <div>
                 {this.state.emailSent ? (
-                  <p>ok nigga email sent</p>
+                  <p>We've sent you an email!</p>
                 ) : (
                     <CustomButton onClick={this.handleVerification} small>
-                      Verify me nigga
+                      Verify my account
                     </CustomButton>
                   )}
               </div>

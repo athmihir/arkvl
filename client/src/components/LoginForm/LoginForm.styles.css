@@ -6,3 +6,6 @@
 .forgot-password {
   margin: 20px 0;
 }
+.forgotPasswordLink {
+  text-decoration: none;
+}
