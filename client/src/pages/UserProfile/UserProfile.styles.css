@@ -3,11 +3,10 @@ div.user-profile-page {
 }
 
 .user-favorites {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .user-favorites h1 {
-  margin-left: 10px;
   font-size: 1.7em;
 }
 div.user-page-header {

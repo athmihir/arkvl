@@ -38,9 +38,9 @@ class UserProfile extends React.Component {
     });
   };
   handleVerification = () => {
-    console.log("entered handleverification");
+    console.log('entered handleverification');
     axios.get('/api/reverify');
-    console.log("email sent maybe?");
+    console.log('email sent maybe?');
     this.setState({
       ...this.state,
       emailSent: true,
@@ -63,56 +63,54 @@ class UserProfile extends React.Component {
             dateJoined={this.state.dateJoined}
             favGenres={this.state.favGenres}
             username={this.state.username}
-            verified={this.state.verified}
           />
           <CustomButton onClick={this.handleLogout} small>
             Logout
           </CustomButton>
-          {this.state.verified ? (
-            // <img src={VerifiedSVG} alt="Verified" className="verifiedSVG" />
-            <div></div>
-          ) : (
-              <div>
-                {this.state.emailSent ? (
-                  <p>We've sent you an email!</p>
-                ) : (
-                    <CustomButton onClick={this.handleVerification} small>
-                      Verify my account
-                    </CustomButton>
-                  )}
-              </div>
-            )}
+          {this.state.verified ? null : (
+            <div>
+              {this.state.emailSent ? (
+                <p style={{ marginLeft: '10px' }}>We've sent you an email!</p>
+              ) : (
+                <CustomButton
+                  onClick={this.handleVerification}
+                  small
+                  style={{ marginLeft: '10px' }}
+                >
+                  Verify my account
+                </CustomButton>
+              )}
+            </div>
+          )}
         </div>
-        {this.state.ratedBooks.length > 0 ? (
-          <div className="user-favorites">
+        <div className="user-favorites">
+          <>
             <h1>Books you rated</h1>
-            <BookDirectory
-              BOOKS={this.state.ratedBooks}
-              removeOnClear={this.handleClearRating}
-            />
-          </div>
-        ) : (
-            <>
-              <div>
-                <h1>Books you rated</h1>
-
+            {this.state.ratedBooks.length > 0 ? (
+              <BookDirectory
+                BOOKS={this.state.ratedBooks}
+                removeOnClear={this.handleClearRating}
+              />
+            ) : (
+              <>
                 <div className="alternateText">
                   <div className="actualQuote">
                     <p className="quote">
                       We both looked into the abyss; the only difference is you
                       blinked.
-                  </p>
+                    </p>
                     <p className="quoteauthor">
                       — Batman, <i>Crisis On Two Earths</i>
                     </p>
                   </div>
                   <p className="userMessage">
                     THE BOOKS YOU RATE WILL SHOW UP HERE
-                </p>
+                  </p>
                 </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </>
+        </div>
       </motion.div>
     );
   }

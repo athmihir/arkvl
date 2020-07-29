@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Search from '../../components/Search/Search';
 import { motion } from 'framer-motion';
 import './search.styles.css';
 const SearchPage = ({ pageVariants, pageTransition }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <motion.div
       initial="initial"

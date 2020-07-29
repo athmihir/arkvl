@@ -28,7 +28,7 @@ class Recommended extends Component {
     this.state = {
       modalIsOpen: false,
       verifyIsOpen: false,
-      token: ((this.props.match) ? this.props.match.params.token : false),
+      token: this.props.match ? this.props.match.params.token : false,
     };
   }
 
@@ -111,11 +111,7 @@ class Recommended extends Component {
           overlayClassName="Overlay"
         >
           <div className="emailVerifyClass">
-            <h2
-              className="alertHeader"
-            >
-              Welcome to Arkvl!
-            </h2>
+            <h2 className="alertHeader">Welcome to Arkvl!</h2>
             <p className="alertParagraph">
               Rate your favourite books to get personalized recommendations!
             </p>
@@ -136,22 +132,21 @@ class Recommended extends Component {
             overlayClassName="Overlay"
           >
             <div className="emailVerifyClass">
-              <h2
-                className="alertHeader"
-              >
+              <h2 className="alertHeader">
                 Your Arkvl account has been successfully verified!
-            </h2>
-              <p className="alertParagraph">
-                Have fun browsing!
-            </p>
-              <CustomButton style={{ margin: 'auto' }} onClick={this.closeVerifyModal}>
+              </h2>
+
+              <CustomButton
+                style={{ margin: 'auto' }}
+                onClick={this.closeVerifyModal}
+              >
                 Okay
-            </CustomButton>
+              </CustomButton>
             </div>
           </ReactModal>
         ) : (
-            <div></div>
-          )}
+          <div></div>
+        )}
         <div className="page-header">
           <h1> For You</h1>
         </div>
