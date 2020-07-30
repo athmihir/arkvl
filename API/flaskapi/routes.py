@@ -62,14 +62,10 @@ def apilogin():
 
 def send_verification_email(user):
     token = user.get_verification_token()
-    msg = Message('Welcome to arkvl.space',
-                  sender='hello@arkvl.space',
+    msg = Message('Welcome to Arkvl',
+                  sender=('Arkvl','hello@arkvl.space'),
                   recipients=[user.email])
-    msg.body = f''' To verify your account, click on the link below:
-{url_for('verify_register', token=token, _external=True)}
-
-If you did not make this request then simply ignore this email and no changes will be made
-'''
+    msg.html = render_template('welcome-email.html', username=user.username, token_url = url_for('verify_register', token=token, _external=True))
     mail.send(msg)
 
 @app.route('/api/register', methods=['POST'])
@@ -435,13 +431,9 @@ def apisearch(key):
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request',
-                  sender='verify@arkvl.space',
+                  sender=('Arkvl','verify@arkvl.space'),
                   recipients=[user.email])
-    msg.body = f''' To reset your password, visit the following link:
-{url_for('change_password', token=token, _external=True)}
-
-If you did not make this request then simply ignore this email and no changes will be made
-'''
+    msg.html = render_template('forgot-pass.html', username=user.username, token_url = url_for('change_password', token=token, _external=True))
     mail.send(msg)
 
 

@@ -63,6 +63,7 @@ button.go-back-button {
   color: var(--primary-color);
   border: none;
   margin: 20px 0;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {

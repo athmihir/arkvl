@@ -16,7 +16,7 @@ class Recommended extends Component {
     this.state = {
       modalIsOpen: false,
       verifyIsOpen: false,
-      token: ((this.props.match) ? this.props.match.params.token : false),
+      token: this.props.match ? this.props.match.params.token : false,
     };
   }
 

@@ -34,8 +34,8 @@ button.small {
   padding: 0 25px;
   letter-spacing: 0;
   margin-top: 10px;
-  height: 30px;
-  line-height: 25px;
+  height: 35px;
+  line-height: 30px;
 }
 
 button:disabled {
