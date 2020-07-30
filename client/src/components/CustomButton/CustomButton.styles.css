@@ -7,7 +7,6 @@ button.custom-no-invert {
   line-height: 50px;
   padding: 0 35px 0 35px;
   font-size: 15px;
-  letter-spacing: 2px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -35,11 +34,22 @@ button.small {
   letter-spacing: 0;
   margin-top: 10px;
   height: 35px;
-  line-height: 30px;
+  line-height: 35px;
 }
 
 button:disabled {
   filter: brightness(1.2);
+}
+
+.link-button {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  margin-top: 7px;
+  cursor: pointer;
+}
+.link-button:hover {
+  color: #f02057;
 }
 
 @media only screen and (max-width: 700px) {

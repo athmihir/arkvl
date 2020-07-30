@@ -154,8 +154,22 @@ class App extends React.Component {
                   )
                 }
               />
-              <Route path="/forgot-password" component={ForgotPassword} />
-              <Route path="/change-password/:token" component={ResetPassword} />
+              <Route
+                path="/forgot-password"
+                render={() =>
+                  isAuthenticated ? <Recommended /> : <ForgotPassword />
+                }
+              />
+              <Route
+                path="/change-password/:token"
+                render={({ match }) =>
+                  isAuthenticated ? (
+                    <Recommended />
+                  ) : (
+                    <ResetPassword match={match} />
+                  )
+                }
+              />
               <Route
                 exact
                 path="/:token"

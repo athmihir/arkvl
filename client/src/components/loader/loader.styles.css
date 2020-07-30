@@ -45,6 +45,7 @@
 .loader-text {
   font-size: 1.2em;
   letter-spacing: 1px;
+  line-height: 2;
 }
 
 @-webkit-keyframes steam {

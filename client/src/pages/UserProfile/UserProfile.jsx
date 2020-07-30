@@ -17,6 +17,7 @@ class UserProfile extends React.Component {
     ratedBooks: [],
     username: '',
     emailSent: false,
+    verified: undefined,
   };
 
   componentDidMount() {
@@ -64,17 +65,20 @@ class UserProfile extends React.Component {
             favGenres={this.state.favGenres}
             username={this.state.username}
           />
-          <CustomButton onClick={this.handleLogout} small>
-            Logout
-          </CustomButton>
-          {this.state.verified ? null : (
+          {this.state.username ? (
+            <CustomButton onClick={this.handleLogout} small>
+              Logout
+            </CustomButton>
+          ) : null}
+          {this.state.verified === undefined ||
+          this.state.verified === true ? null : (
             <div>
               {this.state.emailSent ? (
                 <p style={{ marginLeft: '10px' }}>We've sent you an email!</p>
               ) : (
                 <CustomButton
                   onClick={this.handleVerification}
-                  small
+                  link
                   style={{ marginLeft: '10px' }}
                 >
                   Verify my account

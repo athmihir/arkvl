@@ -21,6 +21,7 @@ div.alternateText {
   flex-direction: column;
   bottom: 0;
   flex-wrap: wrap;
+  letter-spacing: 1px;
 }
 div.actualQuote {
   display: flex;
