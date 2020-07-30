@@ -453,7 +453,7 @@ def reset_password():
     return jsonify({'message': 'Reset Email sent Successfully'}), 200
 
 
-@app.route("/change_password/<token>", methods=['GET'])
+@app.route("/change-password/<token>", methods=['GET'])
 def change_password(token):
     if current_user.is_authenticated:
         return jsonify({'error': 'Already Logged In'}), 400
