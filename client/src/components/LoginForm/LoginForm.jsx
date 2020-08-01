@@ -28,7 +28,7 @@ const LoginForm = ({ submitUserDetails }) => {
   return (
     <div className="login-form-container">
       <div className="login-form">
-        <h1>Log in to your arkvl.</h1>
+        <h1>Log in to arkvl.</h1>
         <form onSubmit={handleSubmit} method="POST">
           <InputField
             name="username"
@@ -50,7 +50,9 @@ const LoginForm = ({ submitUserDetails }) => {
             Login
           </SubmitButton>
           <div className="forgot-password">
-            <Link className="forgotPasswordLink" to="/forgot-password">Forgot Password?</Link>
+            <Link className="forgotPasswordLink" to="/forgot-password">
+              Forgot Password?
+            </Link>
           </div>
         </form>
       </div>

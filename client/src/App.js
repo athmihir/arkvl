@@ -106,6 +106,7 @@ class App extends React.Component {
                 }
               />
               <Route
+                exact
                 path="/login"
                 render={() =>
                   isAuthenticated ? (
@@ -157,7 +158,17 @@ class App extends React.Component {
               <Route
                 path="/forgot-password"
                 render={() =>
-                  isAuthenticated ? <Recommended /> : <ForgotPassword />
+                  isAuthenticated ? (
+                    <Recommended
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  ) : (
+                    <ForgotPassword
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                  )
                 }
               />
               <Route

@@ -7,13 +7,13 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
-    "framer-motion": "^2.1.0",
+    "framer-motion": "^2.3.0",
     "react": "^16.13.1",
     "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-loading-skeleton": "^2.1.1",
     "react-rating-stars-component": "^1.1.0",
-    "react-redux": "^7.2.0",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
@@ -21,7 +21,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "swiper": "^6.0.4"
+    "swiper": "^6.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,7 +50,7 @@
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.4",
     "prettier": "^2.0.5"
   },

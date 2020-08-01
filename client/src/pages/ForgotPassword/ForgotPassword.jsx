@@ -5,6 +5,8 @@ import SubmitButton from '../../components/CustomButton/CustomButton';
 import Lock from './lock.svg';
 import InputField from '../../components/InputField/InputField';
 import axios from 'axios';
+import { toast, Slide } from 'react-toastify';
+import { motion } from 'framer-motion';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -17,18 +19,32 @@ class ForgotPassword extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      lock: true,
-    });
+
     axios
       .post(`/api/reset_password`, { email: this.state.email })
       .then((res) => {
         console.log('here is the API response');
         console.log(res);
+        this.setState({
+          lock: true,
+        });
       })
       .catch((err) => {
         console.log('no cap');
         console.log(err.response);
+        toast.error(
+          err.response.message || 'Something went wrong. Please try again',
+          {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            transition: Slide,
+          },
+        );
       });
   };
 
@@ -38,7 +54,7 @@ class ForgotPassword extends Component {
 
   render() {
     return (
-      <div className="forgot-password-container">
+      <motion.div className="forgot-password-container">
         {this.state.lock ? (
           <img className="lockUnlock" src={Lock} alt="Lock" />
         ) : (
@@ -79,7 +95,7 @@ class ForgotPassword extends Component {
             </SubmitButton>
           </div>
         )}
-      </div>
+      </motion.div>
     );
   }
 }
