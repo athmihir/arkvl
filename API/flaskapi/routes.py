@@ -353,20 +353,20 @@ def apitrending():
             if len(authorLists[0]) == 1 or (len(authorLists[0]) == 1 and len(authorLists[1]) == 1 and len(authorLists[2]) == 1):
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}]}), 200
 
-            authorOne = "Best Of " + top3[authorLists[0][-1]][0] 
+            authorOne = "Best Of " + top3[authorLists[0][-1]][0]
             authorLists[0] = authorLists[0][:-1]
             if len(authorLists[1]) == 1:
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorLists[0]}]}), 200
-            
+
             authorTwo = "Best Of " + top3[authorLists[1][-1]][0]
             authorLists[1] = authorLists[1][:-1]
-            if len(authorLists[2]) == 1:          
+            if len(authorLists[2]) == 1:
                 return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorLists[0]}, {'header': authorTwo, 'books': authorLists[1]}]}), 200
 
             authorThree = "Best Of " + top3[authorLists[2][-1]][0]
             authorLists[2] = authorLists[2][:-1]
             return ( {'trending': [{'header': 'All Time Favourites', 'books': allTimeFavs}, {'header': genreOne, 'books': firstBookList}, {'header': genreTwo, 'books': secondBookList}, {'header': genreThree, 'books': thirdBookList}, {'header': authorOne, 'books': authorLists[0]}, {'header': authorTwo, 'books': authorLists[1]}, {'header': authorThree, 'books': authorLists[2]}]}), 200
-  
+
     else:
         return jsonify({'error': 'Invalid Request'}), 401
 
@@ -478,6 +478,7 @@ def verifyreset():
         return jsonify({'error': 'Invalid or expired token'}), 400
     user.password = bcrypt.generate_password_hash(password).decode('utf-8')
     db.session.commit()
+    # return redirect(url_for(index))
     return jsonify({'message': 'Password reset Successfully'}), 201
 
 
