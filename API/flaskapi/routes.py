@@ -488,12 +488,14 @@ def verifyreset():
 def verify_register(token):
     user = User.verify_verification_token(token)
     if user is None:
-        return jsonify({'error': 'Invalid or expired token'}), 400
+        return redirect(url_for(noverify))
     user.verified = 1
     db.session.commit()
     return app.send_static_file('index.html')
 
-
+@app.route("/verified/noverify", methods=['GET'])
+def noverify():
+    return app.send_static_file('index.html')
 
 @app.route("/api/reverify", methods=['GET'])
 def reverify():
