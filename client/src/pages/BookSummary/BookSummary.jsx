@@ -11,7 +11,7 @@ class BookSummary extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      book_id: this.props.match.params.bookid,
+      book_id: this.props.bookid,
       rating: 0,
       imgSource: null,
       bookTitle: null,

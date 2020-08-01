@@ -484,7 +484,7 @@ def verifyreset():
 
 #verifying user by email
 
-@app.route("/<token>", methods=['GET'])
+@app.route("/verified/<token>", methods=['GET'])
 def verify_register(token):
     user = User.verify_verification_token(token)
     if user is None:

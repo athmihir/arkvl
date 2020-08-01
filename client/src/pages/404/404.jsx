@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 import './404.styles.css';
 
 class Error404 extends Component {

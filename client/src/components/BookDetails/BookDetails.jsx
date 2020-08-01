@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import './BookDetails.styles.css';
 import ReactStars from 'react-rating-stars-component';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 
 const BookTitle = ({
   booktitleis,
@@ -64,7 +64,7 @@ const BookTitle = ({
       </div>
 
       <span className="read-now">
-        <Link to={`/book-summary/${bookid}`}>Read Now</Link>
+        <Link to={`book-summary/${bookid}`}>Read Now</Link>
       </span>
     </div>
   );

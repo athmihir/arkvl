@@ -16,12 +16,12 @@ class Recommended extends Component {
     this.state = {
       modalIsOpen: false,
       verifyIsOpen: false,
-      token: this.props.match ? this.props.match.params.token : false,
+      token: this.props.token || false,
     };
   }
 
   closeModal = () => {
-    console.log("kanyewest")
+    console.log('kanyewest');
     this.setState({
       modalIsOpen: false,
     });
@@ -44,7 +44,7 @@ class Recommended extends Component {
         this.setState({
           modalIsOpen: true,
         });
-        console.log("nigga do we have a problem?")
+        console.log('nigga do we have a problem?');
         document.getElementById('blurhook').style.filter = 'blur(8px)';
       }
       if (this.state.token) {
@@ -73,14 +73,18 @@ class Recommended extends Component {
         transition={this.props.pageTransition}
         className="recommended-books"
       >
-        <Modal modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal} verifymodal={false} />
-        {
-          this.state.token.length ? (
-            <Modal modalIsOpen={this.state.verifyIsOpen} closeModal={this.closeVerifyModal} verifymodal={true} />
-          ) : (
-              null
-            )
-        }
+        <Modal
+          modalIsOpen={this.state.modalIsOpen}
+          closeModal={this.closeModal}
+          verifymodal={false}
+        />
+        {this.state.token.length ? (
+          <Modal
+            modalIsOpen={this.state.verifyIsOpen}
+            closeModal={this.closeVerifyModal}
+            verifymodal={true}
+          />
+        ) : null}
         <div id="blurhook">
           <div className="page-header">
             <h1> For You</h1>
@@ -90,7 +94,7 @@ class Recommended extends Component {
             removeRated={this.props.removeRated}
           />
         </div>
-      </motion.div >
+      </motion.div>
     );
   }
 }

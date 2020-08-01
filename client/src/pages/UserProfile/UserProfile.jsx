@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import './UserProfile.styles.css';
 import BookDirectory from '../../components/BookDirectory/BookDirectory';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import { withRouter } from 'react-router-dom';
+import { navigate } from '@reach/router';
 
 class UserProfile extends React.Component {
   state = {
@@ -27,7 +27,7 @@ class UserProfile extends React.Component {
   handleLogout = () => {
     axios.post('/api/logout').then((res) => {
       this.props.logout();
-      this.props.history.push('/');
+      navigate('/');
     });
   };
   handleClearRating = (id) => {
@@ -123,4 +123,4 @@ const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(userLogout()),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(UserProfile));
+export default connect(null, mapDispatchToProps)(UserProfile);

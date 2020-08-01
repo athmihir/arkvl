@@ -5,7 +5,7 @@ import _ from 'lodash';
 import makeAnimated from 'react-select/animated';
 
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 
 const animatedComponents = makeAnimated();
 

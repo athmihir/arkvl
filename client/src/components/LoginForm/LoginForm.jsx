@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../InputField/InputField';
 import SubmitButton from '../CustomButton/CustomButton';
 import { loginUser } from '../../redux/user/user.actions';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 import './LoginForm.styles.css';
 import { connect } from 'react-redux';
 

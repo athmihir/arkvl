@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
 import { ReactComponent as SearchIcon } from '../../assets/icons/search-24px.svg';
@@ -22,35 +22,53 @@ const SideBar = () => {
           </li>
 
           <li className="nav-item">
-            <NavLink exact to="/" className="nav-link" activeClassName="active">
+            <Link
+              exact
+              to="/"
+              getProps={({ isCurrent }) => {
+                return {
+                  className: isCurrent ? 'nav-link active' : 'nav-link',
+                };
+              }}
+            >
               <BookIcon />
               <div className="link-text">For you</div>
-            </NavLink>
+            </Link>
           </li>
 
           <li className="nav-item">
-            <NavLink
+            <Link
               to="/library"
-              className="nav-link"
-              activeClassName="active"
+              getProps={({ isCurrent }) => {
+                return {
+                  className: isCurrent ? 'nav-link active' : 'nav-link',
+                };
+              }}
             >
               <TrendingIcon />
               <div className="link-text">Library</div>
-            </NavLink>
+            </Link>
           </li>
 
           <li className="nav-item">
-            <NavLink to="/search" className="nav-link" activeClassName="active">
+            <Link
+              to="/search"
+              getProps={({ isCurrent }) => {
+                return {
+                  className: isCurrent ? 'nav-link active' : 'nav-link',
+                };
+              }}
+            >
               <SearchIcon />
               <div className="link-text">Search</div>
-            </NavLink>
+            </Link>
           </li>
 
           <li className="nav-item">
             <span className="nav-link user-avatar">
-              <NavLink to="/user-profile">
+              <Link to="/user-profile">
                 <UserAvatar />
-              </NavLink>
+              </Link>
             </span>
           </li>
         </ul>

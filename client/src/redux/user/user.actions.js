@@ -34,6 +34,7 @@ export const checkUserStatus = () => async (dispatch) => {
     .get('/api/login')
     .then((res) => {
       if (res.data.logged_in) {
+        console.log(res.data);
         dispatch(loginUsersSuccess(res.data.Username));
       }
     })

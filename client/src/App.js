@@ -1,9 +1,9 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { Route, Switch, withRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
+import { Router, Location } from '@reach/router';
 
 import { checkUserStatus } from './redux/user/user.actions';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
@@ -17,6 +17,8 @@ import Loader from './components/loader/loader.component';
 import Search from './pages/search/search';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import ForgotRoute from './components/ForgotRoute/ForgotRoute';
 
 class App extends React.Component {
   render() {
@@ -49,165 +51,67 @@ class App extends React.Component {
           <Loader />
         ) : (
           <AnimatePresence exitBeforeEnter>
-            <Switch
-              location={this.props.location}
-              key={this.props.location.pathname}
-            >
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  isAuthenticated ? (
-                    <Recommended
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-
-              <Route
-                exact
-                path="/library"
-                render={() =>
-                  isAuthenticated ? (
-                    <Library
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                exact
-                path="/search"
-                render={() =>
-                  isAuthenticated ? (
-                    <Search
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                exact
-                path="/login"
-                render={() =>
-                  isAuthenticated ? (
-                    <Recommended
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                path="/user-profile"
-                render={() =>
-                  isAuthenticated ? (
-                    <UserProfile
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                path="/book-summary/:bookid"
-                component={BookSummary}
-                render={() =>
-                  isAuthenticated ? (
-                    <BookSummary
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                path="/forgot-password"
-                render={() =>
-                  isAuthenticated ? (
-                    <Recommended
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  ) : (
-                    <ForgotPassword
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                path="/change-password/:token"
-                render={({ match }) =>
-                  isAuthenticated ? (
-                    <Recommended />
-                  ) : (
-                    <ResetPassword match={match} />
-                  )
-                }
-              />
-              <Route
-                exact
-                path="/:token"
-                render={({ match }) =>
-                  isAuthenticated ? (
-                    <Recommended
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                      match={match}
-                    />
-                  ) : (
-                    <LoginRegister
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                  )
-                }
-              />
-              <Route
-                render={() => (
-                  <Error404
+            <Location>
+              {({ location }) => (
+                <Router location={location} key={location.pathname}>
+                  <PrivateRoute
+                    as={Recommended}
+                    path="/"
                     pageVariants={pageVariants}
                     pageTransition={pageTransition}
                   />
-                )}
-              />
-            </Switch>
+                  <PrivateRoute
+                    as={Library}
+                    path="library"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <PrivateRoute
+                    as={Search}
+                    path="search"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <PrivateRoute
+                    as={LoginRegister}
+                    path="login"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <PrivateRoute
+                    as={BookSummary}
+                    path="book-summary/:bookid"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <PrivateRoute
+                    as={UserProfile}
+                    path="user-profile"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <ForgotRoute
+                    as={ForgotPassword}
+                    path="forgot-password"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <ForgotRoute
+                    as={ResetPassword}
+                    path="change-password/:token"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <PrivateRoute
+                    as={Recommended}
+                    path="verified/:token"
+                    pageVariants={pageVariants}
+                    pageTransition={pageTransition}
+                  />
+                  <Error404 default />
+                </Router>
+              )}
+            </Location>
           </AnimatePresence>
         )}
         {isAuthenticated ? <SideBar /> : null}
@@ -224,4 +128,4 @@ const mapDispatchToProps = (dispatch) => ({
   checkUserLoggedIn: () => dispatch(checkUserStatus()),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(App);

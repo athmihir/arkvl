@@ -33,7 +33,7 @@ class ForgotPassword extends Component {
         console.log('no cap');
         console.log(err.response);
         toast.error(
-          err.response.message || 'Something went wrong. Please try again',
+          err.response.data.error || 'Something went wrong. Please try again',
           {
             position: 'top-right',
             autoClose: 5000,

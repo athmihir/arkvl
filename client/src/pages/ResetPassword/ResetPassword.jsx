@@ -4,7 +4,7 @@ import { toast, Slide } from 'react-toastify';
 import SubmitButton from '../../components/CustomButton/CustomButton';
 import InputField from '../../components/InputField/InputField';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import { navigate } from '@reach/router';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class ResetPassword extends Component {
     this.state = {
       password: '',
       confirmPassword: undefined,
-      token: this.props.match.params.token,
+      token: this.props.token,
     };
   }
 
@@ -33,7 +33,7 @@ class ResetPassword extends Component {
         .then((res) => {
           console.log('here is the API response from api/verifyreset');
           console.log(res);
-          this.props.history.push('/');
+          navigate('/');
         })
         .catch((err) => {
           console.log(err);
@@ -96,4 +96,4 @@ class ResetPassword extends Component {
   }
 }
 
-export default withRouter(ResetPassword);
+export default ResetPassword;
