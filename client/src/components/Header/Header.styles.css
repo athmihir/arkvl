@@ -1,0 +1,37 @@
+.header {
+  width: 100vw;
+  height: 4em;
+  background-color: var(--bg-primary);
+  box-shadow: 0px 2px 0 #5d6f8869;
+}
+
+.header-container {
+  height: 100%;
+  padding-left: 2em;
+  margin-right: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.header-container.wide {
+  margin-right: 60%;
+  padding-left: 1em;
+}
+
+.header-logo > button {
+  background: none;
+  border: none;
+}
+
+.header-logo > a,
+.header-logo > button {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo > a > svg,
+.header-logo > button > svg {
+  width: 90px;
+  fill: var(--secondary-text);
+}

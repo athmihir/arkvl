@@ -74,12 +74,14 @@ class UserProfile extends React.Component {
           this.state.verified === true ? null : (
             <div>
               {this.state.emailSent ? (
-                <p style={{ marginLeft: '10px' }}>We've sent you an email!</p>
+                <p style={{ marginLeft: '10px', marginTop: '5px' }}>
+                  We've sent you an email!
+                </p>
               ) : (
                 <CustomButton
                   onClick={this.handleVerification}
                   link
-                  style={{ marginLeft: '10px' }}
+                  style={{ marginLeft: '10px', marginTop: '13px' }}
                 >
                   Verify my account
                 </CustomButton>

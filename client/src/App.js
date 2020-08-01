@@ -19,6 +19,8 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import ForgotRoute from './components/ForgotRoute/ForgotRoute';
+import Header from './components/Header/Header';
+import { MobileView } from 'react-device-detect';
 
 class App extends React.Component {
   render() {
@@ -47,6 +49,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <ToastContainer />
+        {isAuthenticated === false && <Header />}
+        {isAuthenticated && (
+          <MobileView>
+            <Header />
+          </MobileView>
+        )}
         {isAuthenticated === undefined ? (
           <Loader />
         ) : (

@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import { Link } from '@reach/router';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
 import { ReactComponent as SearchIcon } from '../../assets/icons/search-24px.svg';
@@ -16,14 +17,13 @@ const SideBar = () => {
           <li className="logo">
             <h3 className="logo-link">
               <Link to="/" className="link-text logo-text">
-                Arkvl
+                <Logo />
               </Link>
             </h3>
           </li>
 
           <li className="nav-item">
             <Link
-              exact
               to="/"
               getProps={({ isCurrent }) => {
                 return {

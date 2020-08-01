@@ -50,6 +50,12 @@
   transition: 300ms;
 }
 
+.logo-text > svg {
+  width: 80%;
+  margin: auto;
+  display: block;
+}
+
 .logo-text:hover {
   color: var(--secondary-text);
 }
@@ -75,6 +81,7 @@
 .logo-link {
   flex-direction: row;
   color: var(--primary-text);
+  padding-top: 6%;
 }
 
 .nav-link:not(.user-avatar) svg {

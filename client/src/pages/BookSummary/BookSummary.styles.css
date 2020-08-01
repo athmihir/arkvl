@@ -14,7 +14,7 @@ div .rating {
   color: var(--primary-text);
   margin: 0;
   margin-right: 10px;
-  max-width: 7em;
+  max-width: 8em;
 }
 
 .rating-container {
@@ -60,7 +60,7 @@ button.go-back-button {
   background: none;
   outline: none;
   font-size: 1.2em;
-  color: var(--primary-color);
+  fill: var(--primary-text);
   border: none;
   margin: 20px 0;
   cursor: pointer;

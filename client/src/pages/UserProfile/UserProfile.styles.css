@@ -36,7 +36,10 @@ p.quoteauthor {
 p.userMessage {
   color: var(--secondary-text);
   font-size: 0.7em;
+  margin: auto;
+  text-align: center;
   margin-top: 5%;
+  width: 70vw;
 }
 @media only screen and (max-width: 700px) {
   div.user-profile-page {

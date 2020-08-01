@@ -16,6 +16,11 @@ export const RemoveRatedBook = (id) => ({
   payload: id,
 });
 
+export const editRecommendation = (id, rating) => ({
+  type: RecommendationsActionTypes.EDIT_RECOMMENDATION,
+  payload: { id, rating },
+});
+
 export const fetchRecommendationsUser = () => (dispatch) => {
   axios
     .get('/api/recommend')

@@ -6,6 +6,10 @@ import axios from 'axios';
 import SummarySkeleton from '../../components/Skeleton/summarySkeleton';
 import './BookSummary.styles.css';
 import BookCover from '../../components/BookCover/BookCover';
+import { ReactComponent as BackArrow } from '../../assets/icons/arrow_back-24px.svg';
+import { isMobile } from 'react-device-detect';
+import { connect } from 'react-redux';
+import { editRecommendation } from '../../redux/recommendations/recommendations.actions';
 
 class BookSummary extends Component {
   constructor(props) {
@@ -33,6 +37,7 @@ class BookSummary extends Component {
       rating: newRating,
       book_id: this.state.book_id,
     });
+    this.props.editRating(this.state.book_id, newRating);
   };
 
   componentDidMount() {
@@ -68,13 +73,14 @@ class BookSummary extends Component {
         {this.state.imgSource ? (
           <div className="book-summary-container">
             <div className="book-image-container">
-              <button
-                onClick={() => this.props.history.goBack()}
-                className="go-back-button"
-              >
-                {' '}
-                Go back{' '}
-              </button>
+              {!isMobile && (
+                <button
+                  onClick={() => window.history.back()}
+                  className="go-back-button"
+                >
+                  <BackArrow />
+                </button>
+              )}
               <BookCard imagesource={this.state.imgSource} isCover />
               <div>
                 {this.state && this.state.rating !== 0 ? (
@@ -133,4 +139,8 @@ class BookSummary extends Component {
   }
 }
 
-export default BookSummary;
+const mapDispatchToProps = (dispatch) => ({
+  editRating: (id, rating) => dispatch(editRecommendation(id, rating)),
+});
+
+export default connect(null, mapDispatchToProps)(BookSummary);

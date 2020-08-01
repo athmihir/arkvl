@@ -23,7 +23,7 @@ const BookTitle = ({
           <p className="author">by {bookauthoris}</p>
         </div>
         <div className="book-rating">
-          {rating !== undefined || rating === 0
+          {rating !== undefined || rating !== 0
             ? `Edit Rating`
             : `Rate this book`}
           <div
@@ -64,7 +64,7 @@ const BookTitle = ({
       </div>
 
       <span className="read-now">
-        <Link to={`book-summary/${bookid}`}>Read Now</Link>
+        <Link to={`/book-summary/${bookid}`}>Read Now</Link>
       </span>
     </div>
   );

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import './ForgotPassword.styles.css';
-import Unlock from './unlock.svg';
-import SubmitButton from '../../components/CustomButton/CustomButton';
-import Lock from './lock.svg';
-import InputField from '../../components/InputField/InputField';
 import axios from 'axios';
 import { toast, Slide } from 'react-toastify';
 import { motion } from 'framer-motion';
-
+import './ForgotPassword.styles.css';
+import Unlock from './unlock.svg';
+import InputField from '../../components/InputField/InputField';
+import SubmitButton from '../../components/CustomButton/CustomButton';
+import Lock from './lock.svg';
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
@@ -55,6 +54,7 @@ class ForgotPassword extends Component {
   render() {
     return (
       <motion.div className="forgot-password-container">
+        <header />
         {this.state.lock ? (
           <img className="lockUnlock" src={Lock} alt="Lock" />
         ) : (
