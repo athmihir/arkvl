@@ -456,10 +456,15 @@ def reset_password():
 @app.route("/change-password/<token>", methods=['GET'])
 def change_password(token):
     if current_user.is_authenticated:
-        return jsonify({'error': 'Already Logged In'}), 400
+        return redirect(url_for('/'))
     user = User.verify_reset_token(token)
     if user is None:
-        return jsonify({'error': 'Invalid or expired token'}), 400
+        return redirect(url_for('nochange'))
+    return app.send_static_file('index.html')
+
+
+@app.route("/change-password/nochange", methods=['GET'])
+def nochange():
     return app.send_static_file('index.html')
 
 
@@ -478,7 +483,7 @@ def verifyreset():
         return jsonify({'error': 'Invalid or expired token'}), 400
     user.password = bcrypt.generate_password_hash(password).decode('utf-8')
     db.session.commit()
-    # return redirect(url_for(index))
+    # return redirect(url_for('index'))
     return jsonify({'message': 'Password reset Successfully'}), 201
 
 
@@ -489,9 +494,11 @@ def verifyreset():
 def verify_register(token):
     user = User.verify_verification_token(token)
     if user is None:
-        return redirect(url_for(noverify))
+        return redirect(url_for('noverify'))
     user.verified = 1
     db.session.commit()
+    if not current_user.is_authenticated:
+        login_user(user)
     return app.send_static_file('index.html')
 
 @app.route("/verified/noverify", methods=['GET'])
