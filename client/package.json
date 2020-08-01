@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "framer-motion": "^2.3.0",
-    "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",

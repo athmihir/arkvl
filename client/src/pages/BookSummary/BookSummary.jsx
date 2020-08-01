@@ -9,7 +9,7 @@ import BookCover from '../../components/BookCover/BookCover';
 import { ReactComponent as BackArrow } from '../../assets/icons/arrow_back-24px.svg';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
-import { editRecommendation } from '../../redux/recommendations/recommendations.actions';
+import { RemoveRatedBook } from '../../redux/recommendations/recommendations.actions';
 
 class BookSummary extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class BookSummary extends Component {
       rating: newRating,
       book_id: this.state.book_id,
     });
-    this.props.editRating(this.state.book_id, newRating);
+    this.props.removeRated(parseInt(this.state.book_id));
   };
 
   componentDidMount() {
@@ -140,7 +140,7 @@ class BookSummary extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editRating: (id, rating) => dispatch(editRecommendation(id, rating)),
+  removeRated: (id) => dispatch(RemoveRatedBook(id)),
 });
 
 export default connect(null, mapDispatchToProps)(BookSummary);
