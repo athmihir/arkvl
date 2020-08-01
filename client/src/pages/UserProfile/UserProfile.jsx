@@ -98,15 +98,6 @@ class UserProfile extends React.Component {
             ) : (
               <>
                 <div className="alternateText">
-                  <div className="actualQuote">
-                    <p className="quote">
-                      We both looked into the abyss; the only difference is you
-                      blinked.
-                    </p>
-                    <p className="quoteauthor">
-                      — Batman, <i>Crisis On Two Earths</i>
-                    </p>
-                  </div>
                   <p className="userMessage">
                     THE BOOKS YOU RATE WILL SHOW UP HERE
                   </p>

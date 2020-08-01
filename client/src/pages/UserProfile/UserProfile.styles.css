@@ -23,19 +23,20 @@ div.alternateText {
   flex-wrap: wrap;
   letter-spacing: 1px;
 }
-div.actualQuote {
+/* div.actualQuote {
   display: flex;
   flex-direction: column;
-}
-p.quote {
+} */
+/* p.quote {
   display: flex;
 }
 p.quoteauthor {
   align-self: flex-end;
-}
+} */
 p.userMessage {
   color: var(--secondary-text);
   font-size: 0.7em;
+  margin-top: 5%;
 }
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
@@ -47,5 +48,33 @@ p.userMessage {
   }
   .user-favorites h1 {
     margin-left: 0;
+  }
+  .link-button {
+    margin-left: 0px !important;
+    padding: 5px 0px 0px 0px !important;
+  }
+  /* p.quote {
+    margin-bottom: 0px !important;
+    font-size: 90%;
+  }
+  p.quoteauthor {
+    font-size: 70%;
+  } */
+  div.alternateText {
+    margin-top: 30%;
+  }
+  p.userMessage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    /* width: 100vm ; */
+    margin-top: 2%;
+    font-size: 65%;
+  }
+  .user-favorites h1 {
+    font-size: 150%;
   }
 }

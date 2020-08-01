@@ -17,6 +17,7 @@ const Loader = () => {
     '"It sounds plausible enough tonight, but wait until tomorrow. Wait for the common sense of the morning."<br/>— H.G. Wells, <i>The Time Machine<i/>',
     '"We need never be ashamed of our tears."<br/>— Charles Dickens, <i>Great Expectations<i/>',
     '"Perhaps it was freedom itself that choked her."<br/>— Patricia Highsmith, <i>The Price Of Salt<i/>',
+    '"We both looked into the abyss; the only difference is you blinked."<br/>— Batman, <i>Crisis On Two Earths<i/>',
   ];
   const randomQuote = bookQuotes[Math.floor(Math.random() * bookQuotes.length)];
 
