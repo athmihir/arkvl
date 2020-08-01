@@ -88,7 +88,7 @@ class ForgotPassword extends Component {
                 display: 'flex',
                 width: '10%',
                 margin: 'auto',
-                'margin-top': '20px',
+                marginTop: '20px',
               }}
             >
               Submit
