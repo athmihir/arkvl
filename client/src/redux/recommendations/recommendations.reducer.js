@@ -4,7 +4,6 @@ const INITIAL_STATE = [];
 
 const recommendationReducer = (state = INITIAL_STATE, action) => {
   let delList = [];
-  let editList = [];
   switch (action.type) {
     case RecommendationActionTypes.SUCCESS_FETCH_RECOMMENDATIONS:
       return action.payload;
