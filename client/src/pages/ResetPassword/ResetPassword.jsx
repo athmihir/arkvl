@@ -81,6 +81,7 @@ class ResetPassword extends Component {
       modalIsOpen: false,
     });
     document.getElementsByClassName("reset-password-container")[0].style.removeProperty('filter');
+    navigate('/forgot-password');
   };
 
   render() {
