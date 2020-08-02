@@ -62,9 +62,15 @@ const Modal = ({ modalIsOpen, closeModal, verifymodal, noverifymodal, tokenexpir
 
 
               )}
-            <CustomButton style={{ margin: 'auto' }} onClick={closeModal} small>
-              Okay
-            </CustomButton>
+            {tokenexpiremodal ? (
+              <CustomButton style={{ margin: 'auto' }} onClick={closeModal} small>
+                Get a new token
+              </CustomButton>
+            ) : (
+                <CustomButton style={{ margin: 'auto' }} onClick={closeModal} small>
+                  Okay
+                </CustomButton>
+              )}
           </motion.div>
         </motion.div>
       )}
