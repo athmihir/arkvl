@@ -1,7 +1,9 @@
 div.trending-books {
   padding: 4.5vh 12vw 0vh 9vw;
 }
-
+div.trending-books > h1 {
+  margin-left: 10px;
+}
 div.trending-books-container {
   padding: 0 0vw 7vh 9vw;
 }
