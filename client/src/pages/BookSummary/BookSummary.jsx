@@ -58,6 +58,7 @@ class BookSummary extends Component {
           rating: res.data.Summary[0].read_or_not,
           amazonLink: res.data.Summary[0].amazonLink,
         });
+        document.title = `${res.data.Summary[0].title} | arkvl`;
       });
   }
 

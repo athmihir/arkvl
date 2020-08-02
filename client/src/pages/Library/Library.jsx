@@ -10,6 +10,7 @@ import BookDirectorySkeleton from '../../components/Skeleton/skeleton';
 class Trending extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
+    document.title = 'Library | Arkvl';
     if (this.props.library.length === 0) {
       this.props.fetchTrending();
     }
