@@ -16,6 +16,7 @@ class Recommended extends Component {
     this.state = {
       modalIsOpen: false,
       verifyIsOpen: false,
+      noverifyIsOpen: false,
       token: this.props.token || false,
     };
   }
@@ -35,6 +36,13 @@ class Recommended extends Component {
     document.getElementById('blurhook').style.removeProperty('filter');
   };
 
+  closeNoverifyModal = () => {
+    this.setState({
+      noverifyIsOpen: false,
+    });
+    document.getElementById('blurhook').style.removeProperty('filter');
+  };
+
   componentDidMount() {
     window.scrollTo(0, 0);
     if (this.props.loadRecs && this.props.loadRecs.length === 0) {
@@ -48,9 +56,16 @@ class Recommended extends Component {
         document.getElementById('blurhook').style.filter = 'blur(8px)';
       }
       if (this.state.token) {
-        this.setState({
-          verifyIsOpen: true,
-        });
+        if (this.state.token.includes("noverify")) {
+          this.setState({
+            noverifyIsOpen: true,
+          });
+        }
+        else {
+          this.setState({
+            verifyIsOpen: true,
+          });
+        }
         document.getElementById('blurhook').style.filter = 'blur(8px)';
       }
     }
@@ -77,13 +92,26 @@ class Recommended extends Component {
           modalIsOpen={this.state.modalIsOpen}
           closeModal={this.closeModal}
           verifymodal={false}
+          noverifymodal={false}
+          tokenexpiremodal={false}
         />
         {this.state.token.length ? (
-          <Modal
-            modalIsOpen={this.state.verifyIsOpen}
-            closeModal={this.closeVerifyModal}
-            verifymodal={true}
-          />
+          <div>
+            <Modal
+              modalIsOpen={this.state.verifyIsOpen}
+              closeModal={this.closeVerifyModal}
+              verifymodal={true}
+              noverifymodal={false}
+              tokenexpiremodal={false}
+            />
+            <Modal
+              modalIsOpen={this.state.noverifyIsOpen}
+              closeModal={this.closeNoverifyModal}
+              verifymodal={false}
+              noverifymodal={true}
+              tokenexpiremodal={false}
+            />
+          </div>
         ) : null}
         <div id="blurhook">
           <div className="page-header">

@@ -5,6 +5,7 @@ import SubmitButton from '../../components/CustomButton/CustomButton';
 import InputField from '../../components/InputField/InputField';
 import axios from 'axios';
 import { navigate } from '@reach/router';
+import Modal from '../../components/Modal/Modal';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ResetPassword extends Component {
       password: '',
       confirmPassword: undefined,
       token: this.props.token,
+      modalIsOpen: false,
     };
   }
 
@@ -62,9 +64,35 @@ class ResetPassword extends Component {
     }
   };
 
+  componentDidMount() {
+    if (this.state.token) {
+      if (this.state.token.includes("nochange")) {
+        this.setState({
+          modalIsOpen: true,
+        });
+        document.getElementsByClassName("reset-password-container")[0].style.filter = 'blur(8px)';
+      }
+    }
+  }
+
+  closeModal = () => {
+    console.log('kanyewest');
+    this.setState({
+      modalIsOpen: false,
+    });
+    document.getElementsByClassName("reset-password-container")[0].style.removeProperty('filter');
+  };
+
   render() {
     return (
       <div className="reset-password-page">
+        <Modal
+          modalIsOpen={this.state.modalIsOpen}
+          closeModal={this.closeModal}
+          verifymodal={false}
+          noverifymodal={false}
+          tokenexpiremodal={true}
+        />
         <div className="reset-password-container">
           <h2 style={{ marginBottom: '10px' }}>Enter your new password</h2>
           <form onSubmit={this.handleSubmit}>

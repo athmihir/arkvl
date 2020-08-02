@@ -22,7 +22,7 @@
 .modalHeading {
   font-size: 1.7rem;
   margin-bottom: 1%;
-  max-width: 80vw;
+  /* max-width: 80vw; */
 }
 
 .modalPara {

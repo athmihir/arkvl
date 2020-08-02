@@ -8,7 +8,7 @@ const backdropVariance = {
   hidden: { opacity: 0 },
 };
 
-const Modal = ({ modalIsOpen, closeModal, verifymodal }) => {
+const Modal = ({ modalIsOpen, closeModal, verifymodal, noverifymodal, tokenexpiremodal }) => {
   return (
     <AnimatePresence exitBeforeEnter>
       {modalIsOpen && (
@@ -28,20 +28,47 @@ const Modal = ({ modalIsOpen, closeModal, verifymodal }) => {
                 </h2>
               </div>
             ) : (
-              <div>
-                <h2 className="modalHeading">Welcome to Arkvl!</h2>
-                <p className="modalPara">
-                  Rate your favourite books to get personalized recommendations!
-                </p>
-              </div>
-            )}
+                <div>
+                  {noverifymodal ? (
+                    <div>
+                      <h2 className="modalHeading">Sorry!</h2>
+                      <p className="modalPara">
+                        Your Arkvl account couldn't be verified!
+                        </p>
+                    </div>
+                  ) : (
+                      <div>
+                        {tokenexpiremodal ? (
+                          <div>
+                            <h2 className="modalHeading">Sorry!</h2>
+                            <p className="modalPara">
+                              This token has expired!
+                                </p>
+                          </div>
+                        ) : (
+                            <div>
+                              <h2 className="modalHeading">Welcome to Arkvl!</h2>
+                              <p className="modalPara">
+                                Rate your favourite books to get personalized recommendations!
+                                  </p>
+                            </div>
+                          )}
+
+                      </div>
+                    )}
+
+
+                </div>
+
+
+              )}
             <CustomButton style={{ margin: 'auto' }} onClick={closeModal} small>
               Okay
             </CustomButton>
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence >
   );
 };
 
