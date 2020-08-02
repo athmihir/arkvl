@@ -56,12 +56,11 @@ class Recommended extends Component {
         document.getElementById('blurhook').style.filter = 'blur(8px)';
       }
       if (this.state.token) {
-        if (this.state.token.includes("noverify")) {
+        if (this.state.token.includes('noverify')) {
           this.setState({
             noverifyIsOpen: true,
           });
-        }
-        else {
+        } else {
           this.setState({
             verifyIsOpen: true,
           });

@@ -25,6 +25,14 @@ div.trending-books-container > div > h2 {
   }
 }
 
+div.book-directory {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
+  gap: 3em;
+  justify-items: center;
+  margin-top: 30px;
+}
+
 @media only screen and (max-width: 700px) {
   div.trending-books {
     padding: 1em 2em 0em 10px;
@@ -33,5 +41,8 @@ div.trending-books-container > div > h2 {
   div.trending-books-container {
     padding: 0em 0em 10em 0;
     margin-left: 10px;
+  }
+  div.book-directory {
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
   }
 }

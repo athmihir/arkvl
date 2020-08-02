@@ -1,6 +1,7 @@
 import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import './skeleton.styles.css';
+
 const BookDirectorySkeleton = () => (
   <SkeletonTheme
     color="var(--bg-secondary)"
