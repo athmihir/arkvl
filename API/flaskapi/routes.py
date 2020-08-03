@@ -455,9 +455,11 @@ def reset_password():
 
 @app.route("/change-password/<token>", methods=['GET'])
 def change_password(token):
+    print("hello")
     if current_user.is_authenticated:
         return redirect(url_for('/'))
     user = User.verify_reset_token(token)
+    print(user)
     if user is None:
         return redirect(url_for('nochange'))
     return app.send_static_file('index.html')

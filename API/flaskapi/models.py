@@ -2,13 +2,21 @@ import json
 from flaskapi import db, login_manager, app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import URLSafeTimedSerializer
 from datetime import datetime
 import json
+
+login_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    max_age = app.config["REMEMBER_COOKIE_DURATION"].total_seconds()
+    data = login_serializer.loads(user_id, max_age=max_age)
+    user = User.query.filter_by(email=data[0]).first()
+    if user and data[1] == user.password and data[2] == str(user.date_created):
+        return user
+    return None
 
 
 class User(db.Model, UserMixin):
@@ -45,6 +53,10 @@ class User(db.Model, UserMixin):
         except:
             return None
         return User.query.filter_by(email=email).first()
+
+    def get_id(self):
+        data = [self.email, self.password, str(self.date_created)]
+        return login_serializer.dumps(data)
 
 
 class Book(db.Model):
