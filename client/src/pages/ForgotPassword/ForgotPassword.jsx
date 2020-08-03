@@ -22,14 +22,11 @@ class ForgotPassword extends Component {
     axios
       .post(`/api/reset_password`, { email: this.state.email })
       .then((res) => {
-        console.log('here is the API response');
-        console.log(res);
         this.setState({
           lock: true,
         });
       })
       .catch((err) => {
-        console.log('no cap');
         console.log(err.response);
         toast.error(
           err.response.data.error || 'Something went wrong. Please try again',

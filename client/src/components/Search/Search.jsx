@@ -55,7 +55,6 @@ class Search extends React.Component {
       inputValue: inputText,
     });
     axios.get(`/api/search/${inputText}`).then((res) => {
-      console.log(res.data);
       callback(
         res.data.searchResults.map((book) => ({
           label: book.title,

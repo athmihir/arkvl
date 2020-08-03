@@ -25,7 +25,6 @@ class ResetPassword extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     if (this.state.password === this.state.confirmPassword) {
       axios
         .post(`/api/verifyreset`, {
@@ -33,12 +32,10 @@ class ResetPassword extends Component {
           password: this.state.password,
         })
         .then((res) => {
-          console.log('here is the API response from api/verifyreset');
-          console.log(res);
           navigate('/');
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response);
           toast.error(err.response.data.error || 'Something went wrong', {
             position: 'top-right',
             autoClose: 5000,
@@ -66,21 +63,24 @@ class ResetPassword extends Component {
 
   componentDidMount() {
     if (this.state.token) {
-      if (this.state.token.includes("nochange")) {
+      if (this.state.token.includes('nochange')) {
         this.setState({
           modalIsOpen: true,
         });
-        document.getElementsByClassName("reset-password-container")[0].style.filter = 'blur(8px)';
+        document.getElementsByClassName(
+          'reset-password-container',
+        )[0].style.filter = 'blur(8px)';
       }
     }
   }
 
   closeModal = () => {
-    console.log('kanyewest');
     this.setState({
       modalIsOpen: false,
     });
-    document.getElementsByClassName("reset-password-container")[0].style.removeProperty('filter');
+    document
+      .getElementsByClassName('reset-password-container')[0]
+      .style.removeProperty('filter');
     navigate('/forgot-password');
   };
 

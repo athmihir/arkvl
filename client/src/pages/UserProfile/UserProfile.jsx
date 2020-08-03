@@ -39,16 +39,13 @@ class UserProfile extends React.Component {
     });
   };
   handleVerification = () => {
-    console.log('entered handleverification');
     axios.get('/api/reverify');
-    console.log('email sent maybe?');
     this.setState({
       ...this.state,
       emailSent: true,
     });
   };
   render() {
-    console.log(this.state);
     return (
       <motion.div
         initial="initial"

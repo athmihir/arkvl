@@ -23,9 +23,7 @@ const RegisterForm = ({ registerUserSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     registerUserSubmit(registerInfo);
-    console.log(registerInfo);
   };
-  console.log(registerInfo);
 
   return (
     <div className="register-form-container">

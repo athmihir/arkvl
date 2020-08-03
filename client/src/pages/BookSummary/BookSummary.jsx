@@ -47,7 +47,6 @@ class BookSummary extends Component {
         book_id: this.state.book_id,
       })
       .then((res) => {
-        console.log(res.data.Summary);
         this.setState({
           bookAuthor: res.data.Summary[0].author,
           imgSource: res.data.Summary[0].image_url,

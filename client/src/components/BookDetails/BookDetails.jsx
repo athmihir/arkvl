@@ -14,7 +14,6 @@ const BookTitle = ({
 }) => {
   const [isShown, setIsShown] = useState(false);
 
-  console.log(rating);
   return (
     <div className={`book-details`}>
       <div className="book-card-details">

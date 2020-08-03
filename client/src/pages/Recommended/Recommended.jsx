@@ -22,7 +22,6 @@ class Recommended extends Component {
   }
 
   closeModal = () => {
-    console.log('kanyewest');
     this.setState({
       modalIsOpen: false,
     });
@@ -46,13 +45,11 @@ class Recommended extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     if (this.props.loadRecs && this.props.loadRecs.length === 0) {
-      console.log('Hello');
       this.props.fetchedBooks();
       if (this.props.newUser) {
         this.setState({
           modalIsOpen: true,
         });
-        console.log('nigga do we have a problem?');
         document.getElementById('blurhook').style.filter = 'blur(8px)';
       }
       if (this.state.token) {

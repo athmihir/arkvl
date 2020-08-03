@@ -34,7 +34,6 @@ export const checkUserStatus = () => async (dispatch) => {
     .get('/api/login')
     .then((res) => {
       if (res.data.logged_in) {
-        console.log(res.data);
         dispatch(loginUsersSuccess(res.data.Username));
       }
     })
@@ -55,7 +54,6 @@ export const loginUser = (userData) => (dispatch) => {
       },
     )
     .then((res) => {
-      console.log(res.data);
       dispatch(loginUsersSuccess(res.data.Username));
     })
     .catch((err) => {
@@ -71,7 +69,6 @@ export const loginUser = (userData) => (dispatch) => {
 };
 
 export const registerUser = (userData) => (dispatch) => {
-  console.log(userData);
   axios
     .post('/api/register', {
       username: userData.username,
@@ -79,7 +76,6 @@ export const registerUser = (userData) => (dispatch) => {
       password: userData.password,
     })
     .then((res) => {
-      console.log(res.data);
       dispatch(registerUserSuccess(res.data.Username));
     })
     .catch((err) => {

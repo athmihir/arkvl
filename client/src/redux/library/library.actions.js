@@ -13,6 +13,6 @@ export const FetchTrendingBooks = () => (dispatch) => {
       dispatch(TrendingBookAction(res.data.trending));
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.response);
     });
 };

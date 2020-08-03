@@ -20,7 +20,7 @@ const BookCard = ({ book, bookno, removeRated, removeOnClear }) => {
         removeRated && removeRated(book.id);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
         toast.error('Something went wrong. Please try again', {
           position: 'top-right',
           autoClose: 5000,
@@ -45,7 +45,7 @@ const BookCard = ({ book, bookno, removeRated, removeOnClear }) => {
         removeOnClear && removeOnClear(book.id);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
         toast.error('Something went wrong. Please try again', {
           position: 'top-right',
           autoClose: 5000,

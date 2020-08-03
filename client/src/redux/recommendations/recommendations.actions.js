@@ -20,7 +20,6 @@ export const fetchRecommendationsUser = () => (dispatch) => {
   axios
     .get('/api/recommend')
     .then((res) => {
-      console.log(res.data);
       dispatch(recommendationsUsersSuccess(res));
     })
     .catch((err) => {
