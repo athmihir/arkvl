@@ -459,7 +459,7 @@ def change_password(token):
         return redirect('/',code=302, Response=None)
     user = User.verify_reset_token(token)
     print(user)
-    if user is None:
+    if user is None or "." not in token:
         return redirect(url_for('nochange'))
     return app.send_static_file('index.html')
 
@@ -494,7 +494,7 @@ def verifyreset():
 @app.route("/verified/<token>", methods=['GET'])
 def verify_register(token):
     user = User.verify_verification_token(token)
-    if user is None:
+    if user is None or "." not in token:
         return redirect(url_for('noverify'))
     user.verified = 1
     db.session.commit()
