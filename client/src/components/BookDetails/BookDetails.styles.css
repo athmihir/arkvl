@@ -24,7 +24,7 @@ p.author {
 
 span.read-now {
   margin-top: 8px;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 span.read-now > a {
@@ -57,6 +57,7 @@ div.book-card-details .book-rating {
 
 div.book-card-details .book-rating > div {
   display: flex;
+  margin-top: 5px;
 }
 
 div.book-card-details .book-rating > div > span {
@@ -100,7 +101,8 @@ div.book-details.cover .book-link {
 button.clear-rating-button {
   border: none;
   background: none;
-  color: var(--primary-text);
+  color: var(--secondary-text);
+  font-size: 13px;
   letter-spacing: 1px;
   cursor: pointer;
 }

@@ -23,9 +23,12 @@ const BookTitle = ({
           <p className="author">by {bookauthoris}</p>
         </div>
         <div className="book-rating">
-          {rating !== undefined || rating !== 0
-            ? `Edit Rating`
-            : `Rate this book`}
+          <span>
+            {rating === 0 || rating === undefined
+              ? `Rate this book`
+              : `Edit Rating`}
+          </span>
+
           <div
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}

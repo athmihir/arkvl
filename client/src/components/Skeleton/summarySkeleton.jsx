@@ -11,7 +11,7 @@ class SummarySkeleton extends Component {
               color="var(--bg-secondary)"
               highlightColor="var(--highlight-color)"
             >
-              <Skeleton height={450} width={320} />
+              <Skeleton height={450} width={220} />
             </SkeletonTheme>
           </div>
 

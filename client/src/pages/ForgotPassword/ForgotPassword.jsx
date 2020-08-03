@@ -54,47 +54,47 @@ class ForgotPassword extends Component {
   render() {
     return (
       <motion.div className="forgot-password-container">
-        <header />
-        {this.state.lock ? (
-          <img className="lockUnlock" src={Lock} alt="Lock" />
-        ) : (
-          <img className="lockUnlock" src={Unlock} alt="Unlock" />
-        )}
-        {this.state.lock ? (
-          <h2>We've sent you a link to reset your password.</h2>
-        ) : (
-          <div>
-            <h1 className="forgotPasswordHeading">
-              Forgot your password? No problem!
-            </h1>
-            <p>Enter your email ID and we'll send you a password reset link.</p>
-            <InputField
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="inputEmailField"
-              style={{
-                display: 'flex',
-                width: '30vh',
-                margin: 'auto',
-              }}
-              onChange={this.handleChange}
-            />
-            <SubmitButton
-              className="submitButton"
-              type="submit"
-              onClick={this.handleSubmit}
-              style={{
-                display: 'flex',
-                width: '10%',
-                margin: 'auto',
-                marginTop: '20px',
-              }}
-            >
-              Submit
-            </SubmitButton>
-          </div>
-        )}
+        <div className="forgot-password-inner">
+          {this.state.lock ? (
+            <img className="lockUnlock" src={Lock} alt="Lock" />
+          ) : (
+            <img className="lockUnlock" src={Unlock} alt="Unlock" />
+          )}
+          {this.state.lock ? (
+            <h2>We've sent you a link to reset your password.</h2>
+          ) : (
+            <div>
+              <h1 className="forgotPasswordHeading">
+                Forgot your password? No problem!
+              </h1>
+              <p>
+                Enter your email ID and we'll send you a password reset link.
+              </p>
+              <form onSubmit={this.handleSubmit}>
+                <InputField
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  className="inputEmailField"
+                  onChange={this.handleChange}
+                />
+                <SubmitButton
+                  className="submitButton"
+                  type="submit"
+                  onClick={this.handleSubmit}
+                  style={{
+                    display: 'flex',
+                    width: '10%',
+                    margin: 'auto',
+                    marginTop: '20px',
+                  }}
+                >
+                  Submit
+                </SubmitButton>
+              </form>
+            </div>
+          )}
+        </div>
       </motion.div>
     );
   }
