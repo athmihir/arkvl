@@ -24,7 +24,13 @@ const Header = () => (
             </div>
           </div>
         ) : (
-          <div className="header-container">
+          <div
+            className="header-container"
+            style={{
+              paddingLeft:
+                location.pathname.includes('library') && 'calc(1em + 10px)',
+            }}
+          >
             <div className="header-logo">
               <Link to="/">
                 <Logo />
