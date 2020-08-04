@@ -45,22 +45,26 @@ const BookTitle = ({
               half={false}
               value={rating}
             />
-            {isMobile ? (
-              <button
-                className="clear-rating-button"
-                onClick={clearRating}
-                style={{ alignSelf: 'baseline', padding: 0, marginTop: '3px' }}
-              >
-                Clear Rating
-              </button>
-            ) : (
-              isShown &&
-              rating > 0 && (
-                <button className="clear-rating-button" onClick={clearRating}>
-                  Clear Rating
-                </button>
-              )
-            )}
+            {isMobile
+              ? rating > 0 && (
+                  <button
+                    className="clear-rating-button"
+                    onClick={clearRating}
+                    style={{
+                      alignSelf: 'baseline',
+                      padding: 0,
+                      marginTop: '3px',
+                    }}
+                  >
+                    Clear Rating
+                  </button>
+                )
+              : isShown &&
+                rating > 0 && (
+                  <button className="clear-rating-button" onClick={clearRating}>
+                    Clear Rating
+                  </button>
+                )}
           </div>
         </div>
       </div>
