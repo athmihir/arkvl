@@ -13,7 +13,11 @@ class ResetPassword extends Component {
     this.state = {
       password: '',
       confirmPassword: undefined,
-      token: this.props.token,
+      token: this.props.token
+        ? this.props.token.includes('.')
+          ? this.props.token
+          : 'nochange'
+        : false,
       modalIsOpen: false,
     };
   }
