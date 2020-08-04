@@ -68,23 +68,23 @@ class UserProfile extends React.Component {
             </CustomButton>
           ) : null}
           {this.state.verified === undefined ||
-          this.state.verified === true ? null : (
-            <div>
-              {this.state.emailSent ? (
-                <p style={{ marginLeft: '10px', marginTop: '5px' }}>
-                  We've sent you an email!
-                </p>
-              ) : (
-                <CustomButton
-                  onClick={this.handleVerification}
-                  link
-                  style={{ marginLeft: '10px', marginTop: '13px' }}
-                >
-                  Verify my account
-                </CustomButton>
-              )}
-            </div>
-          )}
+            this.state.verified === true ? null : (
+              <div>
+                {this.state.emailSent ? (
+                  <p className="emailSentPara">
+                    We've sent you an email!
+                  </p>
+                ) : (
+                    <CustomButton
+                      onClick={this.handleVerification}
+                      link
+                      style={{ marginLeft: '10px', marginTop: '13px' }}
+                    >
+                      Verify my account
+                    </CustomButton>
+                  )}
+              </div>
+            )}
         </div>
         <div className="user-favorites">
           <>
@@ -95,14 +95,14 @@ class UserProfile extends React.Component {
                 removeOnClear={this.handleClearRating}
               />
             ) : (
-              <>
-                <div className="alternateText">
-                  <p className="userMessage">
-                    THE BOOKS YOU RATE WILL SHOW UP HERE
+                <>
+                  <div className="alternateText">
+                    <p className="userMessage">
+                      THE BOOKS YOU RATE WILL SHOW UP HERE
                   </p>
-                </div>
-              </>
-            )}
+                  </div>
+                </>
+              )}
           </>
         </div>
       </motion.div>

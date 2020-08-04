@@ -41,6 +41,10 @@ p.userMessage {
   margin-top: 5%;
   width: 70vw;
 }
+.emailSentPara {
+  margin-left: 25px;
+  margin-top: 25px;
+}
 @media only screen and (max-width: 700px) {
   div.user-profile-page {
     padding: 1vh 10vw 10em 10vw;
@@ -79,5 +83,8 @@ p.userMessage {
   }
   .user-favorites h1 {
     font-size: 150%;
+  }
+  .emailSentPara {
+    margin-left: 0px !important;
   }
 }
