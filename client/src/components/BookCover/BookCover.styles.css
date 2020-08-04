@@ -1,0 +1,130 @@
+div.book-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+div.book-details:not(.cover) > .book-card-details {
+  display: flex;
+  flex-direction: column;
+}
+p.title {
+  color: var(--primary-text);
+  font-size: 1em;
+  margin-bottom: 5px;
+  max-width: 150px;
+}
+
+p.author {
+  font-size: 0.85em;
+  color: var(--secondary-text);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 150px;
+}
+
+span.read-now {
+  margin-top: 8px;
+  font-size: 1em;
+}
+
+span.read-now > a {
+  text-decoration: none;
+}
+
+.anchorcss {
+  transition: 300ms;
+}
+
+div.book-details.cover {
+  margin-left: 50px;
+  align-self: center;
+}
+div.book-details.cover .title {
+  font-size: 1.7em;
+  font-weight: 600;
+  max-width: 700px;
+  letter-spacing: 1px;
+}
+
+div.book-details.cover .author {
+  font-size: 1em;
+  max-width: initial;
+}
+div.book-card-details .book-rating {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+div.book-card-details .book-rating > div {
+  display: flex;
+  margin-top: 5px;
+}
+
+div.book-card-details .book-rating > div > span {
+  align-self: center;
+  margin-left: 5px;
+}
+
+div.book-details.cover > .genre {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+div.book-details.cover > .genre > span {
+  color: var(--secondary-text);
+  font-size: 0.9em;
+}
+
+div.book-details.cover .book-summary {
+  white-space: pre-wrap;
+  font-size: 1em;
+  max-width: 700px;
+  line-height: 1.75;
+  color: var(--secondary-text);
+}
+
+div.book-details.cover .book-link {
+  letter-spacing: 1px;
+  font-weight: normal;
+}
+
+.avg-rating-container {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.spanGenre {
+  font-size: 1.1em;
+}
+
+button.clear-rating-button {
+  border: none;
+  background: none;
+  color: var(--secondary-text);
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+button.clear-rating-button:hover {
+  color: var(--secondary-text);
+}
+
+@media screen and (max-width: 1000px) {
+  div.book-details.cover {
+    margin: auto;
+    margin-top: 15px;
+  }
+
+  div.book-details:not(.cover) > .book-card-details {
+    flex-direction: column;
+    align-items: initial;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  div span.rating {
+    max-width: 5em;
+  }
+}

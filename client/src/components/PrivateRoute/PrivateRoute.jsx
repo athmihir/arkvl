@@ -9,7 +9,7 @@ const PrivateRoute = ({
   pageTransition,
   ...props
 }) => {
-  return isAuthenticated ? (
+  return !isAuthenticated ? (
     <Comp
       pageTransition={pageTransition}
       pageVariants={pageVariants}

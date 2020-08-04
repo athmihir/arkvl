@@ -29,7 +29,6 @@ div .rating {
 
 .skeletonDetails {
   margin: 5vh 1vw;
-  width: 70vw;
   max-width: 700px;
 }
 
@@ -64,6 +63,19 @@ button.go-back-button {
   border: none;
   margin: 20px 0;
   cursor: pointer;
+}
+
+button.clear-rating-button {
+  border: none;
+  background: none;
+  color: var(--secondary-text);
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+button.clear-rating-button:hover {
+  color: var(--secondary-text);
 }
 
 @media screen and (max-width: 1000px) {

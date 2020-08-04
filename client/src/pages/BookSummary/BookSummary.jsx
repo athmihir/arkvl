@@ -40,20 +40,6 @@ class BookSummary extends Component {
     this.props.removeRated(parseInt(this.state.book_id));
   };
 
-  clearRating = () => {
-    axios
-      .put('/api/new-rating', {
-        rating: 0,
-        book_id: this.state.book.id,
-      })
-      .then((res) => {
-        this.setState({ ...this.state, rating: 0 });
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
-
   componentDidMount() {
     window.scrollTo(0, 0);
     axios
@@ -120,19 +106,6 @@ class BookSummary extends Component {
                       value={this.state.rating}
                       onChange={this.ratingChanged}
                     />
-                    {this.state.isShown && (
-                      <button
-                        className="clear-rating-button"
-                        onClick={this.clearRating}
-                        style={{
-                          alignSelf: 'baseline',
-                          padding: 0,
-                          marginTop: '3px',
-                        }}
-                      >
-                        Clear Rating
-                      </button>
-                    )}
                   </div>
                 ) : (
                   <div className="rating-container">
