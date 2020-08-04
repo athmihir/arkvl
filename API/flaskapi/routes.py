@@ -173,7 +173,13 @@ def apirecommend():
     if current_user.is_authenticated:
         obj=CORModel()
         books= Book.query.filter_by(rater=current_user).all()
-        count=len(books)
+        read_books = []
+        my_fav_ID=[]
+        for book in books:
+            if book.rating >=3:
+                my_fav_ID.append(book.book_id)
+            read_books.append(book.book_id)
+        count=len(my_fav_ID)
         if count==0:       # if not rated any then we give generalized recs
             minimum_to_include = 300000 #<-- You can try changing this minimum to include movies rated by fewer or more people
             average_ratings = original_books.loc[original_books['ratings_count'] > minimum_to_include]
@@ -189,13 +195,6 @@ def apirecommend():
             return ({'Recommendations': recs}),200
 
         else:
-            my_fav_ID=[]
-            read_books = []
-            for book in books:
-                if book.rating >=3:
-                    my_fav_ID.append(book.book_id)
-                read_books.append(book.book_id)
-
             recommendations=obj.get_recommendations(my_fav_ID, read_books)
             return ({ 'Recommendations': recommendations }), 200
     else:
