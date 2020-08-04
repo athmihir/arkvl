@@ -17,7 +17,11 @@ class Recommended extends Component {
       modalIsOpen: false,
       verifyIsOpen: false,
       noverifyIsOpen: false,
-      token: this.props.token || false,
+      token: this.props.token
+        ? this.props.token.includes('.')
+          ? this.props.token
+          : 'noverify'
+        : false,
     };
   }
 
