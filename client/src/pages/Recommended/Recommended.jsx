@@ -48,6 +48,7 @@ class Recommended extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    document.title = 'Arkvl';
     if (this.props.loadRecs && this.props.loadRecs.length === 0) {
       this.props.fetchedBooks();
       if (this.props.newUser) {

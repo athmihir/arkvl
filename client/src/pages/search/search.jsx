@@ -5,6 +5,7 @@ import './search.styles.css';
 const SearchPage = ({ pageVariants, pageTransition }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = 'Arkvl';
   }, []);
   return (
     <motion.div
