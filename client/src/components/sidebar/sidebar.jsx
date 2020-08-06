@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as BookIcon } from '../../assets/icons/menu_book-24px.svg';
-import { ReactComponent as TrendingIcon } from '../../assets/icons/trending_up-24px.svg';
+import { ReactComponent as LibraryIcon } from '../../assets/icons/library_icon.svg';
 import { ReactComponent as SearchIcon } from '../../assets/icons/search-24px.svg';
 import { ReactComponent as UserAvatar } from '../../assets/user.svg';
 import './sidebar.styles.css';
@@ -45,7 +45,7 @@ const SideBar = () => {
                 };
               }}
             >
-              <TrendingIcon />
+              <LibraryIcon />
               <div className="link-text">Library</div>
             </Link>
           </li>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.758" height="24.451" viewBox="0 0 23.758 24.451" style='margin-bottom:3px'>
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke: #333;
+        stroke-linecap: round;
+      }
+
+      .cls-1 {
+        stroke-linejoin: bevel;
+      }
+
+      .cls-2 {
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_1" data-name="Group 1" transform="translate(-6 -8.951)">
+    <path id="Rectangle_7" data-name="Rectangle 7" class="cls-1" d="M.02,0h2a.02.02,0,0,1,.02.02V4.078A1.02,1.02,0,0,1,1.02,5.1h0A1.02,1.02,0,0,1,0,4.078V.02A.02.02,0,0,1,.02,0Z" transform="translate(24.863 27.804)"/>
+    <path id="Rectangle_8" data-name="Rectangle 8" class="cls-1" d="M.02,0h2a.02.02,0,0,1,.02.02V4.078A1.02,1.02,0,0,1,1.02,5.1h0A1.02,1.02,0,0,1,0,4.078V.02A.02.02,0,0,1,.02,0Z" transform="translate(8.549 27.804)"/>
+    <g id="Rectangle_5" data-name="Rectangle 5" class="cls-2" transform="translate(6 25.257)">
+      <rect class="cls-3" width="23.451" height="3.059"/>
+      <rect class="cls-4" x="0.5" y="0.5" width="22.451" height="2.059"/>
+    </g>
+    <rect id="Rectangle_1" data-name="Rectangle 1" class="cls-2" width="4.877" height="16.081" transform="translate(9.059 9.451)"/>
+    <rect id="Rectangle_2" data-name="Rectangle 2" class="cls-2" width="4.389" height="16.081" transform="translate(13.506 9.451)"/>
+    <rect id="Rectangle_3" data-name="Rectangle 3" class="cls-2" width="4.389" height="13.168" transform="translate(18.142 12.607)"/>
+    <rect id="Rectangle_15" data-name="Rectangle 15" class="cls-2" width="4.389" height="11.639" transform="translate(22.642 14.159) rotate(-11)"/>
+  </g>
+</svg>

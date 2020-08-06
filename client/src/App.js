@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Router, Location } from '@reach/router';
 import { MobileView } from 'react-device-detect';
 import { checkUserStatus } from './redux/user/user.actions';
+import ReactGA from 'react-ga';
 import Loader from './components/loader/loader.component';
 import Header from './components/Header/Header';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
@@ -25,6 +26,11 @@ const ForgotPassword = lazy(() =>
 const ResetPassword = lazy(() => import('./pages/ResetPassword/ResetPassword'));
 
 class App extends React.Component {
+  componentDidMount() {
+    ReactGA.initialize('UA-174750245-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
+
   render() {
     const { isAuthenticated } = this.props;
     if (isAuthenticated === undefined) {
