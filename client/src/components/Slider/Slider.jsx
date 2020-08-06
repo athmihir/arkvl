@@ -19,6 +19,8 @@ const Slider = ({ books }) => {
             preloadImages
             centeredSlides
             a11y
+            freeMode
+            freeModeMomentumVelocityRatio={0.8}
             loop={books.length > 3 ? true : false}
             breakpoints={{
               100: {

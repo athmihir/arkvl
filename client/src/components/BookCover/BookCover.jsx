@@ -46,7 +46,7 @@ function BookCover({
         />
       </div>
       <span className="book-link">
-        Get a copy -
+        Get a copy -{' '}
         <a href={amazonreadlink} target="_blank" rel="noopener noreferrer">
           Amazon
         </a>

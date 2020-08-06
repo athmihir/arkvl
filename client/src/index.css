@@ -6,6 +6,12 @@
   --light-gray: #f0f0f0;
   --bg-primary: #fff;
   --bg-secondary: #fff7fa;
+  --selection-color: #ffe0ea;
+}
+
+::selection {
+  background-color: var(--selection-color);
+  color: var(--primary-color);
 }
 
 html {
@@ -409,6 +415,7 @@ span {
     --bg-primary: #fff;
     --bg-secondary: #fff7fa;
     --highlight-color: #fff1f6;
+    --selection-color: #ffe0ea;
   }
 }
 
@@ -421,5 +428,6 @@ span {
     --bg-primary: #232931;
     --bg-secondary: rgb(41, 49, 59);
     --highlight-color: rgb(42, 51, 61);
+    --selection-color: #ffeff5f5;
   }
 }
