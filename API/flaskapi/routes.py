@@ -78,11 +78,11 @@ def apiregister():
     if username is None or password is None or email is None:
         return jsonify({'message': 'Fields cannot be blank!'}), 400  # missing arguments
     if len(username) < 1 or len(username) > 20:
-        return jsonify({'message': 'Username too long'}), 400
+        return jsonify({'error': 'Invalid Request'}), 400
     if len(password) < 1 or len(password) > 60:
-        return jsonify({'message': 'Password too long'}), 400
+        return jsonify({'error': 'Invalid Request'}), 400
     if len(email) < 1 or len(email) > 120:
-        return jsonify({'message': 'Email too long'}), 400
+        return jsonify({'error': 'Invalid Request'}), 400
     bool_result = is_email(email)
     if bool_result is False:
         return jsonify({'message': 'Invalid email!'}), 400
