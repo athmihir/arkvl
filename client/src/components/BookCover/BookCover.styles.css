@@ -50,6 +50,11 @@ div.book-details.cover .author {
   font-size: 1em;
   max-width: initial;
 }
+
+div.book-card-details {
+  margin-bottom: 25px;
+}
+
 div.book-card-details .book-rating {
   margin-top: 8px;
   font-size: 14px;
@@ -76,7 +81,7 @@ div.book-details.cover > .genre > span {
 
 div.book-details.cover .book-summary {
   white-space: pre-wrap;
-  font-size: 1em;
+  font-size: 14px;
   max-width: 700px;
   line-height: 1.75;
   color: var(--secondary-text);
@@ -94,8 +99,10 @@ div.book-details.cover .book-link {
   margin-bottom: 10px;
 }
 
-.spanGenre {
+.spanGenre,
+.aboutBook {
   font-size: 1.1em;
+  color: var(--primary-text);
 }
 
 button.clear-rating-button {

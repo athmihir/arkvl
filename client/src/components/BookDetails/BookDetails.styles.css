@@ -13,6 +13,7 @@ p.title {
   margin-bottom: 5px;
   max-width: 150px;
   line-height: 1.5;
+  font-weight: bold;
 }
 
 p.author {

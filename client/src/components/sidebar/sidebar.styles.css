@@ -24,7 +24,6 @@
 }
 
 .nav-item:last-child {
-  margin-top: auto;
   cursor: default;
 }
 
@@ -75,7 +74,6 @@
 
 .logo {
   font-size: 1.5rem;
-  margin-bottom: auto;
 }
 
 .logo-link {

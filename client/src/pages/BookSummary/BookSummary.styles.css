@@ -15,6 +15,7 @@ div .rating {
   margin: 0;
   margin-right: 10px;
   max-width: 8em;
+  font-size: 1.1em;
 }
 
 .rating-container {

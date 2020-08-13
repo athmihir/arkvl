@@ -23,7 +23,7 @@ function BookCover({
         </div>
       </div>
       <p className="paraGenre">
-        <span className="spanGenre">Genre</span> -
+        <span className="spanGenre">Genre</span> -{' '}
         <span className="genre">{bookgenreis}</span>
       </p>
       <div className="avg-rating-container">

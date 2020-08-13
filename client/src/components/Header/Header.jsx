@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as BackArrow } from '../../assets/icons/arrow_back-24px.svg';
 import './Header.styles.css';
 
-const Header = () => (
+const Header = ({ isAuthenticated }) => (
   <nav className="header">
     <Location>
       {({ location }) => {
@@ -12,13 +12,15 @@ const Header = () => (
           <div className="header-container wide">
             <div className="header-logo">
               <button onClick={() => window.history.back()}>
-                <BackArrow
-                  style={{
-                    marginTop: '6px',
-                    width: '24px',
-                    marginRight: '5px',
-                  }}
-                />
+                {isAuthenticated && (
+                  <BackArrow
+                    style={{
+                      marginTop: '6px',
+                      width: '24px',
+                      marginRight: '5px',
+                    }}
+                  />
+                )}
                 <Logo />
               </button>
             </div>

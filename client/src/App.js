@@ -60,7 +60,7 @@ class App extends React.Component {
         {isAuthenticated === false && <Header />}
         {isAuthenticated && (
           <MobileView>
-            <Header />
+            <Header isAuthenticated={isAuthenticated}/>
           </MobileView>
         )}
         {isAuthenticated === undefined ? (
