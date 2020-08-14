@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import '../../pages/BookSummary/BookSummary.styles.css';
+import { isMobile } from 'react-device-detect';
 class SummarySkeleton extends Component {
   render() {
     return (
@@ -11,7 +12,11 @@ class SummarySkeleton extends Component {
               color="var(--bg-secondary)"
               highlightColor="var(--highlight-color)"
             >
-              <Skeleton height={450} width={220} />
+              {isMobile ? (
+                <Skeleton height={250} width={220} />
+              ) : (
+                <Skeleton height={450} width={310} />
+              )}
             </SkeletonTheme>
           </div>
 

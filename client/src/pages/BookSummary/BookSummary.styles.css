@@ -24,8 +24,14 @@ div .rating {
   margin-top: 30px;
 }
 
-.skeletonImage {
+div.skeletonImage {
+  margin-top: 20%;
   margin-right: 10px;
+}
+
+div.skeletonRating,
+div.skeletonDetails {
+  margin-top: 12%;
 }
 
 .skeletonDetails {
