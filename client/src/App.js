@@ -57,7 +57,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <ToastContainer />
-        {isAuthenticated === false && <Header />}
+        <Location>
+          {({ location }) => 
+             isAuthenticated === false && location.pathname !== '/' ? (<Header/>) : null
+          }
+        </Location>
         {isAuthenticated && (
           <MobileView>
             <Header isAuthenticated={isAuthenticated}/>
@@ -80,6 +84,7 @@ class App extends React.Component {
                       path="/"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
+                      root
                     />
                     <PrivateRoute
                       as={Library}
@@ -96,6 +101,12 @@ class App extends React.Component {
                     <PrivateRoute
                       as={LoginRegister}
                       path="login"
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                    />
+                    <PrivateRoute
+                      as={LoginRegister}
+                      path="register"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />

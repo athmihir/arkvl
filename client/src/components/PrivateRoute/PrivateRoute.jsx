@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { connect } from 'react-redux';
 import LoginRegister from '../../pages/LoginRegister/LoginRegister';
+const Landing = lazy(() => import('../../pages/LandingPage/Landing'));
 
 const PrivateRoute = ({
   as: Comp,
   isAuthenticated,
   pageVariants,
   pageTransition,
+  root,
   ...props
 }) => {
   return isAuthenticated ? (
@@ -15,6 +17,8 @@ const PrivateRoute = ({
       pageVariants={pageVariants}
       {...props}
     />
+  ) : root ? (
+    <Landing pageTransition={pageTransition} pageVariants={pageVariants} />
   ) : (
     <LoginRegister
       pageTransition={pageTransition}

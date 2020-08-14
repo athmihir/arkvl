@@ -1,3 +1,9 @@
+html,
+body {
+  background: var(--bg-primary) !important;
+  color: var(--primary-text);
+}
+
 div.login-register-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));

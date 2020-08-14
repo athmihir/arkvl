@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@400;700;800&display=swap');
+
+:root {
+  --bg-primary-landing: #ffebef;
+}
+
+.landing-page {
+  overflow-x: hidden;
+  background-color: var(--bg-primary-landing) !important;
+  height: 100vh;
+}
+
+header.landing-header > nav.landing-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 5%;
+}
+
+header.landing-header > nav.landing-navbar svg {
+  width: 110px;
+}
+header.landing-header > nav.landing-navbar svg > path {
+  fill: #333;
+}
+
+a.login-button {
+  background: rgba(255, 86, 120, 0.2);
+  border: 2px solid #ff5678;
+  padding: 5px 47px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s ease-in;
+  font-family: 'Martel Sans';
+}
+
+a.login-button:hover {
+  filter: contrast(1.5);
+}
+
+section.landing {
+  justify-content: center;
+  width: 80%;
+  margin: 4% auto 0;
+}
+
+section.landing .section-third {
+  margin: 20px 5px 0 5px;
+}
+
+h1.vertical-text {
+  display: none;
+}
+
+main.show .title .landing-title {
+  font-size: 2em;
+  color: #ff5678;
+  font-weight: 900;
+  margin-bottom: 0;
+}
+
+main.show .title .landing-min {
+  font-family: 'Martel Sans';
+  line-height: 1.5;
+  max-width: 500px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+a.register-button {
+  margin: 20px 0;
+  background: rgb(255, 86, 120);
+  padding: 7px 47px;
+  line-height: 1.1;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s ease-in;
+  font-family: 'Martel Sans';
+}
+
+a.register-button:hover {
+  filter: contrast(1.5);
+}
+
+@media screen and (min-width: 800px) {
+  .landing-page {
+    overflow: hidden;
+  }
+  section.landing {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10%;
+  }
+
+  .section-third {
+    flex: 1 1 150px;
+  }
+
+  .section-third > svg {
+    width: 120%;
+  }
+  main.show .title .landing-title {
+    font-size: 4em;
+  }
+  h1.vertical-text {
+    display: block;
+    font-family: 'Martel Sans';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    letter-spacing: 6.64px;
+    font-size: 1em;
+    color: #000;
+    font-weight: 600;
+    opacity: 1;
+    transform: rotate(-90deg);
+  }
+}

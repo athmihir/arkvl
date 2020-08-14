@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../InputField/InputField';
 import SubmitButton from '../CustomButton/CustomButton';
 import { loginUser } from '../../redux/user/user.actions';
+import { toast, Slide } from 'react-toastify';
 import { Link } from '@reach/router';
 import './LoginForm.styles.css';
 import { connect } from 'react-redux';
@@ -11,6 +12,7 @@ const LoginForm = ({ submitUserDetails }) => {
     username: '',
     password: '',
   });
+  const [errors, setErrors] = useState([]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -19,10 +21,45 @@ const LoginForm = ({ submitUserDetails }) => {
       [name]: value,
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitUserDetails(loginInfo);
+    if (handleValidation()) {
+      submitUserDetails(loginInfo);
+    } else {
+      if (errors.length > 0) {
+        errors.map((err) =>
+          toast.error(err, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            transition: Slide,
+          }),
+        );
+      }
+    }
+  };
+
+  const handleValidation = () => {
+    let errors = [];
+    let formIsValid = true;
+
+    //Name
+    if (!loginInfo['username']) {
+      formIsValid = false;
+      errors.push('Username cannot be empty');
+    }
+
+    if (!loginInfo['password']) {
+      formIsValid = false;
+      errors.push('Password cannot be empty');
+    }
+
+    setErrors(errors);
+    return formIsValid;
   };
 
   return (
