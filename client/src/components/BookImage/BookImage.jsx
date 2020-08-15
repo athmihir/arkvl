@@ -5,7 +5,7 @@ import { Link } from '@reach/router';
 const BookImage = ({ imagesource, isCover, bookid }) => (
   <>
     {bookid ? (
-      <Link to={`/book-summary/${bookid}`}>
+      <Link to={`/app/book-summary/${bookid}`}>
         {' '}
         <img
           className={isCover ? 'cover-image' : 'book-image'}

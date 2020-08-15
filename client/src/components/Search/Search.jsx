@@ -10,7 +10,7 @@ import { Link } from '@reach/router';
 const animatedComponents = makeAnimated();
 
 const formatOptionLabel = ({ value, label, image, author }) => (
-  <Link style={{ textDecoration: 'none' }} to={`/book-summary/${value}`}>
+  <Link style={{ textDecoration: 'none' }} to={`/app/book-summary/${value}`}>
     <div style={{ display: 'flex' }}>
       <img src={image} alt="BookImage" width="40px" />
       <div style={{ marginLeft: '10px', color: 'var(--primary-text)' }}>

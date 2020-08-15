@@ -83,6 +83,7 @@ div.footer {
   display: flex;
   background-color: #ffebef;
   position: absolute;
+  z-index: 2;
   bottom: 0;
   width: 100%;
   align-content: center;

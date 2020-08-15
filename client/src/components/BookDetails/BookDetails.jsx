@@ -70,7 +70,7 @@ const BookTitle = ({
       </div>
 
       <span className="read-now">
-        <Link to={`/book-summary/${bookid}`}>Read Now</Link>
+        <Link to={`/app/book-summary/${bookid}`}>Read Now</Link>
       </span>
     </div>
   );

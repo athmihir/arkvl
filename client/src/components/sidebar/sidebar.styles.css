@@ -138,10 +138,6 @@
     padding-top: 10%;
   }
 
-  .user-avatar {
-    padding-bottom: 10px;
-    padding-top: 0;
-  }
   .user-avatar .active {
     border-bottom: none;
   }
