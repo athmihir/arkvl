@@ -36,7 +36,7 @@ class ResetPassword extends Component {
           password: this.state.password,
         })
         .then((res) => {
-          navigate('/');
+          navigate('/app');
         })
         .catch((err) => {
           console.log(err.response);

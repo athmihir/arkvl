@@ -16,7 +16,7 @@ const SideBar = () => {
         <ul className="navbar-nav">
           <li className="logo">
             <h3 className="logo-link">
-              <Link to="/" className="link-text logo-text">
+              <Link to="/app" className="link-text logo-text">
                 <Logo />
               </Link>
             </h3>
@@ -24,7 +24,7 @@ const SideBar = () => {
 
           <li className="nav-item">
             <Link
-              to="/"
+              to="/app"
               getProps={({ isCurrent }) => {
                 return {
                   className: isCurrent ? 'nav-link active' : 'nav-link',
@@ -38,7 +38,7 @@ const SideBar = () => {
 
           <li className="nav-item">
             <Link
-              to="/library"
+              to="/app/library"
               getProps={({ isCurrent }) => {
                 return {
                   className: isCurrent ? 'nav-link active' : 'nav-link',
@@ -52,7 +52,7 @@ const SideBar = () => {
 
           <li className="nav-item">
             <Link
-              to="/search"
+              to="/app/search"
               getProps={({ isCurrent }) => {
                 return {
                   className: isCurrent ? 'nav-link active' : 'nav-link',
@@ -66,7 +66,7 @@ const SideBar = () => {
 
           <li className="nav-item">
             <span className="nav-link user-avatar">
-              <Link to="/user-profile">
+              <Link to="/app/user-profile">
                 <UserAvatar />
               </Link>
             </span>

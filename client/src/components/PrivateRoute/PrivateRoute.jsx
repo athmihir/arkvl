@@ -11,20 +11,18 @@ const PrivateRoute = ({
   root,
   ...props
 }) => {
-  return isAuthenticated ? (
+  return isAuthenticated === true ? (
     <Comp
       pageTransition={pageTransition}
       pageVariants={pageVariants}
       {...props}
     />
-  ) : root ? (
-    <Landing pageTransition={pageTransition} pageVariants={pageVariants} />
   ) : (
-    <LoginRegister
-      pageTransition={pageTransition}
-      pageVariants={pageVariants}
-    />
-  );
+      <LoginRegister
+        pageTransition={pageTransition}
+        pageVariants={pageVariants}
+      />
+    );
 };
 
 const mapStateToProps = (state) => ({

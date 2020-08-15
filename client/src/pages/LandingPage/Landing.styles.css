@@ -27,11 +27,11 @@ header.landing-header > nav.landing-navbar svg > path {
 a.login-button {
   background: rgba(255, 86, 120, 0.2);
   border: 2px solid #ff5678;
-  padding: 5px 47px;
   color: #333;
   text-decoration: none;
   transition: all 0.2s ease-in;
   font-family: 'Martel Sans';
+  padding: 0.7em 3em;
 }
 
 a.login-button:hover {
@@ -45,7 +45,7 @@ section.landing {
 }
 
 section.landing .section-third {
-  margin: 20px 5px 0 5px;
+  margin: 30px 5px 0 5px;
 }
 
 h1.vertical-text {
@@ -65,21 +65,60 @@ main.show .title .landing-min {
   max-width: 500px;
   font-size: 1.2em;
   color: #333;
+  padding-bottom: 20px;
 }
 
 a.register-button {
   margin: 20px 0;
   background: rgb(255, 86, 120);
-  padding: 7px 47px;
   line-height: 1.1;
   color: #fff;
   text-decoration: none;
   transition: all 0.2s ease-in;
   font-family: 'Martel Sans';
+  padding: 0.7em 3em;
+}
+
+div.footer {
+  display: flex;
+  background-color: #ffebef;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+  font-family: 'Martel Sans';
+}
+
+h1.footer-message {
+  padding-top: 0.5%;
+  width: 70%;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 90%;
+  text-decoration: none;
+  color: #333;
+  border-top-style: solid;
+  border-color: #ff5678;
+  border-width: 1.5px;
+  font-family: 'Martel Sans';
+}
+
+h1 a {
+  text-decoration: none;
+  color: #ff5678;
 }
 
 a.register-button:hover {
   filter: contrast(1.5);
+}
+
+@media screen and (max-width: 700px) {
+  h1.footer-message {
+    padding-top: 2%;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -89,7 +128,7 @@ a.register-button:hover {
   section.landing {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10%;
+    margin-top: 5%;
   }
 
   .section-third {
@@ -100,7 +139,7 @@ a.register-button:hover {
     width: 120%;
   }
   main.show .title .landing-title {
-    font-size: 4em;
+    font-size: 4vw;
   }
   h1.vertical-text {
     display: block;

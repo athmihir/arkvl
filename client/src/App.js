@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { Router, Location } from '@reach/router';
-import { MobileView } from 'react-device-detect';
+import { MobileView, isMobile } from 'react-device-detect';
 import { checkUserStatus } from './redux/user/user.actions';
 import ReactGA from 'react-ga';
 import Loader from './components/loader/loader.component';
@@ -12,6 +12,7 @@ import Header from './components/Header/Header';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import ForgotRoute from './components/ForgotRoute/ForgotRoute';
 import SideBar from './components/sidebar/sidebar';
+import LandingRoute from './components/LandingRoute/LandingRoute';
 
 const LoginRegister = lazy(() => import('./pages/LoginRegister/LoginRegister'));
 const Recommended = lazy(() => import('./pages/Recommended/Recommended'));
@@ -24,6 +25,7 @@ const ForgotPassword = lazy(() =>
   import('./pages/ForgotPassword/ForgotPassword'),
 );
 const ResetPassword = lazy(() => import('./pages/ResetPassword/ResetPassword'));
+const Landing = lazy(() => import('./pages/LandingPage/Landing'));
 
 class App extends React.Component {
   componentDidMount() {
@@ -62,10 +64,8 @@ class App extends React.Component {
              isAuthenticated === false && location.pathname !== '/' ? (<Header/>) : null
           }
         </Location>
-        {isAuthenticated && (
-          <MobileView>
+        {isAuthenticated && isMobile &&(
             <Header isAuthenticated={isAuthenticated}/>
-          </MobileView>
         )}
         {isAuthenticated === undefined ? (
           <Loader />
@@ -79,46 +79,43 @@ class App extends React.Component {
                   location={location}
                 >
                   <Router>
-                    <PrivateRoute
-                      as={Recommended}
+                    <LandingRoute
+                      as={Landing}
                       path="/"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
-                      root
+                    >
+                    </LandingRoute>
+                    <PrivateRoute
+                      as={Recommended}
+                      path="/app"
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}
+                      isAuthenticated={isAuthenticated}
                     />
                     <PrivateRoute
                       as={Library}
-                      path="library"
+                      path="/app/library"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />
                     <PrivateRoute
                       as={Search}
-                      path="search"
+                      path="/app/search"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />
-                    <PrivateRoute
-                      as={LoginRegister}
-                      path="login"
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
-                    <PrivateRoute
-                      as={LoginRegister}
-                      path="register"
-                      pageVariants={pageVariants}
-                      pageTransition={pageTransition}
-                    />
+                    <LoginRegister path = '/login' />
+                    <LoginRegister path = '/register' />
                     <PrivateRoute
                       as={BookSummary}
-                      path="book-summary/:bookid"
+                      path="/app/book-summary/:bookid"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />
                     <PrivateRoute
                       as={UserProfile}
-                      path="user-profile"
+                      path="/app/user-profile"
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />

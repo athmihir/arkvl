@@ -35,13 +35,16 @@ const Landing = () => (
           </div>
         </main>
         <Link to="/register" className="register-button">
-          Register
+          Join Arkvl
         </Link>
       </div>
       <div className="section-third">
         <PlsTrap />
       </div>
     </section>
+    <div className="footer">
+      <h1 className="footer-message">Get in touch with us! Email us at <a href="mailto: queries@arkvl.space">queries@arkvl.space</a></h1>
+    </div>
   </div>
 );
 
