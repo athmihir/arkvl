@@ -5,7 +5,6 @@ import './RegisterForm.styles.css';
 import { registerUser } from '../../redux/user/user.actions';
 import { toast, Slide } from 'react-toastify';
 import { connect } from 'react-redux';
-import { navigate } from '@reach/router';
 
 const RegisterForm = ({ registerUserSubmit }) => {
   const [registerInfo, setRegisterInfo] = useState({
@@ -29,7 +28,6 @@ const RegisterForm = ({ registerUserSubmit }) => {
     const validInput = handleValidation();
     if (validInput) {
       registerUserSubmit(registerInfo);
-      navigate('/app');
     } else {
       if (errors.length > 0) {
         errors.map((err) =>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import UserActionTypes from './user.types';
+import { navigate } from '@reach/router';
 
 export const registerUserSuccess = (username) => ({
   type: UserActionTypes.SUCCESS_REGISTER,
@@ -55,6 +56,7 @@ export const loginUser = (userData) => (dispatch) => {
     )
     .then((res) => {
       dispatch(loginUsersSuccess(res.data.Username));
+      navigate('/app');
     })
     .catch((err) => {
       console.log(err.response);
@@ -77,6 +79,7 @@ export const registerUser = (userData) => (dispatch) => {
     })
     .then((res) => {
       dispatch(registerUserSuccess(res.data.Username));
+      navigate('/app');
     })
     .catch((err) => {
       console.log(err.response);

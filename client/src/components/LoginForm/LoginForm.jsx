@@ -3,7 +3,7 @@ import InputField from '../InputField/InputField';
 import SubmitButton from '../CustomButton/CustomButton';
 import { loginUser } from '../../redux/user/user.actions';
 import { toast, Slide } from 'react-toastify';
-import { Link, navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import './LoginForm.styles.css';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,6 @@ const LoginForm = ({ submitUserDetails }) => {
     e.preventDefault();
     if (handleValidation()) {
       submitUserDetails(loginInfo);
-      navigate('/app');
     } else {
       if (errors.length > 0) {
         errors.map((err) =>
