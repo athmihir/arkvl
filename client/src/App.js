@@ -105,8 +105,14 @@ class App extends React.Component {
                       pageVariants={pageVariants}
                       pageTransition={pageTransition}
                     />
-                    <LoginRegister path = '/login' />
-                    <LoginRegister path = '/register' />
+                    <LoginRegister path = '/login' 
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}/>
+
+                    <LoginRegister path = '/register' 
+                      pageVariants={pageVariants}
+                      pageTransition={pageTransition}/>
+                      
                     <PrivateRoute
                       as={BookSummary}
                       path="/app/book-summary/:bookid"

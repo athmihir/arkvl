@@ -6,13 +6,13 @@ import { Link } from '@reach/router';
 import { isMobile } from 'react-device-detect';
 import { motion } from 'framer-motion';
 
-const Landing = () => (
+const Landing = ({ pageVariants, pageTransition }) => (
   <motion.div
     initial="initial"
     animate="in"
     exit="out"
-    variants={this.props.pageVariants}
-    transition={this.props.pageTransition}
+    variants={pageVariants}
+    transition={pageTransition}
   >
     <div className="landing-page">
       <header className="landing-header">
