@@ -54,7 +54,7 @@ def apilogin():
         return jsonify({'error': 'Invalid Request'}), 400
     user = User.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password, password):
-        login_user(user)
+        login_user(user, remember=True)
         return jsonify({'logged_in': 'True', 'message': 'User Logged in', 'Username':current_user.username}), 200
     else:
         return jsonify({'logged_in': 'False', 'message': 'Username or Password do not match'}), 400
@@ -96,7 +96,7 @@ def apiregister():
         db.session.add(user)
         db.session.commit()
         send_verification_email(user)
-        login_user(user)
+        login_user(user, remember=True)
         return jsonify({'registered': 'True', 'message': 'Account Created','Username':current_user.username}), 201
 
 @app.route('/api/new-rating', methods=['POST', 'PUT'])

@@ -22,7 +22,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'apikey'
 app.config['MAIL_PASSWORD'] = os.environ.get('SENDGRID_API_KEY')
 app.config['MAIL_DEFAULT_SENDER'] = 'Arkvlspace@em1215.arkvl.space'
-app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=14)
+app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=30)
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
